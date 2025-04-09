@@ -6,10 +6,10 @@
       "spec_directory": "./spec",
       "output_path": "./",
       "logo": "logo.png",
-      "logo_link": "https://github.com/DutchBlockchainCoalition/DIIP",
+      "logo_link": "https://github.com/FIDEScommunity/DIIP",
       "source": {
         "host": "github",
-        "account": "DutchBlockchainCoalition",
+        "account": "FIDEScommunity",
         "repo": "DIIP"
       },
       "assets": [
