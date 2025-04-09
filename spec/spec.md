@@ -1,88 +1,79 @@
-Decentralized Identity Interop Profile v2
+Decentralized Identity Interop Profile v4
 ==================
 
 **Profile Status:** Draft
 
 **Latest Draft:**
-[https://dutchblockchaincoalition.github.io/DIIP](https://dutchblockchaincoalition.github.io/DIIP)
+[https://FIDEScommunity.github.io/DIIP](https://FIDEScommunity.github.io/DIIP)
 
 Editors:
+~ [Eelco Klaver](https://www.linkedin.com/in/eklaver/) (Credenco)
+~ [Harmen van der Kooij](https://www.linkedin.com/in/harmenvanderkooij/) (FIDES Labs)
 ~ [Niels Klomp](https://www.linkedin.com/in/niels-klomp/) (Sphereon)
-~ [Timo Glastra](https://www.linkedin.com/in/timoglastra/) (Animo Solutions)
-~ [Maaike van Leuken](https://www.linkedin.com/in/maaike-van-leuken-0b1b7011a/) (TNO)
+~ [Niels van Dijk](https://www.linkedin.com/in/creativethings/) (SURFnet)
+~ [Samuel Rinnetmäki](https://www.linkedin.com/in/samuel/) (Findynet)
 
-Contributors:
-~ [TODO]() 
+Contributors and previous editors:
+~ [Maaike van Leuken](https://www.linkedin.com/in/maaike-van-leuken-0b1b7011a/) (TNO)
+~ [Timo Glastra](https://www.linkedin.com/in/timoglastra/) (Animo Solutions)
 
 **Special Thanks:**
 
 This profile is based on a lot of work done by the Decentralized Identity community, given this profile is largely based on and uses sections of the [DIF JWT VC Presentation Profile](https://identity.foundation/jwt-vc-presentation-profile/), we would like to place special thanks to the editors and contributors of that profile.
 
 Participate:
-~ [GitHub repo](https://github.com/DutchBlockchainCoalition/DIIP.git)
-~ [File a bug](https://github.com/DutchBlockchainCoalition/DIIP.git/issues)
-~ [Commit history](https://github.com/DutchBlockchainCoalition/DIIP.git/commits/main)
+~ [GitHub repo](https://github.com/FIDEScommunity/DIIP.git)
+~ [File a bug](https://github.com/FIDEScommunity/DIIP.git/issues)
+~ [Commit history](https://github.com/FIDEScommunity/DIIP.git/commits/main)
 
 ------------------------------------
 
 ## Abstract
 
-The Decentralized Identity Interop Profile, or DIIP for short, defines a set of requirements against existing specifications to enable the interoperable issuance and presentation of Verifiable Credentials (VCs) between [[ref: Wallets]] and [[ref: Verifier]]s.
+The Decentralized Identity Interop Profile, or DIIP for short, defines a set of requirements against existing specifications to enable the interoperable issuance and presentation of [[ref: Digital Credential]]s between [[ref: Wallet]]s and [[ref: Verifier]]s.
 
 This document is not a specification, but a **profile**. It outlines existing specifications required for implementations to interoperate among each other. 
-<!-- It also clarifies mandatory to implement features for the optionalities mentioned in the referenced specifications. -->
-The main objective of this interop profile is to allow for easy adoption, through the choice of standards that are relatively easier to implement. 
+It also clarifies mandatory features for the optionalities mentioned in the referenced specifications.
+The main objective of this interoperability profile is to allow for easy adoption, through the choice of standards that are relatively easy to implement.
 
-The profile uses OpenID for Verifiable Presentations ([[ref: OID4VP D20]]) as the base protocol for the request and verification of W3C JWT VCs as W3C Verifiable Presentations ([[ref: VC Data Model v1.1]]). A full list of the open standards used in this profile can be found in [Overview of the Open Standards](#overview-of-the-open-standards).
+The main goal for DIIP is to ensure interoperability between Agents and Wallets in cases where device binding of Digital Credentials is not required and the Wallet doesn't need to be trusted. Issuing, holding, and presenting certifications, diplomas, licenses, permits, etc. fit into the scope of DIIP. Using a Wallet for strong customer authentication or for sharing Person Identification Data (PID) are out of DIIP's scope and you should look into ([[ref: HAIP]]) instead.
+
+The profile uses 
+- W3C Verifiable Credentials Data Model ([[ref: W3C VCDM]]) as the format of Digital Credentials
+- OpenID for Verifiable Credentials Issuance ([[ref: OID4VCI]]) and OpenID for Verifiable Presentations ([[ref: OID4VP]]) as the base protocols for the issuance and verification of Digital Credentials
+- [[ref: IETF Token Status List]] as a revocation mechanism
+- [[ref: OpenID Federation]] for trust establishment especially between [[ref: Verifier]]s and [[ref: Issuer]]s but also supporting trust decisions of [[ref: Holder]]s
+
+### Relationship to eIDAS regulation and HAIP profile ###
+
+In the context of the European eIDAS regulation ([[ref: eIDAS]]) and its Architecture and Reference Framework ([[ref: ARF]]), the DIIP profile is a profile for "regular" digital credentials, "non-qualified electronic attestations of attributes". The OpenID4VC High Assurance Interoperability Profile ([[ref: HAIP]]) is targeted for high-assurance use cases where it is important to bind the credentials to the [[ref: Holder]]'s private key (device binding). DIIP is the profile for other use cases.
+
+The standards used in the DIIP profile are the same ones that the ARF uses, but the DIIP profile makes different choices than HAIP in many areas where OID4VCI and OID4VP provide optionality. 
 
 ### Audience
 
-The audience of the document includes Dutch organisations aiming to adopt Decentralized Identity, and Verifiable Credential implementers and/or enthusiasts. The first few sections give an overview of the problem area and profile requirements for DIIP. Subsequent sections are detailed and technical, describing the protocol flow and request-responses.
+The audience of the document includes organisations aiming to issue or verify Digital Credentials, as well as the implementers of Digital Credential solutions (Wallets and [[ref: Agent]]s). The first few sections give an overview of the problem area and profile requirements for DIIP. Subsequent sections are detailed and technical, describing the protocol flow and request-responses.
 
 ## Status of This Document
 
-The status of the Decentralized Identity Interop Profile v2.0.0 is a DRAFT specification under development.
+The status of the Decentralized Identity Interop Profile v4 is a DRAFT specification under development.
+
+The latest published DIIP profile can be found at [https://FIDEScommunity.github.io/DIIP/latest](https://FIDEScommunity.github.io/DIIP/latest)
 
 ### Description
 
-The [[ref: VC Data Model v1.1]] specification defines the data model of Verifiable Credentials (VCs) but does not prescribe standards for transport protocol, key management, authentication, query language, etc. As a result, if implementers decide which standards to use for their implementations on their own, there is no guarantee that other companies will also support the same set of standards.
+The [[ref: W3C VCDM]] specification defines the data model of Verifiable Credentials but does not prescribe standards for transport protocol, key management, authentication, query language, etc. As a result, if implementers decide which standards to use for their implementations on their own, there is no guarantee that other companies will also support the same set of standards.
+
+The ([[ref: OID4VCI]]) and ([[ref: OID4VP]]) protocols 
 
 This document aims to provide a path to interoperability by standardizing the set of specifications that enable the presentation of JWT VCs between implementers. Future versions of this document will include details on issuance and Wallet interoperability. Ultimately, this profile will define a standardized approach to Verifiable Credentials so that distributed developers, apps, and systems can share credentials through common means.
 
-### Scope
-In this section, the scope of the interoperability profile is discussed.
-
-#### Within Scope
-
-This document is currently scoped for the presentation of VCs between the [[ref:Wallet]] and the [[ref: Verifier]]. The Wallet is a native mobile application. The following aspects are in scope:
-
-- Data model
-- Protocols to request presentation of VCs, including query language
-- User authentication layer using Self-Issued ID Token
-- Mechanism to establishing trust in the [[ref: Decentralized Identifier, DID]] via Domain Linkage
-  <!-- Is this one above correct? Seems like Linked Domain Verification at least is out of scope. -->
-- Identifiers of the entities
-- Revocation of VCs
-- Cryptographic signature suites
-
-#### Out of Scope
-
-The following items are out of scope for the current version of this document:
-- Issuance of the VCs
-  <!-- I think we can include this, see section on Issuance. -->
-- Advanced concepts in the [[ref: VC Data Model v1.1]]: `credentialSchema` (`credentialType` is used instead), `refreshService`, `termsOfUse`, `evidence`, and Disputes.
-- Selective disclosure and unlinkability
-- Zero-Knowledge Proofs
-  <!-- We can discuss SD and ZKPs, but we don't give specifications that are required to be interoperable. I'd say their indeed not in scope for the profile, but in latter sections (see below) we can discuss it. -->
-- Non-native Wallets, such as web applications, PWAs, etc.
-<!-- Why are cloud wallets out of scope? -->
+The DIIP profile sets the minimum requirements that implementations (Agents and Wallets) must support to ensure interoperability. The implementations can support functionality not specified in DIIP.
 
 ### Future Work
-DIIP v1 describes technologies that are relatively easy to implement. However, a future version will include more advanced standards.
+DIIP describes technologies that are relatively easy to implement. DIIP makes choices within those standards, attempting to set the minimum set of functionality required for interoperability in the use cases in DIIP's scope.
 
-<!-- #### did:key Method
-TODO: EBSI now is using JCS with did:key for NP. It makes sense that we once again favor did:key over did:web. It does mean we would lose the ability to use X509 certificates, as did:key can only handle RSA keys and no certificates. --> 
-<!-- Next version? -->
+When standards mature and more and more solutions have full support for all the optional functionality in the standards, there may no longer be need for DIIP. The authors believe that this development will take years and that there is a need for DIIP now.
 
 ## Structure of this Document
 
@@ -90,218 +81,148 @@ First, this profile outlines open standards required to be supported. Then, it d
 
 ## Terminology
 
-This section consolidates in one place common terms used across open standards that this profile consists of. For the details of these, as well as other useful terms, see text within each of the specification listed in [[ref: References]].
+This section consolidates in one place common terms used across open standards that this profile consists of. For the details of these, as well as other useful terms, see text within each of the specification listed in [[References]].
 
-<!-- [[def:Authorization Request]]
-~ OAuth 2.0 Authorization Request extended by [[ref: OID4VP D20]] and [[ref: SIOPv2 D13]].
 
-[[def:Authorization Response]]
-~ OAuth 2.0 Authorization Response extended by [[ref: OID4VP D20]] and [[ref: SIOPv2 D13]]. -->
-
-[[def: Decentralized Identifier, DID]]
-~ An identifier with its core ability being enabling Clients to obtain key material and other metadata by reference, defined in [[ref: DID Core]]. 
-
-[[def: End-User]]
-~ Human Participant.
+[[def: Agent]]
+~ A software application or component that an Issuer uses to issue Digital Credentials or a Verifier uses to request verify them.
 
 [[def: Holder]]
-~ An entity that possesses or holds Verifiable Credentials and can generate Verifiable Presentations from them as defined in [[ref: VC Data Model v1.1]].
+~ An entity that possesses or holds Verifiable Credentials and can present them to [[ref: Verifier]]s.
 
 [[def: Issuer]]
-~ A role an entity can perform by asserting claims about one or more subjects, creating a verifiable credential from these claims, and transmitting the verifiable credential to a [[ref: Holder]], as defined in [[ref: VC Data Model v1.1]].
+~ A role an entity can perform by asserting claims about one or more subjects, creating a verifiable credential from these claims, and transmitting the verifiable credential to a [[ref: Holder]], as defined in [[ref: W3C VCDM]].
 
-[[def: OpenID Provider (OP)]]
-~ OAuth 2.0 Authentication Server implementing [[ref: OpenID Connect Core]] and [[ref: OID4VP D20]]
+<!--
+[[def: Relying Party]]
+~ See [[ref: Verifier]].
+-->
 
-[[def: Presentation]] 
-~ Data derived from one or more Verifiable Credentials, issued by one or more [[ref: Issuer]]s, that is shared with a Verifier.
-
-[[def: Relying Party (RP)]]
-~ OAuth 2.0 Client application using [[ref: OpenID Connect Core]] and [[ref: OID4VP D20]] in [[ref: SIOPv2 D13]]. Synonymous with term Verifier.
-
-<!-- [[def:Request Object]]
-~ JWT that contains a set of Authorization Request parameters as its Claims. -->
-
-[[def: Self-Issued OpenID Provider (Self-Issued OP)]]  
-~ An OpenID Provider (OP) used by an End User to prove control over a cryptographically verifiable identifier such as a [[ref: Decentralized Identifier, DID]].
-
-[[def: Verifiable Credential (VC)]]
+[[def: Digital Credential]]
 ~ A set of one or more Claims made by an [[ref: Issuer]] that is tamper-evident and has authorship that can be cryptographically verified.
 
-[[def: Verifiable Presentation (VP)]] 
+<!--
+[[def: Verifiable Presentation]]
 ~ A Presentation that is tamper-evident and has authorship that can be cryptographically verified.
+-->
 
 [[def: Verifier]]
-~ An entity that receives one or more Verifiable Credentials inside a Verifiable Presentation for processing. During presentation of Credentials, Verifier acts as an OAuth 2.0 Client towards the Wallet that is acting as an OAuth 2.0 Authorization Server. The Verifier is a specific case of OAuth 2.0 Client, just like Relying Party (RP) in [[ref: OpenID Connect Core]].
+~ An entity that requests and receives one or more Verifiable Credentials for processing.
 
 [[def: Wallet]]
-~ An entity that receives, stores, presents, and manages credentials and key material of the End User. During presentation of VP(s) using [[ref: OID4VP D20]], the Wallet acts as an OAuth 2.0 Authorization Server towards the Verifier that is acting as an OAuth 2.0 Client. During user authentication using [[ref: SIOPv2 D13]], the Wallet acts as a Self Issued OpenID Provider towards the Verifier that is a specific case of the Relying Party in [[ref: OpenID Connect Core]]. 
+~ A software application or component that receives, stores, presents, and manages credentials and key material of an entity. 
 
 ## Profile
 In this section, we describe the interoperability profile. 
 
 The rationale behind the profile is to increase adoption through making the profile as easy to adopt as possible. DIIP allows for the implementation of simple Decentralized Identity use cases, with less effort to implement the profile as opposed to other profiles. This boils down to using technologies that are well-specified and already have wide adoption. In the sections below, we first give an overview of the standards included in the profile, then we describe the design choices.
 
-### Overview of the Open Standards
+### Overview of the specifications
 
-- [[ref: OID4VCI D12]]
-- [[ref: OID4VP D20]]
-- [[ref: SIOPv2 D13]]
-- [[ref: Presentation Exchange v2.0.0]]
-- W3C Verifiable Credentials JWT ([[ref: VC Data Model v1.1]])
-- [[ref: did-web]] and [[ref: did-jwk]] 
-- ES256
-- [[ref: Status List 2021 (First public draft)]]
+The [Normative References](#normative-references) section links to the versions of specifications that DIIP compliant implementations must support.
 
-### DID Methods
-Implementers are required to support did:web and did:jwk. It does not require mandatory support for did:ion, unlike the [[ref: JWT VC Presentation Profile]] which we use as a basis for the Presentation.
-
-#### did:web Method
-Support for the [[ref: did-web]] as mentioned in the [[ref: JWT VC Presentation Profile]] is required. did:web supports key rotation, but not key history.
-
-#### Removal of did:ion Method
-We decided to exclude blockchains from DIIP v1, as we wanted to keep the amount of requirements to a bare minimum. This means that DIIP v1 also does not include blockchain-based [[ref: Decentralized Identifier, DID]] methods. Hence, [[ref: did-ion]] support is not required in this profile, contrary to the [[ref: JWT VC Presentation Profile]]. Of course implementations are free to support the [[ref: did-ion]]. One of the drawbacks of not using blockchain-based DID methods of course is that this means that key history as well as rotations are not really supported in an interoperable way. This is mostly a problem for organizations, since Natural Persons would never use ledger-based DID methods anyway.
-
-#### Addition of did:jwk Method
-DIIP requires the implementation of [[ref: did-jwk]], given this DID method is simply an encoding of a JSON Web Key. As such it also supports X.509 certificates. This is a very common way to encode keys and certificates in current systems, thus we believe it is important to support this method. A did:jwk can either have a Certificate Chain incorporated (x5c) in the DID Document or linked as a URL (x5u). 
-<!-- What value does the certificate chain add here? -->
-
-### Signature Scheme
-When working with JWTs, it is recommended to work with the following two signature algorithms: ES256 and RS256. The first is based on the elliptic curve discrete logarithm problem, whereas the latter is based on the integer factorization problem. Elliptic-curve cryptography can achieve the same security as RSA with much shorter keys. Therefore, DIIP supports ES256 (ECDSA using P-256 and SHA-256). 
+- W3C Verifiable Credentials Data Model ([[ref: W3C VCDM]])
+- [[ref: ES256]]
+- [[ref: OID4VCI]]
+- [[ref: OID4VP]]
+<!-- - [[ref: SIOPv2]] -->
+<!-- - [[ref: Status List 2021 (First public draft)]] -->
+<!-- - [[ref: did-web]] and [[ref: did-jwk]] -->
+- [[ref: OpenID Federation]]
 
 ### Credential Format
-We wanted to work with the broadly known VC model. Proof formats that are actively being used to issue verifiable credentials according to the VC model are:
-- JWT-VC. External proof. JWT-VC has a high Technology Readiness Level (TRL) and are widely adopted in other existing standards. Compatible encoding schemes are JSON and JSON-LD. DIIP v1 requires JSON, in future versions JSON-LD will also be supported.
-- LDP-VC. Embedded proof, proof is included in the data.
+The W3C Verifiable Credential Data Model ([[ref: W3C VCDM]]) defines structure and vocabulary well suited for digital credentials in DIIP's scope. The [[ref: Open Badges 3]] credentials use W3C VCDM as the data format.
 
-For more information, see [[ref: VC Data Model v1.1]].
+The VC Data Model v2.0 recommends using Securing Verifiable Credentials using JOSE and COSE ([[ref: VC-JOSE-COSE]]) as an *enveloping proof* mechanism and 
+Verifiable Credential Data Integrity 1.0 ([[ref: VC-DATA-INTEGRITY]]) as an *embedded proof* mechanism. **DIIP compliant implementations must support *Securing JSON-LD Verifiable Credentials with SD-JWT* as specified in ([[ref: VC-JOSE-COSE]]).**
 
-### Revocation Algorithm
+### Signature Scheme
+When working with JWTs, it is recommended to work with the following two signature algorithms: ES256 and RS256. The first is based on the elliptic curve discrete logarithm problem, whereas the latter is based on the integer factorization problem. Elliptic-curve cryptography can achieve the same security as RSA with much shorter keys. **DIIP compliant implementations must support ES256 (ECDSA using P-256 and SHA-256).**
 
-[[ref: Status List 2021 (First public draft)]] is a bit string, where each credential has a position in the list. Based on the value of the bit, the credential is either revoked or not. The status list is highly-space efficient, while providing herd privacy.
+### Identifiers
+- **DIIP compliant implementations must support `JWK` as an identifier of the Issuers, Holders, and Verifiers**
+- **DIIP compliant implementations must support [[ref: did:webvh]] as an identifier of the Issuers and Verifiers**
+
+### Trust Establishment
+Signatures in Digital Credentials can be used to verify that the content of a credential has not beem tampered with. But anyone can sign a credential and put anything in the issuer field. DIIP uses [[ref: OpenID Federation]] as the trust infrastructure protocol. Issuers and verifiers can publish their own Entity Configurations that point to Trust Authorities. These Trust Authorities publish Entity Statements that verify the identity and the roles of the organizations. The [[ref: OIDF Wallet Architectures]] specification specifies how to use OpenID Federation with Wallets.
+
+- **DIIP compliant Issuer Agents must support publishing Issuer's Entity Configurations as specified in [[ref: OIDF Wallet Architectures]]**
+- **DIIP compliant Verifier Agents must support publishing Verifier's Entity Configurations as specified in [[ref: OIDF Wallet Architectures]]**
+- **If a Digital Credential contains a `termsOfUse` object with an attribute `federations`, a DIIP compliant Wallet must warn the user before sharing Digital Credentials or Verifiable Presentations with a Verifier who is not a part of the trust chain whose Trust Anchor is the value in the `federations` attribute.**
 
 ### Issuance
-The issuance of credentials from the [[ref: Issuer]] to the [[ref: Holder]]'s Wallet is done along the [[ref: OID4VCI D12]] specification. We follow the [[ref: JWTC VC Issuance Profile]], with the alterations mentioned above in [Profile](#profile). In addition to the 'base' profile, we use [[ref: OID4VCI]].
+The issuance of credentials from the [[ref: Issuer]] to the [[ref: Holder]]'s [[ref: Wallet]] is done along the [[ref: OID4VCI]] specification.
 
 #### OID4VCI
-OpenID for Verifiable Credential Issuance [[ref: OID4VCI]] allows for secure direct presentation of the credential from the [[ref: Holder]] ([[ref: End-User]]) to the Verifier (Relying Party), without involvement of the [[ref: Issuer]]. 
-<!-- [[ref: OID4VCI]] can either be used standalone, or in combination with OAuth2 / OIDC IDP.  -->
+OpenID for Verifiable Credential Issuance [[ref: OID4VCI]] defines an API for the issuance of Digital Credentials.
+OID4VCI [https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0-ID2.html#name-issuance-flow-variations](issuance flow variations) leaves room for optionality.
+- **DIIP compliant implementations must support the *Pre-Authorized Code Flow*.**
+- **DIIP compliant implementations must support the *Wallet initiated* flow.**
+- **DIIP compliant implementations must support both *Same-device* and *Cross-device* Credential Offer.**
+- **DIIP compliant implementations must support the *Immediate* flow.**
 
 ### Presentation
-The presentation of claims from the [[ref: Holder]]'s Wallet to the [[ref: Verifier]] is done along the [[ref: OID4VP D20]] and [[ref: Presentation Exchange v2.0.0]] specifications. For DIIP we follow the [[ref: JWT VC Presentation Profile]], as this profile is supported by big-tech companies, but with some changes, as were described above in [Profile](#profile). We now describe the presentation-specific standards included in DIIP.
-
-#### SIOP
-Using [[ref: SIOPv2 D13]], [[ref: Holder]]s can authenticate themselves with self-issued ID tokens and present self-attested claims directly to [[ref: Verifier]]s (Relying Parties). The OpenID provider (OP) as specified in [[ref: OpenID Connect Core]] are under the subject's local control.
+The presentation of claims from the [[ref: Holder]]'s [[ref: Wallet]] to the [[ref: Verifier]] is done along the [[ref: OID4VP]].
 
 #### OID4VP
-Using OID4VP, the [[ref: Holder]]s can also present cryptographically verifiable claims issued by third-party [[ref: Issuer]]s, such that the Verifier can place trust in those [[ref: Issuer]]s, instead of the subject ([[ref: End-User]]).
-<!-- OID4VP can either be used icw SIOPv2 or with OIDC. -->
+Using OID4VP, the [[ref: Holder]]s can also present cryptographically verifiable claims issued by third-party [[ref: Issuer]]s, such that the Verifier can place trust in those [[ref: Issuer]]s, instead of the subject ([[ref: Holder]]).
+- **DIIP compliant implementations must support the `dcql_query` int the [Authorization Request](https://openid.net/specs/openid-4-verifiable-presentations-1_0-ID3.html#name-new-parameters).**
+- **DIIP compliant implementations must support the `https` [Client Identifier Scheme](https://openid.net/specs/openid-4-verifiable-presentations-1_0-ID3.html#name-defined-client-identifier-s).**
 
-#### Presentation Exchange
-[[ref: Presentation Exchange v2.0.0]] defines two steps that have to be executed before the [[ref: Holder]] can present a proof to the [[ref: Verifier]]: the [[ref: Verifier]] first has to describe proof requirements, then the [[ref: Holder]] has to describe a submission of proof aligning with those requirements.
+<!--
+'#### SIOP
+Using [[ref: SIOPv2 D13]], [[ref: Holder]]s can authenticate themselves with self-issued ID tokens and present self-attested claims directly to [[ref: Verifier]]s (Relying Parties). The OpenID provider (OP) as specified in [[ref: OpenID Connect Core]] are under the subject's local control.
+-->
 
-<!-- ### Requirements (?) -->
+### Revocation Algorithm
+[[ref: IETF Token Status List]] defines a mechanism, data structures and processing rules for representing the status of Digital Credentials (and other "Tokens"). The statuses of Tokens are conveyed via a bit array in the Status List. The Status List is embedded in a Status List Token.
 
-### Linked Domain Verification is fully optional
-Contrary to the [[ref: JWT VC Presentation Profile]], the use of [[ref: Linked Domain Verification]] is fully optional. If not present for a party, the other party should not raise an error. Although we believe Linked Domains are a nice optional trust anchor, we also wanted to keep the DIIP v1 profile as Simple as possible at this point in time. Focusing on technical interoperability first and governance interoperability later.
-
-## Security Considerations
-
-The same security consideration applies to DIIP as to the JWT-VC Presentation Profile. It is important to note that Cross-device SIOP is susceptible to a session phishing attack, where an attacker relays the request from a good [[ref: Verifier]] to a victim and is able to sign in as a victim. Implementers MUST implement mitigations most suitable to the use-case. For more details and concrete mitigations, see section 15 Security Considerations in [[ref: SIOPv2 D13]].
-
-### Crypto Agility
-
-JWT-VC provides crypto agility, which allows for replacing the signature scheme when desired. Crypto agility is important for the migration to post-quantum signature schemes.
-
-## Privacy Considerations
-
-### Selective Disclosure
-
-JWT-VC does not allow for selective disclosure. Selective disclosure can however still be provided on a governance level.
-
-### Predicates
-
-JWT-VC does not allow for generating predicates. Predicates can however still be provided on a governance level.
-
-<!-- ### Issuer Unlinkability-->
-
-### Verifier Unlinkability
-Verifier unlinkability is not achieved, as the signature scheme ECDSA is not capable of creating unlinkable signatures such that colluding verifiers can link verification processes together. 
-
-### Observability
-The [[ref: Verifier]] has the possibility to observe the revocation status beyond the presentation, because they know the position of the credential in the bitstring.
-
-## Use-Cases
-
-TBD
-
-## Examples
-
-<!-- Examples are listed inline in above sections as well as in complete form within [Test Vectors](#test-vectors). -->
-
-## Implementations
-
-At time of writing, two wallets are compatible with DIIP v1, namely the Sphereon and Animo wallet.
-
-## Testing
-TBD
-
-## Test Vectors
-TBD
+**DIIP compliant implementations must support IETF Token Status Lists embedded in JWT tokens.**
 
 ## References
 
 ### Normative References
 
-[[def: DID Core]]
-~ [Decentralized Identifiers (DIDs) v1.0](https://www.w3.org/TR/2021/PR-did-core-20210803/). Manu Sporny, Dave Longley, Markus Sabadello, Drummond Reed, Orie Steele, Christopher Allen. 2021.08. Status: W3C Proposed Recommendation.
+[[def: did:webvh]]
+~ [The did:webvh DID Method v0.5](https://identity.foundation/didwebvh/). Status: CURRENT STABLE.
 
-[[def: OID4VCI D12]]
-~ [OpenID for Verifiable Credential Issuance (Draft 12)](https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0-12.html). Torsten Lodderstedt, Kristina Yasuda, Tobias Looker. 2023.11.26
+[[def: ES256]]
+~ ECDSA using P-256 and SHA-256 as specified in [RFC 7518 JSON Web Algorithms (JWA)](https://datatracker.ietf.org/doc/html/rfc7518). Status: RFC - Proposed Standard.
 
-[[def: SIOPv2 D13]]
-~ [Self-Issued OpenID Provider v2 (Draft 13)](https://openid.net/specs/openid-connect-self-issued-v2-1_0-13.html). Kristina Yasuda, Michael B. Jones, Torsten Lodderstedt. 2023.11.28 Status: Standards Track.
+[[def: IETF Token Status List]]
+~ [Token Status List - draft 10](https://datatracker.ietf.org/doc/draft-ietf-oauth-status-list/10/). Status: Internet-Draft.
 
-[[def: OID4VP D20]]
-~ [OpenID for Verifiable Presentations (Draft 20)](https://openid.net/specs/openid-4-verifiable-presentations-1_0-20.html). Oliver Terbu, Torsten Lodderstedt, Kristina Yasuda, Adam Lemmon, Tobias Looker. 2023.11.29 Status: Standards Track.
+[[def: OID4VCI]]
+~ [OpenID for Verifiable Credential Issuance - draft 15](https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0-ID2.html). Status: Second Implementer's Draft.
 
-[[def: VC Data Model v1.1]]
-~ [Verifiable Credentials Data Model v1.1](https://www.w3.org/TR/vc-data-model/). Manu Sporny, Dave Longley, David Chadwick. 2021.08. Status: W3C Proposed Recommendation.
+[[def: OID4VP]]
+~ [OpenID for Verifiable Presentations - draft 23](https://openid.net/specs/openid-4-verifiable-presentations-1_0-ID3.html). Status: Third Implementer's Draft.
 
-[[def: JWT VC Presentation profile]]
-~ [JWT VC Presentation Profile](https://identity.foundation/jwt-vc-presentation-profile/). Daniel McGrogan, Kristina Yasuda, Jen Schreiber.
+[[def: OpenID Federation]]
+~ [OpenID Connect Federation 1.0 - draft 17](https://openid.net/specs/openid-connect-federation-1_0-ID3.html). Status: Third Implementer's Draft.
 
-[[def: Presentation Exchange v2.0.0]]
-~ [Presentation Exchange v2.0.0](https://identity.foundation/presentation-exchange/spec/v2.0.0/). Daniel Buchner, Brent Zundel, Martin Riedel, Kim Hamilton Duffy.
+[[def: OIDF Wallet Architectures]]
+~ [OpenID Federation Wallet Architectures 1.0 - draft 03](https://openid.net/specs/openid-federation-wallet-1_0-03.html). Status: Draft.
 
-[[def: did-web]]
-~ [did:web Method](https://github.com/w3c-ccg/did-method-web). Oliver Terbu, Mike Xu, Dmitri Zagidulin, Amy Guy. Status: Registered in DID Specification Registry.
+[[def: W3C VCDM]]
+~ [Verifiable Credentials Data Model v1.1](https://www.w3.org/TR/vc-data-model-2.0/). Status: W3C Proposed Recommendation.
 
-[[def: did-jwk]]
-~ [did:jwk Method](https://github.com/quartzjer/did-jwk/blob/main/spec.md). Status: Registered in DID Specification Registry.
-
-[[def: Status List 2021 (First public draft)]]
-~ [Status List 2021 0.0.1 Predraft](https://www.w3.org/TR/vc-status-list/). Manu Sporny, Dave Longley, Orie Steele, Mike Prorock, Mahmoud Alkhraishi. 2022.04. Status: Draft Community Group Report.
+[[def: VC-JOSE-COSE]]
+~ [Securing Verifiable Credentials using JOSE and COSE](https://www.w3.org/TR/vc-jose-cose/). Status: W3C Proposed Recommendation.
 
 ### Non-Normative References
 
-[[def: OpenID Connect Core]]
-~ [OpenID Connect](https://openid.net/specs/openid-connect-core-1_0.html). Nat Sakimura, John Bradley, Michael B. Jones, Breno de Medeiros, Chuck Mortimore. 2014.11. Status: Approved Specification.
+[[def: ARF]]
+~ [Architecture and Reference Framework](https://eu-digital-identity-wallet.github.io/eudi-doc-architecture-and-reference-framework/latest/architecture-and-reference-framework-main/). Status: Draft.
 
-[[def: did-ion]]
-~ [did:ion Method](https://github.com/decentralized-identity/ion). 
+[[def: eIDAS]]
+~ [Regulation (EU) No 910/2014 of the European Parliament and of the Council of 23 July 2014 on electronic identification and trust services for electronic transactions in the internal market and repealing Directive 1999/93/EC](https://eur-lex.europa.eu/eli/reg/2014/910). Status: In force.
 
-[[def: JWP]]
-~ [JSON Web Proof](https://github.com/json-web-proofs/json-web-proofs/blob/main/draft-jmiller-json-web-proof.md). Jeremie Miller, David Waite, Michael B. Jones. Status: Internet-Draft.
+[[def: HAIP]]
+~ [OpenID4VC High Assurance Interoperability Profile](https://openid.net/specs/openid4vc-high-assurance-interoperability-profile-1_0.html). Status: Draft.
 
-[[def: JPA]]
-~ [JSON Proof Algorithms](https://github.com/json-web-proofs/json-web-proofs/blob/main/draft-jmiller-json-proof-algorithms.md). Jeremie Miller, Michael B. Jones. Status: Internet-Draft.
+[[def: Open Badges 3]]
+~ [Open Badges Specification, Spec Version 3.0, Document Version 1.2](https://www.imsglobal.org/spec/ob/v3p0). Status: This document is made available for adoption by the public community at large.
 
-[[def: OIDC Registration]]
-~ [OpenID Connect Dynamic Client Registration 1.0 incorporating errata set 1](https://openid.net/specs/openid-connect-registration-1_0.html). Nat Sakimura, John Bradley, Michael B. Jones. 2014.11. Status: Approved Specification.
-
-[[def: Well Known DID]]
-~ [Well Known DID Configuration](https://identity.foundation/.well-known/resources/did-configuration/). Daniel Buchner, Orie Steele, Tobias Looker. 2021.01. Status: DIF Working Group Approved Draft.
-
-[[def: Linked Domain Verification]]
-~ [JWT-VC Presentation Profile Linked Domain Verification](https://identity.foundation/jwt-vc-presentation-profile/#linked-domain-verification). Daniel McGrogan, Kristina Yasuda, Jen Schreiber.
+[[def: VC-DATA-INTEGRITY]]
+~ [Verifiable Credential Data Integrity 1.0](https://www.w3.org/TR/vc-data-integrity/). Status: Proposed Recommendation.
