@@ -1,18 +1,18 @@
 {
   "name": "decentralized-identity-interop-profile",
   "description": "Decentralized Identity Interop Profile",
-  "version": "2.0.0",
+  "version": "4.0.0",
   "license": "Apache 2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/DutchBlockchainCoalition/DIIP.git"
+    "url": "https://github.com/FIDEScommunity/DIIP.git"
   },
   "scripts": {
     "dev": "node -e \"require('spec-up')()\"",
     "render": "node -e \"require('spec-up')({ nowatch: true })\""
   },
   "bugs": {
-    "url": "https://github.com/DutchBlockchainCoalition/DIIP/issues"
+    "url": "https://github.com/FIDEScommunity/DIIP/issues"
   },
   "dependencies": {
     "spec-up": "^0.10.6"
