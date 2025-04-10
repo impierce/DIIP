@@ -154,19 +154,19 @@ OID4VCI [issuance flow variations](https://openid.net/specs/openid-4-verifiable-
 
 In many situations, [[ref: Digital Credential]]s are issued on the [[ref: Issuer]]'s online service (website). This online service may have already authenticated and authorized the user before displaying the credential offer. Another authentication or authorization is not needed in those situations. To keep things as simple as possible, DIIP uses *Pre-Authorized Code Flow* instead of *Authorization Code Flow*. (As with other DIIP requirements, [[ref: Issuer]]s are free to issue [[ref: Digital Credential]]s using *Authorization Code Flow*, but then DIIP doesn't guarantee interoperability.)
 
-**Requirement: DIIP-compliant implementations must support the *Pre-Authorized Code Flow*.**
+**Requirement: DIIP-compliant implementations MUST support the *Pre-Authorized Code Flow*.**
 
 [[ref: OID4VCI]] defines *Wallet-initiated* and *Issuer-initiated* flows. *Wallet-initiated* seems to be more common in many use cases and seems to be supported more widely.
 
-**Requirement: DIIP-compliant implementations must support the *Wallet-initiated* flow.**
+**Requirement: DIIP-compliant implementations MUST support the *Wallet-initiated* flow.**
 
 [[ref: OID4VCI]] defines *Same-device* and *Cross-device* Credential Offer. People should be able to use both their desktop browser and their mobile device's browser when interacting with the [[ref: Issuer]]'s online service.
 
-**Requirement: DIIP-compliant implementations must support both *Same-device* and *Cross-device* Credential Offer.**
+**Requirement: DIIP-compliant implementations MUST support both *Same-device* and *Cross-device* Credential Offer.**
 
 [[ref: OID4VCI]] defines *Immediate* and *Deferred* flows. *Deferred* is more complex to implement and not required in most use cases.
 
-**Requirement: DIIP-compliant implementations must support the *Immediate* flow.**
+**Requirement: DIIP-compliant implementations MUST support the *Immediate* flow.**
 
 ### Presentation
 The presentation of claims from the [[ref: Holder]]'s [[ref: Wallet]] to the [[ref: Verifier]] is done along the [[ref: OID4VP]]. Other protocols exist, but [[ref: OID4VP]] is very broadly supported and also required by [[ref: HAIP]].
@@ -176,11 +176,11 @@ Using [[ref: OID4VP]], the [[ref: Holder]]s can also present cryptographically v
 
 There are two query languages defined in [[ref: OID4VP]]: *Presentation Exchange* (`PE`) and *Digital Credentials Query Language* (`dcql`). The support for `PE` has already been dropped from the next [[ref: OID4VP]] draft version and can be considered deprecated.
 
-**Requirement: DIIP-compliant implementations must support the `dcql_query` in the [Authorization Request](https://openid.net/specs/openid-4-verifiable-presentations-1_0-ID3.html#name-new-parameters).**
+**Requirement: DIIP-compliant implementations MUST support the `dcql_query` in the [Authorization Request](https://openid.net/specs/openid-4-verifiable-presentations-1_0-ID3.html#name-new-parameters).**
 
 [[ref: OID4VP]] defines many [Client Identifier Schemes](https://openid.net/specs/openid-4-verifiable-presentations-1_0-ID3.html#name-defined-client-identifier-s). One way to identify [[ref: Verifier]]s is through [[ref: OpenID Federation]]. Since DIIP uses [[ref: OpenID Federation]] as the trust infrastructure, it is natural to identify parties using the same protocol.
 
-**Requirement: DIIP-compliant implementations must support the `https` *Client Identifier Scheme*.**
+**Requirement: DIIP-compliant implementations MUST support the `https` *Client Identifier Scheme*.**
 
 ***Note: The next [[ref: OID4VP]] draft versions may require that the `https` *Client Identifier Scheme* be prefixed in some way in the *presentation request*. See https://github.com/openid/OpenID4VP/pull/401.***
 
@@ -194,7 +194,7 @@ The [[ref: IETF Token Status List]] defines a mechanism, data structures, and pr
 
 The [[ref: Bitstring Status List]] is based on the same idea as the [[ref: IETF Token Status List]] and is simpler to implement since it doesn't require signing of the status list. The [[ref: IETF Token Status List]] may gain more support since it is recommended by [[ref: HAIP]].
 
-**Requirement: DIIP-compliant implementations must support IETF Token Status Lists embedded in JWT tokens.**
+**Requirement: DIIP-compliant implementations MUST support IETF Token Status Lists embedded in JWT tokens.**
 
 ## Terminology
 
