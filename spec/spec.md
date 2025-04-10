@@ -150,6 +150,9 @@ Signatures in Digital Credentials can be used to verify that the content of a cr
 - **DIIP compliant Verifier Agents must support publishing Verifier's Entity Configurations as specified in [[ref: OIDF Wallet Architectures]]**
 - **If a Digital Credential contains a `termsOfUse` object with an attribute `federations`, a DIIP compliant Wallet must warn the user before sharing Digital Credentials or Verifiable Presentations with a Verifier who is not a part of the trust chain whose Trust Anchor is the value in the `federations` attribute.**
 
+### Digital Credentials API
+[[ref: DC API]] is a new W3C specification. The next versions of DIIP protocol will most likely require compliant solutions to support DC API. If DIIP v4 compliant implementations support DC API, they should try to use that for credential issuance and verification, and fall back to custom URI schemes if required.
+
 ### Issuance
 The issuance of credentials from the [[ref: Issuer]] to the [[ref: Holder]]'s [[ref: Wallet]] is done along the [[ref: OID4VCI]] specification.
 
@@ -182,6 +185,9 @@ Using [[ref: SIOPv2 D13]], [[ref: Holder]]s can authenticate themselves with sel
 ## References
 
 ### Normative References
+
+[[def: DC API]]
+~ [Digital Credentials](https://wicg.github.io/digital-credentials/). Status: Draft Community Group Report.
 
 [[def: did:webvh]]
 ~ [The did:webvh DID Method v0.5](https://identity.foundation/didwebvh/). Status: CURRENT STABLE.

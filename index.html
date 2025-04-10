@@ -165,6 +165,8 @@ Verifiable Credential Data Integrity 1.0 (<a class="term-reference" href="#term:
 <li><strong>DIIP compliant Verifier Agents must support publishing Verifier’s Entity Configurations as specified in <a class="term-reference" href="#term:oidf-wallet-architectures">OIDF Wallet Architectures</a></strong></li>
 <li><strong>If a Digital Credential contains a <code>termsOfUse</code> object with an attribute <code>federations</code>, a DIIP compliant Wallet must warn the user before sharing Digital Credentials or Verifiable Presentations with a Verifier who is not a part of the trust chain whose Trust Anchor is the value in the <code>federations</code> attribute.</strong></li>
 </ul>
+<h3 id="digital-credentials-api"><a class="toc-anchor" href="#digital-credentials-api" >§</a> Digital Credentials API</h3>
+<p><a class="term-reference" href="#term:dc-api">DC API</a> is a new W3C specification. The next versions of DIIP protocol will most likely require compliant solutions to support DC API. If DIIP v4 compliant implementations support DC API, they should try to use that for credential issuance and verification, and fall back to custom URI schemes if required.</p>
 <h3 id="issuance"><a class="toc-anchor" href="#issuance" >§</a> Issuance</h3>
 <p>The issuance of credentials from the <a class="term-reference" href="#term:issuer">Issuer</a> to the <a class="term-reference" href="#term:holder">Holder</a>'s <a class="term-reference" href="#term:wallet">Wallet</a> is done along the <a class="term-reference" href="#term:oid4vci">OID4VCI</a> specification.</p>
 <h4 id="oid4vci"><a class="toc-anchor" href="#oid4vci" >§</a> OID4VCI</h4>
@@ -194,6 +196,8 @@ Using [[ref: SIOPv2 D13]], [[ref: Holder]]s can authenticate themselves with sel
 <h2 id="references"><a class="toc-anchor" href="#references" >§</a> References</h2>
 <h3 id="normative-references"><a class="toc-anchor" href="#normative-references" >§</a> Normative References</h3>
 <dl>
+<dt><span id="term:dc-api">DC API</span></dt>
+<dd><a path-0="wicg.github.io"path-1="digital-credentials"path-2=""href="https://wicg.github.io/digital-credentials/" >Digital Credentials</a>. Status: Draft Community Group Report.</dd>
 <dt><span id="term:did:webvh">did:webvh</span></dt>
 <dd><a path-0="identity.foundation"path-1="didwebvh"path-2=""href="https://identity.foundation/didwebvh/" >The did:webvh DID Method v0.5</a>. Status: CURRENT STABLE.</dd>
 <dt><span id="term:es256">ES256</span></dt>
@@ -271,6 +275,7 @@ Using [[ref: SIOPv2 D13]], [[ref: Holder]]s can authenticate themselves with sel
 <li><a href="#signature-scheme" >Signature Scheme</a></li>
 <li><a href="#identifiers" >Identifiers</a></li>
 <li><a href="#trust-establishment" >Trust Establishment</a></li>
+<li><a href="#digital-credentials-api" >Digital Credentials API</a></li>
 <li><a href="#issuance" >Issuance</a>
 <ul>
 <li><a href="#oid4vci" >OID4VCI</a></li>
