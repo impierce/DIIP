@@ -156,9 +156,9 @@ In many situations, [[ref: Digital Credential]]s are issued on the [[ref: Issuer
 
 **Requirement: DIIP-compliant implementations MUST support the *Pre-Authorized Code Flow*.**
 
-[[ref: OID4VCI]] defines *Wallet-initiated* and *Issuer-initiated* flows. *Wallet-initiated* seems to be more common in many use cases and seems to be supported more widely.
+[[ref: OID4VCI]] defines *Wallet-initiated* and *Issuer-initiated* flows. *Wallet-initiated* means that the [[ref: Wallet]] can start the flow without any activity from the [[ref: Issuer]]. *Issuer-initiated* seems to be more common in many use cases and seems to be supported more widely. It also aligns better with the use cases where the [[ref: Holder]] is authenticated and authorized in an online service before the credential offer is created and shown.
 
-**Requirement: DIIP-compliant implementations MUST support the *Wallet-initiated* flow.**
+**Requirement: DIIP-compliant implementations MUST support the *Issuer-initiated* flow.**
 
 [[ref: OID4VCI]] defines *Same-device* and *Cross-device* Credential Offer. People should be able to use both their desktop browser and their mobile device's browser when interacting with the [[ref: Issuer]]'s online service.
 
