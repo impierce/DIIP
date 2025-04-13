@@ -94,7 +94,7 @@ The design goal for DIIP is to ensure interoperability between [[ref: Agent]]s a
 
 In the context of the European eIDAS regulation ([[ref: eIDAS]]) and its Architecture and Reference Framework ([[ref: ARF]]), the DIIP profile is a profile for "regular" digital credentials, "non-qualified electronic attestations of attributes". The OpenID4VC High Assurance Interoperability Profile ([[ref: HAIP]]) is targeted for high-assurance use cases where it is important to bind the credentials to the [[ref: Holder]]'s private key (device binding). DIIP is the profile for other use cases.
 
-The standards used in the DIIP profile are the same ones that the ARF uses, but the DIIP profile makes different choices to HAIP in many areas where OID4VCI and OID4VP provide optionality. 
+The standards used in the DIIP profile are the same ones that the [[ref: ARF]] uses, but the DIIP profile makes different choices to [[ref: HAIP]] in many areas where [[ref: OID4VCI]] and [[ref: OID4VP]] provide optionality. 
 
 ### Future Work
 DIIP describes technologies that are relatively easy to implement. DIIP makes choices within those standards, attempting to set the minimum functionality required for interoperability in the use cases in DIIP's scope.
@@ -105,7 +105,7 @@ When standards mature and more and more solutions have full support for all the 
 In this section, we describe the interoperability profile.
 
 ### Credential Format
-The W3C Verifiable Credential Data Model ([[ref: W3C VCDM]]) defines structure and vocabulary well suited for [[ref: Digital Credential]]s in DIIP's scope. For example, the [[ref: Open Badges 3]] credentials use W3C VCDM as the data format.
+The W3C Verifiable Credential Data Model ([[ref: W3C VCDM]]) defines structure and vocabulary well suited for [[ref: Digital Credential]]s in DIIP's scope. For example, the [[ref: Open Badges 3]] credentials use [[ref: W3C VCDM]] as the data format.
 
 [[ref: W3C VCDM]] recommends using Securing Verifiable Credentials using JOSE and COSE ([[ref: VC-JOSE-COSE]]) as an *enveloping proof* mechanism and 
 Verifiable Credential Data Integrity 1.0 ([[ref: VC-DATA-INTEGRITY]]) as an *embedded proof* mechanism. Many [[ref: Agent]]s and [[ref: Wallet]]s already support `SD-JWT` as a way to encode [[ref: Digital Credential]]s. Using `SD-JWT` to secure [[ref: W3C VCDM]] [[ref: Digital Credential]]s should be relatively easy to implement, even though there are differences with the `SD-JWT-VC` mechanism required by [[ref: HAIP]].
@@ -129,8 +129,7 @@ In its previous versions, DIIP used [[ref: DID]]s for all identifiers. An entity
 ***Note: We should make sure that it's OK to identify Issuers and Verifiers with only `JWK` while using OpenID Federation!***
 
 ### Trust Establishment
-Signatures in [[ref: Digital Credential]]s can be used to verify that the content of a credential has not been tampered with. But anyone can sign a credential and put anything in the issuer field. [[ref: Digital Credential]] ecosystems require that there is a way for a [[ref: Verifier]] to check who the 
-[[ref: Issuer]] or a [[ref: Digital Credential]] is.
+Signatures in [[ref: Digital Credential]]s can be used to verify that the content of a credential has not been tampered with. But anyone can sign a credential and put anything in the issuer field. [[ref: Digital Credential]] ecosystems require that there is a way for a [[ref: Verifier]] to check who the [[ref: Issuer]] or a [[ref: Digital Credential]] is.
 
 DIIP uses [[ref: OpenID Federation]] as the trust infrastructure protocol. [[ref: Issuer]]s and [[ref: Verifier]]s can publish their Entity Configurations that point to Trust Authorities. These Trust Authorities publish Entity Statements that verify the identity and the roles of the organizations. The [[ref: OIDF Wallet Architectures]] specification specifies how to use OpenID Federation with Wallets.
 
