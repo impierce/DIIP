@@ -73,16 +73,56 @@ customElements.define("slide-panels",class extends HTMLElement{static get observ
 <hr>
 <h2 id="abstract"><a class="toc-anchor" href="#abstract" >§</a> Abstract</h2>
 <p>The Decentralized Identity Interop Profile, or DIIP for short, defines requirements against existing specifications to enable the interoperable issuance and presentation of <a class="term-reference" href="#term:digital-credential">Digital Credential</a>s between <a class="term-reference" href="#term:issuer">Issuer</a>s, <a class="term-reference" href="#term:wallet">Wallet</a>s, and <a class="term-reference" href="#term:verifier">Verifier</a>s.</p>
+<table>
+<thead>
+<tr>
+<th>Purpose</th>
+<th>Specification</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Credential format</td>
+<td>W3C Verifiable Credentials Data Model (<a class="term-reference" href="#term:w3c-vcdm">W3C VCDM</a>)</td>
+</tr>
+<tr>
+<td>Signature scheme</td>
+<td>SD-JWT as specified in <a class="term-reference" href="#term:vc-jose-cose">VC-JOSE-COSE</a></td>
+</tr>
+<tr>
+<td>Signature algorithm</td>
+<td><a class="term-reference" href="#term:es256">ES256</a></td>
+</tr>
+<tr>
+<td>Idengifying <a class="term-reference" href="#term:issuer">Issuer</a>s, <a class="term-reference" href="#term:holder">Holder</a>s, and <a class="term-reference" href="#term:verifier">Verifier</a>s**</td>
+<td><code>JWK</code></td>
+</tr>
+<tr>
+<td>Identifying <a class="term-reference" href="#term:issuer">Issuer</a>s and <a class="term-reference" href="#term:verifier">Verifier</a>s**</td>
+<td><a class="term-reference" href="#term:did:web">did:web</a></td>
+</tr>
+<tr>
+<td>Issuance protocol</td>
+<td>OpenID for Verifiable Credentials Issuance (<a class="term-reference" href="#term:oid4vci">OID4VCI</a>)</td>
+</tr>
+<tr>
+<td>Presentation protocol</td>
+<td>OpenID for Verifiable Presentations (<a class="term-reference" href="#term:oid4vp">OID4VP</a>)</td>
+</tr>
+<tr>
+<td>Revocation mechanism</td>
+<td><a class="term-reference" href="#term:ietf-token-status-list">IETF Token Status List</a></td>
+</tr>
+<tr>
+<td>Trust establishment</td>
+<td><a class="term-reference" href="#term:openid-federation">OpenID Federation</a></td>
+</tr>
+</tbody>
+</table>
+<p>The <a href="#normative-references" >Normative References</a> section links to the versions of specifications that DIIP-compliant implementations must support.</p>
 <p>This document is not a specification but a <strong>profile</strong>. It outlines existing specifications required for implementations to interoperate with each other.
-It also clarifies mandatory features for the options mentioned in the referenced specifications.
-The main objective of this interoperability profile is to allow for easy adoption through the choice of standards that are relatively easy to implement.</p>
-<p>The profile uses</p>
-<ul>
-<li>W3C Verifiable Credentials Data Model (<a class="term-reference" href="#term:w3c-vcdm">W3C VCDM</a>) as the format of <a class="term-reference" href="#term:digital-credential">Digital Credential</a>s</li>
-<li>OpenID for Verifiable Credentials Issuance (<a class="term-reference" href="#term:oid4vci">OID4VCI</a>) and OpenID for Verifiable Presentations (<a class="term-reference" href="#term:oid4vp">OID4VP</a>) as the base protocols for the issuance and verification of <a class="term-reference" href="#term:digital-credential">Digital Credential</a>s</li>
-<li><a class="term-reference" href="#term:ietf-token-status-list">IETF Token Status List</a> as a Revocation Mechanism</li>
-<li><a class="term-reference" href="#term:openid-federation">OpenID Federation</a> for trust establishment, especially between <a class="term-reference" href="#term:verifier">Verifier</a>s and <a class="term-reference" href="#term:issuer">Issuer</a>s but also supporting trust decisions of <a class="term-reference" href="#term:holder">Holder</a>s</li>
-</ul>
+It also clarifies mandatory features for the options mentioned in the referenced specifications.</p>
+<p>The main objective of this profile is to allow for easy adoption and use the minimum amount of functionality for a working <a class="term-reference" href="#term:digital-credential">Digital Credential</a> ecosystem.</p>
 <h3 id="status-of-this-document"><a class="toc-anchor" href="#status-of-this-document" >§</a> Status of This Document</h3>
 <p>The Decentralized Identity Interop Profile v4 is a DRAFT specification under development.</p>
 <p>The latest published DIIP profile can be found at <a path-0="FIDEScommunity.github.io"path-1="DIIP"path-2="latest"href="https://FIDEScommunity.github.io/DIIP/latest" >https://FIDEScommunity.github.io/DIIP/latest</a></p>
@@ -112,32 +152,19 @@ The main objective of this interoperability profile is to allow for easy adoptio
 <p>When standards mature and more and more solutions have full support for all the optional functionality in the standards, there may no longer be a need for DIIP. The authors believe that this development will take years and that there is a need for DIIP now.</p>
 <h2 id="profile"><a class="toc-anchor" href="#profile" >§</a> Profile</h2>
 <p>In this section, we describe the interoperability profile.</p>
-<h3 id="overview-of-the-specifications"><a class="toc-anchor" href="#overview-of-the-specifications" >§</a> Overview of the specifications</h3>
-<p>The <a href="#normative-references" >Normative References</a> section links to the versions of specifications that DIIP-compliant implementations must support.</p>
-<ul>
-<li>W3C Verifiable Credentials Data Model (<a class="term-reference" href="#term:w3c-vcdm">W3C VCDM</a>)</li>
-<li><a class="term-reference" href="#term:es256">ES256</a></li>
-<li><a class="term-reference" href="#term:oid4vci">OID4VCI</a></li>
-<li><a class="term-reference" href="#term:oid4vp">OID4VP</a></li>
-</ul>
-<!-- - [[ref: SIOPv2]] -->
-<!-- - [[ref: Status List 2021 (First public draft)]] -->
-<!-- - [[ref: did-web]] and [[ref: did-jwk]] -->
-<ul>
-<li><a class="term-reference" href="#term:openid-federation">OpenID Federation</a></li>
-</ul>
 <h3 id="credential-format"><a class="toc-anchor" href="#credential-format" >§</a> Credential Format</h3>
 <p>The W3C Verifiable Credential Data Model (<a class="term-reference" href="#term:w3c-vcdm">W3C VCDM</a>) defines structure and vocabulary well suited for <a class="term-reference" href="#term:digital-credential">Digital Credential</a>s in DIIP’s scope. For example, the <a class="term-reference" href="#term:open-badges-3">Open Badges 3</a> credentials use W3C VCDM as the data format.</p>
 <p><a class="term-reference" href="#term:w3c-vcdm">W3C VCDM</a> recommends using Securing Verifiable Credentials using JOSE and COSE (<a class="term-reference" href="#term:vc-jose-cose">VC-JOSE-COSE</a>) as an <em>enveloping proof</em> mechanism and
 Verifiable Credential Data Integrity 1.0 (<a class="term-reference" href="#term:vc-data-integrity">VC-DATA-INTEGRITY</a>) as an <em>embedded proof</em> mechanism. Many <a class="term-reference" href="#term:agent">Agent</a>s and <a class="term-reference" href="#term:wallet">Wallet</a>s already support <code>SD-JWT</code> as a way to encode <a class="term-reference" href="#term:digital-credential">Digital Credential</a>s. Using <code>SD-JWT</code> to secure <a class="term-reference" href="#term:w3c-vcdm">W3C VCDM</a> <a class="term-reference" href="#term:digital-credential">Digital Credential</a>s should be relatively easy to implement, even though there are differences with the <code>SD-JWT-VC</code> mechanism required by <a class="term-reference" href="#term:haip">HAIP</a>.</p>
-<p><strong>Requirement: DIIP-compliant implementations MUST support <em>Securing JSON-LD Verifiable Credentials with SD-JWT</em> as specified in (<a class="term-reference" href="#term:vc-jose-cose">VC-JOSE-COSE</a>).</strong></p>
-<h3 id="signature-scheme"><a class="toc-anchor" href="#signature-scheme" >§</a> Signature Scheme</h3>
+<p><strong>Requirement: DIIP-compliant implementations MUST support <a path-0="www.w3.org"path-1="TR"path-2="vc-jose-cose"path-3="#secure-with-sd-jwt"href="https://www.w3.org/TR/vc-jose-cose/#secure-with-sd-jwt" >Securing JSON-LD Verifiable Credentials with SD-JWT</a> as specified in (<a class="term-reference" href="#term:vc-jose-cose">VC-JOSE-COSE</a>).</strong></p>
+<h3 id="signature-algorithm"><a class="toc-anchor" href="#signature-algorithm" >§</a> Signature Algorithm</h3>
 <p>When working with JWTs, it is recommended to work with the following two signature algorithms: ES256 and RS256. The first is based on the elliptic curve discrete logarithm problem, whereas the latter is based on the integer factorization problem. Elliptic-curve cryptography can achieve the same security as RSA with much shorter keys.</p>
 <p><strong>Requirement: DIIP-compliant implementations MUST support <a class="term-reference" href="#term:es256">ES256</a> (ECDSA using P-256 and SHA-256).</strong></p>
 <h3 id="identifiers"><a class="toc-anchor" href="#identifiers" >§</a> Identifiers</h3>
 <p>In its previous versions, DIIP used <a class="term-reference" href="#term:did">DID</a>s for all identifiers. An entity identified by a <a class="term-reference" href="#term:did">DID</a> publishes a <a path-0="www.w3.org"path-1="TR"path-2="did-1.0"path-3="#dfn-did-documents"href="https://www.w3.org/TR/did-1.0/#dfn-did-documents" >DID Document</a>, which can contain useful metadata about the entity, e.g., various endpoints. Following the rationale of keeping things as simple as possible, this version of DIIP only requires compliant implementations to support one <a class="term-reference" href="#term:did">DID</a> method, <a class="term-reference" href="#term:did:webvh">did:webvh</a>. <a class="term-reference" href="#term:issuer">Issuer</a>s and <a class="term-reference" href="#term:verifier">Verifier</a>s can choose to use plain <code>JWK</code>s as their identifiers. They are not mandated to use <a class="term-reference" href="#term:did:webvh">did:webvh</a> even if the compliant solutions are required to support it.</p>
 <p><strong>Requirement: DIIP-compliant implementations MUST support <code>JWK</code> as an identifier of the <a class="term-reference" href="#term:issuer">Issuer</a>s, <a class="term-reference" href="#term:holder">Holder</a>s, and <a class="term-reference" href="#term:verifier">Verifier</a>s</strong></p>
-<p><strong>Requirement: DIIP-compliant implementations MUST support <a class="term-reference" href="#term:did:webvh">did:webvh</a> as an identifier of the <a class="term-reference" href="#term:issuer">Issuer</a>s and <a class="term-reference" href="#term:verifier">Verifier</a>s</strong></p>
+<p><strong>Requirement: DIIP-compliant implementations MUST support <a class="term-reference" href="#term:did:web">did:web</a> as an identifier of the <a class="term-reference" href="#term:issuer">Issuer</a>s and <a class="term-reference" href="#term:verifier">Verifier</a>s</strong></p>
+<p><strong>Note: A near-future version of DIIP will probably require support for <a class="term-reference" href="#term:did:webvh">did:webvh</a> instead of <a class="term-reference" href="#term:did:web">did:web</a>.</strong></p>
 <p><em><strong>Note: We should make sure that it’s OK to identify Issuers and Verifiers with only <code>JWK</code> while using OpenID Federation!</strong></em></p>
 <h3 id="trust-establishment"><a class="toc-anchor" href="#trust-establishment" >§</a> Trust Establishment</h3>
 <p>Signatures in <a class="term-reference" href="#term:digital-credential">Digital Credential</a>s can be used to verify that the content of a credential has not been tampered with. But anyone can sign a credential and put anything in the issuer field. <a class="term-reference" href="#term:digital-credential">Digital Credential</a> ecosystems require that there is a way for a <a class="term-reference" href="#term:verifier">Verifier</a> to check who the
@@ -145,7 +172,7 @@ Verifiable Credential Data Integrity 1.0 (<a class="term-reference" href="#term:
 <p>DIIP uses <a class="term-reference" href="#term:openid-federation">OpenID Federation</a> as the trust infrastructure protocol. <a class="term-reference" href="#term:issuer">Issuer</a>s and <a class="term-reference" href="#term:verifier">Verifier</a>s can publish their Entity Configurations that point to Trust Authorities. These Trust Authorities publish Entity Statements that verify the identity and the roles of the organizations. The <a class="term-reference" href="#term:oidf-wallet-architectures">OIDF Wallet Architectures</a> specification specifies how to use OpenID Federation with Wallets.</p>
 <p><strong>Requirement: DIIP-compliant <a class="term-reference" href="#term:issuer">Issuer</a> <a class="term-reference" href="#term:agent">Agent</a>s MUST support publishing the <a class="term-reference" href="#term:issuer">Issuer</a>'s Entity Configurations as specified in <a class="term-reference" href="#term:oidf-wallet-architectures">OIDF Wallet Architectures</a></strong></p>
 <p><strong>Requirement: DIIP-compliant <a class="term-reference" href="#term:verifier">Verifier</a> <a class="term-reference" href="#term:agent">Agent</a>s MUST support publishing the <a class="term-reference" href="#term:verifier">Verifier</a>'s Entity Configurations as specified in <a class="term-reference" href="#term:oidf-wallet-architectures">OIDF Wallet Architectures</a></strong></p>
-<p><strong>Requirement: If a <a class="term-reference" href="#term:digital-credential">Digital Credential</a> contains a <code>termsOfUse</code> object with an attribute <code>federations</code>, a DIIP-compliant Wallet MUST warn the user before sharing <a class="term-reference" href="#term:digital-credential">Digital Credential</a>s or Verifiable Presentations with a <a class="term-reference" href="#term:verifier">Verifier</a> who is not a part of the trust chain whose Trust Anchor is the value in the <code>federations</code> attribute.</strong></p>
+<p><strong>Requirement: If a <a class="term-reference" href="#term:digital-credential">Digital Credential</a> contains a <a path-0="www.w3.org"path-1="TR"path-2="vc-data-model-2.0"path-3="#terms-of-use"href="https://www.w3.org/TR/vc-data-model-2.0/#terms-of-use" >termsOfUse</a> object with an attribute <code>federations</code>, a DIIP-compliant Wallet MUST warn the user before sharing <a class="term-reference" href="#term:digital-credential">Digital Credential</a>s or Verifiable Presentations with a <a class="term-reference" href="#term:verifier">Verifier</a> who is not a part of the trust chain whose Trust Anchor is the value in the <code>federations</code> attribute.</strong></p>
 <h3 id="digital-credentials-api"><a class="toc-anchor" href="#digital-credentials-api" >§</a> Digital Credentials API</h3>
 <p><a class="term-reference" href="#term:dc-api">DC API</a> is a new W3C specification. The next versions of the DIIP protocol will most likely require compliant solutions to support <a class="term-reference" href="#term:dc-api">DC API</a>. If DIIP v4 compliant implementations support <a class="term-reference" href="#term:dc-api">DC API</a>, they should try to use that for credential issuance and verification and fall back to custom URI schemes if required.</p>
 <h3 id="issuance"><a class="toc-anchor" href="#issuance" >§</a> Issuance</h3>
@@ -211,8 +238,8 @@ Using [[ref: SIOPv2 D13]], [[ref: Holder]]s can authenticate themselves with sel
 <dl>
 <dt><span id="term:dc-api">DC API</span></dt>
 <dd><a path-0="wicg.github.io"path-1="digital-credentials"path-2=""href="https://wicg.github.io/digital-credentials/" >Digital Credentials</a>. Status: Draft Community Group Report.</dd>
-<dt><span id="term:did:webvh">did:webvh</span></dt>
-<dd><a path-0="identity.foundation"path-1="didwebvh"path-2=""href="https://identity.foundation/didwebvh/" >The did:webvh DID Method v0.5</a>. Status: CURRENT STABLE.</dd>
+<dt><span id="term:did:web">did:web</span></dt>
+<dd><a path-0="w3c-ccg.github.io"path-1="did-method-web"path-2=""href="https://w3c-ccg.github.io/did-method-web/" >did:web Method Specification</a>. Status: Unofficial working group draft.</dd>
 <dt><span id="term:es256">ES256</span></dt>
 <dd>ECDSA using P-256 and SHA-256 as specified in <a path-0="datatracker.ietf.org"path-1="doc"path-2="html"path-3="rfc7518"href="https://datatracker.ietf.org/doc/html/rfc7518" >RFC 7518 JSON Web Algorithms (JWA)</a>. Status: RFC - Proposed Standard.</dd>
 <dt><span id="term:ietf-token-status-list">IETF Token Status List</span></dt>
@@ -238,6 +265,8 @@ Using [[ref: SIOPv2 D13]], [[ref: Holder]]s can authenticate themselves with sel
 <dd><a path-0="www.w3.org"path-1="TR"path-2="vc-bitstring-status-list"path-3=""href="https://www.w3.org/TR/vc-bitstring-status-list/" >Bitstring Status List v1.0</a>. Status: W3C Proposed Recommendation.</dd>
 <dt><span id="term:did-core">DID Core</span></dt>
 <dd><a path-0="www.w3.org"path-1="TR"path-2="did-1.0"path-3=""href="https://www.w3.org/TR/did-1.0/" >Decentralized Identifiers (DIDs) v1.0</a>. Status: W3C Recommendation.</dd>
+<dt><span id="term:did:webvh">did:webvh</span></dt>
+<dd><a path-0="identity.foundation"path-1="didwebvh"path-2=""href="https://identity.foundation/didwebvh/" >The did:webvh DID Method v0.5</a>. Status: CURRENT STABLE.</dd>
 <dt><span id="term:eidas">eIDAS</span></dt>
 <dd><a path-0="eur-lex.europa.eu"path-1="eli"path-2="reg"path-3="2014"path-4="910"href="https://eur-lex.europa.eu/eli/reg/2014/910" >Regulation (EU) No 910/2014 of the European Parliament and of the Council of 23 July 2014 on electronic identification and trust services for electronic transactions in the internal market and repealing Directive 1999/93/EC</a>. Status: In force.</dd>
 <dt><span id="term:haip">HAIP</span></dt>
@@ -286,9 +315,8 @@ Using [[ref: SIOPv2 D13]], [[ref: Holder]]s can authenticate themselves with sel
 </li>
 <li><a href="#profile" >Profile</a>
 <ul>
-<li><a href="#overview-of-the-specifications" >Overview of the specifications</a></li>
 <li><a href="#credential-format" >Credential Format</a></li>
-<li><a href="#signature-scheme" >Signature Scheme</a></li>
+<li><a href="#signature-algorithm" >Signature Algorithm</a></li>
 <li><a href="#identifiers" >Identifiers</a></li>
 <li><a href="#trust-establishment" >Trust Establishment</a></li>
 <li><a href="#digital-credentials-api" >Digital Credentials API</a></li>
