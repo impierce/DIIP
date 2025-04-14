@@ -137,9 +137,9 @@ In its previous versions, DIIP used [[ref: DID]]s for all identifiers. An entity
 ***Note: We should make sure that it's OK to identify Issuers and Verifiers with only `JWK` while using OpenID Federation!***
 
 ### Trust Establishment
-Signatures in [[ref: Digital Credential]]s can be used to verify that the content of a credential has not been tampered with. But anyone can sign a credential and put anything in the issuer field. [[ref: Digital Credential]] ecosystems require that there is a way for a [[ref: Verifier]] to check who the [[ref: Issuer]] or a [[ref: Digital Credential]] is.
+Signatures in [[ref: Digital Credential]]s can be used to verify that the content of a credential has not been tampered with. But anyone can sign a credential and put anything in the issuer field. [[ref: Digital Credential]] ecosystems require that there is a way for a [[ref: Verifier]] to check who the [[ref: Issuer]] or a [[ref: Digital Credential]] is. Equally, a user might want to be informed about the trustworthyness of a [[ref: Verifier]] before choosing to releasing credentials.
 
-DIIP uses [[ref: OpenID Federation]] as the trust infrastructure protocol. [[ref: Issuer]]s and [[ref: Verifier]]s can publish their Entity Configurations that point to Trust Authorities. These Trust Authorities publish Entity Statements that verify the identity and the roles of the organizations. The [[ref: OIDF Wallet Architectures]] specification specifies how to use OpenID Federation with Wallets.
+DIIP uses [[ref: OpenID Federation]] as the trust infrastructure protocol. [[ref: Issuer]]s and [[ref: Verifier]]s publish their own Entity Configurations which includes pointers to Trust Anchors. These Trust Anchors are trusted third parties which publish Entity Statements that allow for verification of the identity and the roles of the organizations. The [[ref: OIDF Wallet Architectures]] specification specifies how to use OpenID Federation with Wallets.
 
 **Requirement: DIIP-compliant [[ref: Issuer]] [[ref: Agent]]s MUST support publishing the [[ref: Issuer]]'s Entity Configurations as specified in [[ref: OIDF Wallet Architectures]]**
 
