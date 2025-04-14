@@ -162,6 +162,13 @@ In many situations, [[ref: Digital Credential]]s are issued on the [[ref: Issuer
 **Requirement: DIIP-compliant implementations MUST support the *Pre-Authorized Code Flow*.**
 **Requirement: DIIP-compliant implementations SHOULD support the Transaction Code when using *Pre-Authorized Code Flow*.**
 **Requirement: DIIP-compliant implementations supporting a Transaction Code MUST support a sting of length between 4 to 6 text characters (any characters).**
+**Requirement: DIIP-compliant implementations MUST support the trust_chain claim when using *Pre-Authorized Code Flow*.**
+
+Authorization Code Flow provides a more advanced way of implementing credential issuance. DIIP-compliant implementations MUST implement Authorization Code Flow. Depending on the setup, the authorization server (AS) may be different from the [[ref: Issuer]]. 
+
+**Requirement: DIIP-compliant implementations MUST support the *Authorization Code Flow*.**
+**Requirement: DIIP-compliant implementations SHOULD NOT assume the AS is on th same FQDN as the [[ref: Issuer]] when supporting the *Authorization Code Flow*.**
+
 
 [[ref: OID4VCI]] defines *Wallet-initiated* and *Issuer-initiated* flows. *Wallet-initiated* means that the [[ref: Wallet]] can start the flow without any activity from the [[ref: Issuer]]. *Issuer-initiated* seems to be more common in many use cases and seems to be supported more widely. It also aligns better with the use cases where the [[ref: Holder]] is authenticated and authorized in an online service before the credential offer is created and shown.
 
