@@ -113,7 +113,15 @@ Verifiable Credential Data Integrity 1.0 ([[ref: VC-DATA-INTEGRITY]]) as an *emb
 **Requirement: DIIP-compliant implementations MUST support [Securing JSON-LD Verifiable Credentials with SD-JWT](https://www.w3.org/TR/vc-jose-cose/#secure-with-sd-jwt) as specified in ([[ref: VC-JOSE-COSE]]).**
 
 ### Signature Algorithm
-When working with JWTs, it is recommended to work with the following two signature algorithms: ES256 and RS256. The first is based on the elliptic curve discrete logarithm problem, whereas the latter is based on the integer factorization problem. Elliptic-curve cryptography can achieve the same security as RSA with much shorter keys.
+When working with JWTs, it is recommended to support multiple enctyption keys, supporting several signature algorithms. The table bow shows the mandatory keys and signature algorythmes DIIP compliant parties must implement:
+
+|Key types | Signature Method|
+|----------|-----------------|		
+|Ed25519   | ECDSA     		 |	
+|(x25519)  |                 | 
+|Secp256r1 | ES256           |			
+|Secp256k1 | ES256K          |	
+|RSA       | RSA256          |
 
 **Requirement: DIIP-compliant implementations MUST support [[ref: ES256]] (ECDSA using P-256 and SHA-256).**
 
