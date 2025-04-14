@@ -203,7 +203,11 @@ There are two query languages defined in [[ref: OID4VP]]: *Presentation Exchange
 Using [[ref: SIOPv2 D13]], [[ref: Holder]]s can authenticate themselves with self-issued ID tokens and present self-attested claims directly to [[ref: Verifier]]s (Relying Parties). The OpenID provider (OP) as specified in [[ref: OpenID Connect Core]] are under the subject's local control.
 -->
 
-### Revocation Algorithm
+### Validity and Revocation Algorithm
+Expiration algoriyms using validFrom and validUntil  are a powerfull mechanism to establish validity of credentials. Evaluating the expiration of a credentiaal is much more effictioned as compared to using revocation mechanisms. While absence of validFrom and validUntil would suggest a credential is considered valid indefinitely, it is recomanded all implementations should set validity expiration whenever possible to allow for clear communication to user s and Verifiers of expiration. 
+
+**Requirement: DIIP-compliant implementations SHOULD implement exiration using validFrom and validUntil whenever possible.**
+
 The [[ref: IETF Token Status List]] defines a mechanism, data structures, and processing rules for representing the status of [[ref: Digital Credential]]s (and other "Tokens"). The statuses of Tokens are conveyed via a bit array in the Status List. The Status List is embedded in a Status List Token.
 
 The [[ref: Bitstring Status List]] is based on the same idea as the [[ref: IETF Token Status List]] and is simpler to implement since it doesn't require signing of the status list. The [[ref: IETF Token Status List]] may gain more support since it is recommended by [[ref: HAIP]].
