@@ -145,7 +145,7 @@ DIIP uses [[ref: OpenID Federation]] as the trust infrastructure protocol. [[ref
 
 **Requirement: DIIP-compliant [[ref: Verifier]] [[ref: Agent]]s MUST support publishing the [[ref: Verifier]]'s Entity Configurations as specified in [[ref: OIDF Wallet Architectures]]**
 
-**Requirement: If a [[ref: Digital Credential]] contains a [termsOfUse](https://www.w3.org/TR/vc-data-model-2.0/#terms-of-use) object with an attribute `federations`, a DIIP-compliant Wallet MUST warn the user before sharing [[ref: Digital Credential]]s or Verifiable Presentations with a [[ref: Verifier]] who is not a part of the trust chain whose Trust Anchor is the value in the `federations` attribute.**
+**Requirement: If a [[ref: Digital Credential]] contains a [termsOfUse](https://www.w3.org/TR/vc-data-model-2.0/#terms-of-use) object with an attribute `federations`, a DIIP-compliant Wallet MUST warn the user before sharing [[ref: Digital Credential]]s or Verifiable Presentations with a [[ref: Verifier]] for which a trust chain cannot be resolved using the Trust Anchor in the value of the `federations` attribute.**
 
 ### Digital Credentials API
 [[ref: DC API]] is a new W3C specification. The next versions of the DIIP protocol will most likely require compliant solutions to support [[ref: DC API]]. If DIIP v4 compliant implementations support [[ref: DC API]], they should try to use that for credential issuance and verification and fall back to custom URI schemes if required.
@@ -157,9 +157,11 @@ The issuance of [[ref: Digital Credential]]s from the [[ref: Issuer]] to the [[r
 OpenID for Verifiable Credential Issuance ([[ref: OID4VCI]]) defines an API for the issuance of [[ref: Digital Credential]]s.
 OID4VCI [issuance flow variations](https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0-ID2.html#name-issuance-flow-variations) leave room for optionality.
 
-In many situations, [[ref: Digital Credential]]s are issued on the [[ref: Issuer]]'s online service (website). This online service may have already authenticated and authorized the user before displaying the credential offer. Another authentication or authorization is not needed in those situations. To keep things as simple as possible, DIIP uses *Pre-Authorized Code Flow* instead of *Authorization Code Flow*. (As with other DIIP requirements, [[ref: Issuer]]s are free to issue [[ref: Digital Credential]]s using *Authorization Code Flow*, but then DIIP doesn't guarantee interoperability.)
+In many situations, [[ref: Digital Credential]]s are issued on the [[ref: Issuer]]'s online service (website). This online service may have already authenticated and authorized the user before displaying the credential offer. Another authentication or authorization is not needed in those situations. To keep things as simple as possible, DIIP uses *Pre-Authorized Code Flow*. It should be noted various Security Considerations have been described in the [[ref: OID4VCI]] sspecification with respect to implementing *Pre-Authorized Code Flow*. Parties implementing DIIP are strongly suggested to implement mitigaating measures, like use of a Transaction Code.
 
 **Requirement: DIIP-compliant implementations MUST support the *Pre-Authorized Code Flow*.**
+**Requirement: DIIP-compliant implementations SHOULD support the Transaction Code when using *Pre-Authorized Code Flow*.**
+**Requirement: DIIP-compliant implementations supporting a Transaction Code MUST support a sting of length between 4 to 6 text characters (any characters).**
 
 [[ref: OID4VCI]] defines *Wallet-initiated* and *Issuer-initiated* flows. *Wallet-initiated* means that the [[ref: Wallet]] can start the flow without any activity from the [[ref: Issuer]]. *Issuer-initiated* seems to be more common in many use cases and seems to be supported more widely. It also aligns better with the use cases where the [[ref: Holder]] is authenticated and authorized in an online service before the credential offer is created and shown.
 
