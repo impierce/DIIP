@@ -10,7 +10,7 @@ Editors:
 ~ [Eelco Klaver](https://www.linkedin.com/in/eklaver/) (Credenco)
 ~ [Harmen van der Kooij](https://www.linkedin.com/in/harmenvanderkooij/) (FIDES Labs)
 ~ [Niels Klomp](https://www.linkedin.com/in/niels-klomp/) (Sphereon)
-~ [Niels van Dijk](https://www.linkedin.com/in/creativethings/) (SURFnet)
+~ [Niels van Dijk](https://www.linkedin.com/in/creativethings/) (SURF)
 ~ [Samuel Rinnetmäki](https://www.linkedin.com/in/samuel/) (Findynet)
 
 Contributors and previous editors:
