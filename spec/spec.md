@@ -37,7 +37,7 @@ The Decentralized Identity Interop Profile, or DIIP for short, defines requireme
 | Credential format                                                        | W3C Verifiable Credentials Data Model ([[ref: W3C VCDM]])     |
 | Signature scheme                                                         | SD-JWT as specified in [[ref: VC-JOSE-COSE]]                  |
 | Signature algorithm                                                      | [[ref: ES256]]                                                |
-| Idengifying [[ref: Issuer]]s, [[ref: Holder]]s, and [[ref: Verifier]]s** | `JWK`                                                         |
+| Identifying [[ref: Issuer]]s, [[ref: Holder]]s, and [[ref: Verifier]]s** | `JWK`                                                         |
 | Identifying [[ref: Issuer]]s and [[ref: Verifier]]s**                    | [[ref: did:web]]                                              |
 | Issuance protocol                                                        | OpenID for Verifiable Credentials Issuance ([[ref: OID4VCI]]) |
 | Presentation protocol                                                    | OpenID for Verifiable Presentations ([[ref: OID4VP]])         |
