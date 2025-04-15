@@ -14,8 +14,11 @@ Editors:
 ~ [Samuel Rinnetmäki](https://www.linkedin.com/in/samuel/) (Findynet)
 
 Contributors and previous editors:
+~ [Adam Eunson](https://www.linkedin.com/in/adameunson/) (Auvo)
+~ [Jelle Millenaar](https://www.linkedin.com/in/jellefm/) (Impierce Technonologies)
 ~ [Maaike van Leuken](https://www.linkedin.com/in/maaike-van-leuken-0b1b7011a/) (TNO)
 ~ [Timo Glastra](https://www.linkedin.com/in/timoglastra/) (Animo Solutions)
+~ [Thierry Thevenet](https://www.linkedin.com/in/thierrythevenet/) (Talao)
 
 **Special Thanks:**
 
@@ -45,6 +48,14 @@ The Decentralized Identity Interop Profile, or DIIP for short, defines requireme
 | Trust establishment                                                      | [[ref: OpenID Federation]]                                    |
 
 The [Normative References](#normative-references) section links to the versions of specifications that DIIP-compliant implementations must support.
+
+<div style="border: 4px solid red;">
+To be discussed:
+<ul>
+<li>Do we want to mandate support for <code>SD-JWT-VC 0.8</code> and <code>mDocs</code> credential formats? <strong>Pros:</strong> you can use DIIP also for authentication use cases. <strong>Cons:</strong> you should use HAIP for those use cases. There is nothing that prevents a wallet or an agent to support both HAIP and DIIP if the use case requires both. If DIIP requires support for 3 credential formats, every ecosystem owner must make their own choice of the format.</li>
+<li>Do we want to show standard/draft versions more prominently here? <strong>Pros:</strong> one can immediately see which versions are supported. <strong>Cons:</strong> versions are specified in multiple places in the spec and they need to be synced whenever a new version is drafted or published. The version information is already visible on tooltips. The table here doesn't contain all the DIIP requirements. One should read the <a href="#profile">Profile</a> and <a href="#normative-references">Normative References</a> sections to understand what's required.</li>
+</ul>
+</div>
 
 This document is not a specification but a **profile**. It outlines existing specifications required for implementations to interoperate with each other. 
 It also clarifies mandatory features for the options mentioned in the referenced specifications.
@@ -128,6 +139,15 @@ In its previous versions, DIIP used [[ref: DID]]s for all identifiers. An entity
 
 ***Note: We should make sure that it's OK to identify Issuers and Verifiers with only `JWK` while using OpenID Federation!***
 
+<div style="border: 4px solid red;">
+To be discussed:
+<ul>
+<li>Should DIIP say that <em>organizations</em> are identified by different means than <em>natural persons</em>? <strong>Pros:</strong> Legal requirements (GDPR) are different. In some cases, organizational wallets need to be continuously on-line and reachable. <strong>Cons:</strong> It's more complex. Digital credential ecosystems function with 3 basic roles <em>issuer</em>, <em>holder</em>, and <em>verifier</em>. When you bring in the distinction between natural and legal persons, you end up with 6 roles (natural person issuer, legal person issuer, natural person holder, legal person holder, natural person verifier, legal person verifier). It is possible to state that DIIP doesn't need to support natural person issuers and verifiers, but all this is just extra noise.</li>
+<li>Should DIIP require <code>did:jwk</code> instead of just <code>JWK</code>? <strong>Pros:</strong> Strong focus on DIDs. DID documents have beneficial traits like the capability to publish the DID holder's endpoints. <strong>Cons:</strong> More work, little added value. DID document functionality is not heavily used anywhere.</li>
+<li>Should it be forbidden that organizations use <code>JWK</code> or <code>did:jwk</code>?</li>
+</ul>
+</div>
+
 ### Trust Establishment
 Signatures in [[ref: Digital Credential]]s can be used to verify that the content of a credential has not been tampered with. But anyone can sign a credential and put anything in the issuer field. [[ref: Digital Credential]] ecosystems require that there is a way for a [[ref: Verifier]] to check who the [[ref: Issuer]] or a [[ref: Digital Credential]] is.
 
@@ -141,6 +161,13 @@ DIIP uses [[ref: OpenID Federation]] as the trust infrastructure protocol. [[ref
 
 ### Digital Credentials API
 [[ref: DC API]] is a new W3C specification. The next versions of the DIIP protocol will most likely require compliant solutions to support [[ref: DC API]]. If DIIP v4 compliant implementations support [[ref: DC API]], they should try to use that for credential issuance and verification and fall back to custom URI schemes if required.
+
+<div style="border: 4px solid red;">
+To be discussed:
+<ul>
+<li>Should these kind of optional features and future-proofing be collected into a separate <em>Optional features</em> section? <strong>Pros:</strong> Clear separation between optional and mandatory features. <strong>Cons:</strong> The document structure gets complex if you repeat the same subheadings (credential format, signature algorithm, identifiers, ...) in the <em>Optional features</em> section. It is harder to read and process if you don't have subheadings in the <em>Optional features</em> section.</li>
+</ul>
+</div>
 
 ### Issuance
 The issuance of [[ref: Digital Credential]]s from the [[ref: Issuer]] to the [[ref: Holder]]'s [[ref: Wallet]] is done along the [[ref: OID4VCI]] specification. Other protocols exist, but [[ref: OID4VCI]] is very broadly supported and also required by [[ref: HAIP]].
@@ -262,6 +289,13 @@ This section consolidates in one place common terms used across open standards t
 
 [[def: VC-JOSE-COSE]]
 ~ [Securing Verifiable Credentials using JOSE and COSE](https://www.w3.org/TR/vc-jose-cose/). Status: W3C Proposed Recommendation.
+
+<div style="border: 4px solid red;">
+To be discussed:
+<ul>
+<li>Should the specs be grouped by the SDOs? <strong>Pros:</strong> More emphasis on the standard development organizations. More structure. <strong>Cons:</strong> Assumes that the reader knows under which heading to look for a reference. It's a short list and the benefits of grouping would be limited.</li>
+</ul>
+</div>
 
 ### Non-Normative References
 

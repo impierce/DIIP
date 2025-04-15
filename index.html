@@ -59,8 +59,11 @@ customElements.define("slide-panels",class extends HTMLElement{static get observ
 <dd><a path-0="www.linkedin.com"path-1="in"path-2="creativethings"path-3=""href="https://www.linkedin.com/in/creativethings/" >Niels van Dijk</a> (SURFnet)</dd>
 <dd><a path-0="www.linkedin.com"path-1="in"path-2="samuel"path-3=""href="https://www.linkedin.com/in/samuel/" >Samuel Rinnetmäki</a> (Findynet)</dd>
 <dt>Contributors and previous editors:</dt>
+<dd><a path-0="www.linkedin.com"path-1="in"path-2="adameunson"path-3=""href="https://www.linkedin.com/in/adameunson/" >Adam Eunson</a> (Auvo)</dd>
+<dd><a path-0="www.linkedin.com"path-1="in"path-2="jellefm"path-3=""href="https://www.linkedin.com/in/jellefm/" >Jelle Millenaar</a> (Impierce Technonologies)</dd>
 <dd><a path-0="www.linkedin.com"path-1="in"path-2="maaike-van-leuken-0b1b7011a"path-3=""href="https://www.linkedin.com/in/maaike-van-leuken-0b1b7011a/" >Maaike van Leuken</a> (TNO)</dd>
 <dd><a path-0="www.linkedin.com"path-1="in"path-2="timoglastra"path-3=""href="https://www.linkedin.com/in/timoglastra/" >Timo Glastra</a> (Animo Solutions)</dd>
+<dd><a path-0="www.linkedin.com"path-1="in"path-2="thierrythevenet"path-3=""href="https://www.linkedin.com/in/thierrythevenet/" >Thierry Thevenet</a> (Talao)</dd>
 </dl>
 <p><strong>Special Thanks:</strong></p>
 <p>This profile is based on a lot of work done by the Decentralized Identity community. Given that this profile is largely based on and uses sections of the <a path-0="identity.foundation"path-1="jwt-vc-presentation-profile"path-2=""href="https://identity.foundation/jwt-vc-presentation-profile/" >DIF JWT VC Presentation Profile</a>, we would like to give special thanks to the editors and contributors of that profile.</p>
@@ -120,6 +123,13 @@ customElements.define("slide-panels",class extends HTMLElement{static get observ
 </tbody>
 </table>
 <p>The <a href="#normative-references" >Normative References</a> section links to the versions of specifications that DIIP-compliant implementations must support.</p>
+<div style="border: 4px solid red;">
+To be discussed:
+<ul>
+<li>Do we want to mandate support for <code>SD-JWT-VC 0.8</code> and <code>mDocs</code> credential formats? <strong>Pros:</strong> you can use DIIP also for authentication use cases. <strong>Cons:</strong> you should use HAIP for those use cases. There is nothing that prevents a wallet or an agent to support both HAIP and DIIP if the use case requires both. If DIIP requires support for 3 credential formats, every ecosystem owner must make their own choice of the format.</li>
+<li>Do we want to show standard/draft versions more prominently here? <strong>Pros:</strong> one can immediately see which versions are supported. <strong>Cons:</strong> versions are specified in multiple places in the spec and they need to be synced whenever a new version is drafted or published. The version information is already visible on tooltips. The table here doesn't contain all the DIIP requirements. One should read the <a href="#profile">Profile</a> and <a href="#normative-references">Normative References</a> sections to understand what's required.</li>
+</ul>
+</div>
 <p>This document is not a specification but a <strong>profile</strong>. It outlines existing specifications required for implementations to interoperate with each other.
 It also clarifies mandatory features for the options mentioned in the referenced specifications.</p>
 <p>The main objective of this profile is to allow for easy adoption and use the minimum amount of functionality for a working <a class="term-reference" href="#term:digital-credential">Digital Credential</a> ecosystem.</p>
@@ -166,6 +176,14 @@ Verifiable Credential Data Integrity 1.0 (<a class="term-reference" href="#term:
 <p><strong>Requirement: DIIP-compliant implementations MUST support <a class="term-reference" href="#term:did:web">did:web</a> as an identifier of the <a class="term-reference" href="#term:issuer">Issuer</a>s and <a class="term-reference" href="#term:verifier">Verifier</a>s</strong></p>
 <p><strong>Note: A near-future version of DIIP will probably require support for <a class="term-reference" href="#term:did:webvh">did:webvh</a> instead of <a class="term-reference" href="#term:did:web">did:web</a>.</strong></p>
 <p><em><strong>Note: We should make sure that it’s OK to identify Issuers and Verifiers with only <code>JWK</code> while using OpenID Federation!</strong></em></p>
+<div style="border: 4px solid red;">
+To be discussed:
+<ul>
+<li>Should DIIP say that <em>organizations</em> are identified by different means than <em>natural persons</em>? <strong>Pros:</strong> Legal requirements (GDPR) are different. In some cases, organizational wallets need to be continuously on-line and reachable. <strong>Cons:</strong> It's more complex. Digital credential ecosystems function with 3 basic roles <em>issuer</em>, <em>holder</em>, and <em>verifier</em>. When you bring in the distinction between natural and legal persons, you end up with 6 roles (natural person issuer, legal person issuer, natural person holder, legal person holder, natural person verifier, legal person verifier). It is possible to state that DIIP doesn't need to support natural person issuers and verifiers, but all this is just extra noise.</li>
+<li>Should DIIP require <code>did:jwk</code> instead of just <code>JWK</code>? <strong>Pros:</strong> Strong focus on DIDs. DID documents have beneficial traits like the capability to publish the DID holder's endpoints. <strong>Cons:</strong> More work, little added value. DID document functionality is not heavily used anywhere.</li>
+<li>Should it be forbidden that organizations use <code>JWK</code> or <code>did:jwk</code>?</li>
+</ul>
+</div>
 <h3 id="trust-establishment"><a class="toc-anchor" href="#trust-establishment" >§</a> Trust Establishment</h3>
 <p>Signatures in <a class="term-reference" href="#term:digital-credential">Digital Credential</a>s can be used to verify that the content of a credential has not been tampered with. But anyone can sign a credential and put anything in the issuer field. <a class="term-reference" href="#term:digital-credential">Digital Credential</a> ecosystems require that there is a way for a <a class="term-reference" href="#term:verifier">Verifier</a> to check who the <a class="term-reference" href="#term:issuer">Issuer</a> or a <a class="term-reference" href="#term:digital-credential">Digital Credential</a> is.</p>
 <p>DIIP uses <a class="term-reference" href="#term:openid-federation">OpenID Federation</a> as the trust infrastructure protocol. <a class="term-reference" href="#term:issuer">Issuer</a>s and <a class="term-reference" href="#term:verifier">Verifier</a>s can publish their Entity Configurations that point to Trust Authorities. These Trust Authorities publish Entity Statements that verify the identity and the roles of the organizations. The <a class="term-reference" href="#term:oidf-wallet-architectures">OIDF Wallet Architectures</a> specification specifies how to use OpenID Federation with Wallets.</p>
@@ -174,6 +192,12 @@ Verifiable Credential Data Integrity 1.0 (<a class="term-reference" href="#term:
 <p><strong>Requirement: If a <a class="term-reference" href="#term:digital-credential">Digital Credential</a> contains a <a path-0="www.w3.org"path-1="TR"path-2="vc-data-model-2.0"path-3="#terms-of-use"href="https://www.w3.org/TR/vc-data-model-2.0/#terms-of-use" >termsOfUse</a> object with an attribute <code>federations</code>, a DIIP-compliant Wallet MUST warn the user before sharing <a class="term-reference" href="#term:digital-credential">Digital Credential</a>s or Verifiable Presentations with a <a class="term-reference" href="#term:verifier">Verifier</a> who is not a part of the trust chain whose Trust Anchor is the value in the <code>federations</code> attribute.</strong></p>
 <h3 id="digital-credentials-api"><a class="toc-anchor" href="#digital-credentials-api" >§</a> Digital Credentials API</h3>
 <p><a class="term-reference" href="#term:dc-api">DC API</a> is a new W3C specification. The next versions of the DIIP protocol will most likely require compliant solutions to support <a class="term-reference" href="#term:dc-api">DC API</a>. If DIIP v4 compliant implementations support <a class="term-reference" href="#term:dc-api">DC API</a>, they should try to use that for credential issuance and verification and fall back to custom URI schemes if required.</p>
+<div style="border: 4px solid red;">
+To be discussed:
+<ul>
+<li>Should these kind of optional features and future-proofing be collected into a separate <em>Optional features</em> section? <strong>Pros:</strong> Clear separation between optional and mandatory features. <strong>Cons:</strong> The document structure gets complex if you repeat the same subheadings (credential format, signature algorithm, identifiers, ...) in the <em>Optional features</em> section. It is harder to read and process if you don't have subheadings in the <em>Optional features</em> section.</li>
+</ul>
+</div>
 <h3 id="issuance"><a class="toc-anchor" href="#issuance" >§</a> Issuance</h3>
 <p>The issuance of <a class="term-reference" href="#term:digital-credential">Digital Credential</a>s from the <a class="term-reference" href="#term:issuer">Issuer</a> to the <a class="term-reference" href="#term:holder">Holder</a>'s <a class="term-reference" href="#term:wallet">Wallet</a> is done along the <a class="term-reference" href="#term:oid4vci">OID4VCI</a> specification. Other protocols exist, but <a class="term-reference" href="#term:oid4vci">OID4VCI</a> is very broadly supported and also required by <a class="term-reference" href="#term:haip">HAIP</a>.</p>
 <h4 id="oid4vci"><a class="toc-anchor" href="#oid4vci" >§</a> OID4VCI</h4>
@@ -256,6 +280,12 @@ Using [[ref: SIOPv2 D13]], [[ref: Holder]]s can authenticate themselves with sel
 <dt><span id="term:vc-jose-cose">VC-JOSE-COSE</span></dt>
 <dd><a path-0="www.w3.org"path-1="TR"path-2="vc-jose-cose"path-3=""href="https://www.w3.org/TR/vc-jose-cose/" >Securing Verifiable Credentials using JOSE and COSE</a>. Status: W3C Proposed Recommendation.</dd>
 </dl>
+<div style="border: 4px solid red;">
+To be discussed:
+<ul>
+<li>Should the specs be grouped by the SDOs? <strong>Pros:</strong> More emphasis on the standard development organizations. More structure. <strong>Cons:</strong> Assumes that the reader knows under which heading to look for a reference. It's a short list and the benefits of grouping would be limited.</li>
+</ul>
+</div>
 <h3 id="non-normative-references"><a class="toc-anchor" href="#non-normative-references" >§</a> Non-Normative References</h3>
 <dl>
 <dt><span id="term:arf">ARF</span></dt>
