@@ -134,7 +134,13 @@ When working with JWTs, it is recommended to support multiple encryption keys, s
 |Secp256k1 | ES256K          |	
 |RSA       | RSA256          |
 
-**Requirement: DIIP-compliant implementations MUST support [[ref: ES256]] (ECDSA using P-256 and SHA-256).**
+**Requirement: DIIP-compliant implementations MUST support the key types and signature methods in the table above.**
+<div style="border: 4px solid red;">
+To be discussed:
+<ul>
+<li>Can we link to any specifications?</li>
+</ul>
+</div>
 
 ### Identifiers
 In its previous versions, DIIP used [[ref: DID]]s for all identifiers. An entity identified by a [[ref: DID]] publishes a [DID Document](https://www.w3.org/TR/did-1.0/#dfn-did-documents), which can contain useful metadata about the entity, e.g., various endpoints. Following the rationale of keeping things as simple as possible, this version of DIIP only requires compliant implementations to support one [[ref: DID]] method, [[ref: did:webvh]]. [[ref: Issuer]]s and [[ref: Verifier]]s can choose to use plain `JWK`s as their identifiers. They are not mandated to use [[ref: did:webvh]] even if the compliant solutions are required to support it.

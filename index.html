@@ -199,7 +199,13 @@ Verifiable Credential Data Integrity 1.0 (<a class="term-reference" href="#term:
 </tr>
 </tbody>
 </table>
-<p><strong>Requirement: DIIP-compliant implementations MUST support <a class="term-reference" href="#term:es256">ES256</a> (ECDSA using P-256 and SHA-256).</strong></p>
+<p><strong>Requirement: DIIP-compliant implementations MUST support the key types and signature methods in the table above.</strong></p>
+<div style="border: 4px solid red;">
+To be discussed:
+<ul>
+<li>Can we link to any specifications?</li>
+</ul>
+</div>
 <h3 id="identifiers"><a class="toc-anchor" href="#identifiers" >§</a> Identifiers</h3>
 <p>In its previous versions, DIIP used <a class="term-reference" href="#term:did">DID</a>s for all identifiers. An entity identified by a <a class="term-reference" href="#term:did">DID</a> publishes a <a path-0="www.w3.org"path-1="TR"path-2="did-1.0"path-3="#dfn-did-documents"href="https://www.w3.org/TR/did-1.0/#dfn-did-documents" >DID Document</a>, which can contain useful metadata about the entity, e.g., various endpoints. Following the rationale of keeping things as simple as possible, this version of DIIP only requires compliant implementations to support one <a class="term-reference" href="#term:did">DID</a> method, <a class="term-reference" href="#term:did:webvh">did:webvh</a>. <a class="term-reference" href="#term:issuer">Issuer</a>s and <a class="term-reference" href="#term:verifier">Verifier</a>s can choose to use plain <code>JWK</code>s as their identifiers. They are not mandated to use <a class="term-reference" href="#term:did:webvh">did:webvh</a> even if the compliant solutions are required to support it.</p>
 <p><strong>Requirement: DIIP-compliant implementations MUST support <code>JWK</code> as an identifier of the <a class="term-reference" href="#term:issuer">Issuer</a>s, <a class="term-reference" href="#term:holder">Holder</a>s, and <a class="term-reference" href="#term:verifier">Verifier</a>s</strong></p>
