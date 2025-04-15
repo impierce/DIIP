@@ -126,7 +126,6 @@ customElements.define("slide-panels",class extends HTMLElement{static get observ
 <div style="border: 4px solid red;">
 To be discussed:
 <ul>
-<li>Do we want to mandate support for <code>SD-JWT-VC 0.8</code> and <code>mDocs</code> credential formats? <strong>Pros:</strong> You can use DIIP for authentication use cases. <strong>Cons:</strong> You should use HAIP for those use cases. There is nothing that prevents a wallet or an agent from supporting both HAIP and DIIP if the use case requires both. If DIIP requires support for 3 credential formats, every ecosystem owner must make their own choice of the format.</li>
 <li>Do we want to show standard/draft versions more prominently here? <strong>Pros:</strong> One can immediately see which versions are supported. <strong>Cons:</strong> Versions are specified in multiple places in the spec, and they need to be synced whenever a new version is drafted or published. The version information is already visible in tooltips. The table here doesn't contain all the DIIP requirements. One should read the <a href="#profile">Profile</a> and <a href="#normative-references">Normative References</a> sections to understand what's required.</li>
 </ul>
 </div>
@@ -157,6 +156,12 @@ It also clarifies mandatory features for the options mentioned in the referenced
 <h3 id="relationship-to-eidas-regulation-and-haip-profile"><a class="toc-anchor" href="#relationship-to-eidas-regulation-and-haip-profile" >§</a> Relationship to eIDAS regulation and HAIP profile</h3>
 <p>In the context of the European eIDAS regulation (<a class="term-reference" href="#term:eidas">eIDAS</a>) and its Architecture and Reference Framework (<a class="term-reference" href="#term:arf">ARF</a>), the DIIP profile is a profile for “regular” digital credentials, “non-qualified electronic attestations of attributes”. The OpenID4VC High Assurance Interoperability Profile (<a class="term-reference" href="#term:haip">HAIP</a>) is targeted for high-assurance use cases where it is important to bind the credentials to the <a class="term-reference" href="#term:holder">Holder</a>'s private key (device binding). DIIP is the profile for other use cases.</p>
 <p>The standards used in the DIIP profile are the same ones that the <a class="term-reference" href="#term:arf">ARF</a> uses, but the DIIP profile makes different choices to <a class="term-reference" href="#term:haip">HAIP</a> in many areas where <a class="term-reference" href="#term:oid4vci">OID4VCI</a> and <a class="term-reference" href="#term:oid4vp">OID4VP</a> provide optionality. DIIP aims to keep the selected OpenID4VCI and OpenID4VP Draft versions in sync with HAIP to lower implementation overhead.</p>
+<div style="border: 4px solid red;">
+To be discussed:
+<ul>
+<li>Should we explicitly state that DIIP does not focus on proximity use cases?</li>
+</ul>
+</div>
 <h3 id="future-work"><a class="toc-anchor" href="#future-work" >§</a> Future Work</h3>
 <p>DIIP describes technologies that are relatively easy to implement. DIIP makes choices within those standards, attempting to set the minimum functionality required for interoperability in the use cases in DIIP’s scope.</p>
 <p>When standards mature and more and more solutions have full support for all the optional functionality in the standards, there may no longer be a need for DIIP. The authors believe that this development will take years and that there is a need for DIIP now.</p>
@@ -167,6 +172,13 @@ It also clarifies mandatory features for the options mentioned in the referenced
 <p><a class="term-reference" href="#term:w3c-vcdm">W3C VCDM</a> recommends using Securing Verifiable Credentials using JOSE and COSE (<a class="term-reference" href="#term:vc-jose-cose">VC-JOSE-COSE</a>) as an <em>enveloping proof</em> mechanism and
 Verifiable Credential Data Integrity 1.0 (<a class="term-reference" href="#term:vc-data-integrity">VC-DATA-INTEGRITY</a>) as an <em>embedded proof</em> mechanism. Many <a class="term-reference" href="#term:agent">Agent</a>s and <a class="term-reference" href="#term:wallet">Wallet</a>s already support <code>SD-JWT</code> as a way to encode <a class="term-reference" href="#term:digital-credential">Digital Credential</a>s. Using <code>SD-JWT</code> to secure <a class="term-reference" href="#term:w3c-vcdm">W3C VCDM</a> <a class="term-reference" href="#term:digital-credential">Digital Credential</a>s should be relatively easy to implement, even though there are differences with the <code>SD-JWT-VC</code> mechanism required by <a class="term-reference" href="#term:haip">HAIP</a>.</p>
 <p><strong>Requirement: DIIP-compliant implementations MUST support <a path-0="www.w3.org"path-1="TR"path-2="vc-jose-cose"path-3="#secure-with-sd-jwt"href="https://www.w3.org/TR/vc-jose-cose/#secure-with-sd-jwt" >Securing JSON-LD Verifiable Credentials with SD-JWT</a> as specified in (<a class="term-reference" href="#term:vc-jose-cose">VC-JOSE-COSE</a>).</strong></p>
+<div style="border: 4px solid red;">
+To be discussed:
+<ul>
+<li>Do we want to mandate support for <code>SD-JWT-VC 0.8</code> and <code>mDocs</code> credential formats? <strong>Pros:</strong> You can use DIIP for authentication use cases. <strong>Cons:</strong> You should use HAIP for those use cases. There is nothing that prevents a wallet or an agent from supporting both HAIP and DIIP if the use case requires both. If DIIP requires support for 3 credential formats, every ecosystem owner must make their own choice of the format.</li>
+<li>Should DIIP focus on open and freely available standards instead of those behind paywalls and restricted participation?</li>
+</ul>
+</div>
 <h3 id="signature-algorithm"><a class="toc-anchor" href="#signature-algorithm" >§</a> Signature Algorithm</h3>
 <p>When working with JWTs, it is recommended to support multiple encryption keys, supporting several signature algorithms. The table below shows the mandatory keys and signature algorithms that DIIP-compliant parties must implement:</p>
 <table>
@@ -207,7 +219,7 @@ To be discussed:
 </ul>
 </div>
 <h3 id="identifiers"><a class="toc-anchor" href="#identifiers" >§</a> Identifiers</h3>
-<p>In its previous versions, DIIP used <a class="term-reference" href="#term:did">DID</a>s for all identifiers. An entity identified by a <a class="term-reference" href="#term:did">DID</a> publishes a <a path-0="www.w3.org"path-1="TR"path-2="did-1.0"path-3="#dfn-did-documents"href="https://www.w3.org/TR/did-1.0/#dfn-did-documents" >DID Document</a>, which can contain useful metadata about the entity, e.g., various endpoints. Following the rationale of keeping things as simple as possible, this version of DIIP only requires compliant implementations to support one <a class="term-reference" href="#term:did">DID</a> method, <a class="term-reference" href="#term:did:webvh">did:webvh</a>. <a class="term-reference" href="#term:issuer">Issuer</a>s and <a class="term-reference" href="#term:verifier">Verifier</a>s can choose to use plain <code>JWK</code>s as their identifiers. They are not mandated to use <a class="term-reference" href="#term:did:webvh">did:webvh</a> even if the compliant solutions are required to support it.</p>
+<p>In its previous versions, DIIP used <a class="term-reference" href="#term:did">DID</a>s for all identifiers. An entity identified by a <a class="term-reference" href="#term:did">DID</a> publishes a <a path-0="www.w3.org"path-1="TR"path-2="did-1.0"path-3="#dfn-did-documents"href="https://www.w3.org/TR/did-1.0/#dfn-did-documents" >DID Document</a>, which can contain useful metadata about the entity, e.g., various endpoints. Following the rationale of keeping things as simple as possible, this version of DIIP only requires compliant implementations to support one <a class="term-reference" href="#term:did">DID</a> method, <a class="term-reference" href="#term:did:web">did:web</a>. <a class="term-reference" href="#term:issuer">Issuer</a>s and <a class="term-reference" href="#term:verifier">Verifier</a>s can choose to use plain <code>JWK</code>s as their identifiers. They are not mandated to use <a class="term-reference" href="#term:did:web">did:web</a> even if the compliant solutions are required to support it.</p>
 <p><strong>Requirement: DIIP-compliant implementations MUST support <code>JWK</code> as an identifier of the <a class="term-reference" href="#term:issuer">Issuer</a>s, <a class="term-reference" href="#term:holder">Holder</a>s, and <a class="term-reference" href="#term:verifier">Verifier</a>s</strong></p>
 <p><strong>Requirement: DIIP-compliant implementations MUST support <a class="term-reference" href="#term:did:web">did:web</a> as an identifier of the <a class="term-reference" href="#term:issuer">Issuer</a>s and <a class="term-reference" href="#term:verifier">Verifier</a>s</strong></p>
 <p><strong>Note: A near-future version of DIIP will probably require support for <a class="term-reference" href="#term:did:webvh">did:webvh</a> instead of <a class="term-reference" href="#term:did:web">did:web</a>.</strong></p>
@@ -230,6 +242,7 @@ To be discussed:
 To be discussed:
 <ul>
 <li>Should DIIP require even this basic support for OpenID Federation? <strong>Pros:</strong> Any credential ecosystem needs some way to etablish trust between the verifier and the issuer. Often also between the verifier and the holder. Making a choice and sticking to one way to do that creates a simpler profile. <strong>Cons:</strong> Sometimes static trust lists are just a simpler option. There already exists some documentation on how to use the eIDAS lists of trusted lists. (?)</li>
+<li>Should we have a note saying that a future version may refer to the ToIP [Trust Registry Query Protocol](https://trustoverip.github.io/tswg-trust-registry-protocol/) or [TRAIN](https://gitlab.cc-asp.fraunhofer.de/train)? (Both attempt to create an overlay on top of multiple trust frameworks.)</li>
 </ul>
 </div>
 <h3 id="digital-credentials-api"><a class="toc-anchor" href="#digital-credentials-api" >§</a> Digital Credentials API</h3>
@@ -260,7 +273,13 @@ To be discussed:
 </div>
 <p>Authorization Code Flow provides a more advanced way of implementing credential issuance. DIIP-compliant implementations MUST implement Authorization Code Flow. Depending on the setup, the authorization server (AS) may be different from the <a class="term-reference" href="#term:issuer">Issuer</a>.</p>
 <p><strong>Requirement: DIIP-compliant implementations MUST support the <em>Authorization Code Flow</em>.</strong></p>
-<p><strong>Requirement: DIIP-compliant implementations SHOULD NOT assume the AS is on th same FQDN as the <a class="term-reference" href="#term:issuer">Issuer</a> when supporting the <em>Authorization Code Flow</em>.</strong></p>
+<p><strong>Requirement: DIIP-compliant implementations SHOULD NOT assume the Authorization Server is on the same FQDN as the <a class="term-reference" href="#term:issuer">Issuer</a> when supporting the <em>Authorization Code Flow</em>.</strong></p>
+<div style="border: 4px solid red;">
+To be discussed:
+<ul>
+<li>MUST NOT assume instead of SHOULD NOT assume?</li>
+</ul>
+</div>
 <p><a class="term-reference" href="#term:oid4vci">OID4VCI</a> defines <em>Wallet-initiated</em> and <em>Issuer-initiated</em> flows. <em>Wallet-initiated</em> means that the <a class="term-reference" href="#term:wallet">Wallet</a> can start the flow without any activity from the <a class="term-reference" href="#term:issuer">Issuer</a>. The <em>Issuer-initiated</em> flow seems to be more common in many use cases and seems to be supported more widely. It also aligns better with the use cases where the <a class="term-reference" href="#term:holder">Holder</a> is authenticated and authorized in an online service before the credential offer is created and shown.</p>
 <p><strong>Requirement: DIIP-compliant implementations MUST support the <em>Issuer-initiated</em> flow.</strong></p>
 <p><a class="term-reference" href="#term:oid4vci">OID4VCI</a> defines <em>Same-device</em> and <em>Cross-device</em> Credential Offer. People should be able to use both their desktop browser and their mobile device’s browser when interacting with the <a class="term-reference" href="#term:issuer">Issuer</a>'s online service.</p>
@@ -338,9 +357,17 @@ To be discussed:
 <dt><span id="term:oidf-wallet-architectures">OIDF Wallet Architectures</span></dt>
 <dd><a path-0="openid.net"path-1="specs"path-2="openid-federation-wallet-1_0-03.html"href="https://openid.net/specs/openid-federation-wallet-1_0-03.html" >OpenID Federation Wallet Architectures 1.0 - draft 03</a>. Status: Draft.</dd>
 <dt><span id="term:openid-federation">OpenID Federation</span></dt>
-<dd><a path-0="openid.net"path-1="specs"path-2="openid-connect-federation-1_0-ID3.html"href="https://openid.net/specs/openid-connect-federation-1_0-ID3.html" >OpenID Connect Federation 1.0 - draft 17</a>. Status: Third Implementer’s Draft.</dd>
+<dd><a path-0="openid.net"path-1="specs"path-2="openid-federation-1_0-42.html"href="https://openid.net/specs/openid-federation-1_0-42.html" >OpenID Federation 1.0 - draft 42</a>. Status: draft.</dd>
+</dl>
+<div style="border: 4px solid red;">
+To be discussed:
+<ul>
+<li>Link to the latest Implementer's Draft instead (ID4, draft 36)? </li>
+</ul>
+</div>
+<dl>
 <dt><span id="term:w3c-vcdm">W3C VCDM</span></dt>
-<dd><a path-0="www.w3.org"path-1="TR"path-2="vc-data-model-2.0"path-3=""href="https://www.w3.org/TR/vc-data-model-2.0/" >Verifiable Credentials Data Model v1.1</a>. Status: W3C Proposed Recommendation.</dd>
+<dd><a path-0="www.w3.org"path-1="TR"path-2="vc-data-model-2.0"path-3=""href="https://www.w3.org/TR/vc-data-model-2.0/" >Verifiable Credentials Data Model v2.0</a>. Status: W3C Proposed Recommendation.</dd>
 <dt><span id="term:vc-jose-cose">VC-JOSE-COSE</span></dt>
 <dd><a path-0="www.w3.org"path-1="TR"path-2="vc-jose-cose"path-3=""href="https://www.w3.org/TR/vc-jose-cose/" >Securing Verifiable Credentials using JOSE and COSE</a>. Status: W3C Proposed Recommendation.</dd>
 </dl>
