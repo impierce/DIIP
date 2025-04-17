@@ -153,7 +153,8 @@ When working with JWTs, it is recommended to support multiple encryption keys, s
 <div style="border: 4px solid red;">
 To be discussed:
 <ul>
-<li>Can we link to any specifications?</li>
+<li>Can we link to specifications?</li>
+<li>Could we stick to one or at most two key types and signature methods?</li>
 </ul>
 </div>
 
@@ -182,9 +183,13 @@ Signatures in [[ref: Digital Credential]]s can be used to verify that the conten
 
 DIIP uses [[ref: OpenID Federation]] as the trust infrastructure protocol. [[ref: Issuer]]s and [[ref: Verifier]]s publish their own Entity Configurations, which include pointers to Trust Anchors. These Trust Anchors are trusted third parties that publish Entity Statements that allow for verification of the identity and the roles of the organizations. The [[ref: OIDF Wallet Architectures]] specification specifies how to use [[ref: OpenID Federation]] with Wallets.
 
-**Requirement: DIIP-compliant [[ref: Issuer]] [[ref: Agent]]s MUST support publishing the [[ref: Issuer]]'s Entity Configurations as specified in [[ref: OIDF Wallet Architectures]]**
+**Requirement: DIIP-compliant [[ref: Issuer]] [[ref: Agent]]s MUST support publishing the [[ref: Issuer]]'s Entity Configurations as specified in [[ref: OIDF Wallet Architectures]].**
 
-**Requirement: DIIP-compliant [[ref: Verifier]] [[ref: Agent]]s MUST support publishing the [[ref: Verifier]]'s Entity Configurations as specified in [[ref: OIDF Wallet Architectures]]**
+(Simplifying explanation: sign the [[ref: OID4VCI]] issuer metadata as a JWT and publish it in the `.well-known` path.)
+
+**Requirement: DIIP-compliant [[ref: Verifier]] [[ref: Agent]]s MUST support publishing the [[ref: Verifier]]'s Entity Configurations as specified in [[ref: OIDF Wallet Architectures]].**
+
+ (Simplifying explanation: sign the [[ref: OID4VP]] verifier metadata as a JWT and publish it in the `.well-known` path.)
 
 **Requirement: If a [[ref: Digital Credential]] contains a [termsOfUse](https://www.w3.org/TR/vc-data-model-2.0/#terms-of-use) object with an attribute `federations`, a DIIP-compliant Wallet MUST warn the user before sharing [[ref: Digital Credential]]s or Verifiable Presentations with a [[ref: Verifier]] for which a trust chain cannot be resolved using the Trust Anchor in the value of the `federations` attribute.**
 
@@ -192,7 +197,7 @@ DIIP uses [[ref: OpenID Federation]] as the trust infrastructure protocol. [[ref
 To be discussed:
 <ul>
 <li>Should DIIP require even this basic support for OpenID Federation? <strong>Pros:</strong> Any credential ecosystem needs some way to etablish trust between the verifier and the issuer. Often also between the verifier and the holder. Making a choice and sticking to one way to do that creates a simpler profile. <strong>Cons:</strong> Sometimes static trust lists are just a simpler option. There already exists some documentation on how to use the eIDAS lists of trusted lists. (?)</li>
-<li>Should we have a note saying that a future version may refer to the ToIP [Trust Registry Query Protocol](https://trustoverip.github.io/tswg-trust-registry-protocol/) or [TRAIN](https://gitlab.cc-asp.fraunhofer.de/train)? (Both attempt to create an overlay on top of multiple trust frameworks.)</li>
+<li>Should we have a note saying that a future version may refer to the ToIP <a href="https://trustoverip.github.io/tswg-trust-registry-protocol/">Trust Registry Query Protocol</a> or <a href="https://gitlab.cc-asp.fraunhofer.de/train">TRAIN</a>? (Both attempt to create an overlay on top of multiple trust frameworks.)</li>
 </ul>
 </div>
 

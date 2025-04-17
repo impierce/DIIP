@@ -215,7 +215,8 @@ To be discussed:
 <div style="border: 4px solid red;">
 To be discussed:
 <ul>
-<li>Can we link to any specifications?</li>
+<li>Can we link to specifications?</li>
+<li>Could we stick to one or at most two key types and signature methods?</li>
 </ul>
 </div>
 <h3 id="identifiers"><a class="toc-anchor" href="#identifiers" >§</a> Identifiers</h3>
@@ -235,14 +236,16 @@ To be discussed:
 <h3 id="trust-establishment"><a class="toc-anchor" href="#trust-establishment" >§</a> Trust Establishment</h3>
 <p>Signatures in <a class="term-reference" href="#term:digital-credential">Digital Credential</a>s can be used to verify that the content of a credential has not been tampered with. But anyone can sign a credential and put anything in the issuer field. <a class="term-reference" href="#term:digital-credential">Digital Credential</a> ecosystems require that there is a way for a <a class="term-reference" href="#term:verifier">Verifier</a> to check who the <a class="term-reference" href="#term:issuer">Issuer</a> or a <a class="term-reference" href="#term:digital-credential">Digital Credential</a> is. Equally, a user might want to be informed about the trustworthiness of a <a class="term-reference" href="#term:verifier">Verifier</a> before choosing to release credentials.</p>
 <p>DIIP uses <a class="term-reference" href="#term:openid-federation">OpenID Federation</a> as the trust infrastructure protocol. <a class="term-reference" href="#term:issuer">Issuer</a>s and <a class="term-reference" href="#term:verifier">Verifier</a>s publish their own Entity Configurations, which include pointers to Trust Anchors. These Trust Anchors are trusted third parties that publish Entity Statements that allow for verification of the identity and the roles of the organizations. The <a class="term-reference" href="#term:oidf-wallet-architectures">OIDF Wallet Architectures</a> specification specifies how to use <a class="term-reference" href="#term:openid-federation">OpenID Federation</a> with Wallets.</p>
-<p><strong>Requirement: DIIP-compliant <a class="term-reference" href="#term:issuer">Issuer</a> <a class="term-reference" href="#term:agent">Agent</a>s MUST support publishing the <a class="term-reference" href="#term:issuer">Issuer</a>'s Entity Configurations as specified in <a class="term-reference" href="#term:oidf-wallet-architectures">OIDF Wallet Architectures</a></strong></p>
-<p><strong>Requirement: DIIP-compliant <a class="term-reference" href="#term:verifier">Verifier</a> <a class="term-reference" href="#term:agent">Agent</a>s MUST support publishing the <a class="term-reference" href="#term:verifier">Verifier</a>'s Entity Configurations as specified in <a class="term-reference" href="#term:oidf-wallet-architectures">OIDF Wallet Architectures</a></strong></p>
+<p><strong>Requirement: DIIP-compliant <a class="term-reference" href="#term:issuer">Issuer</a> <a class="term-reference" href="#term:agent">Agent</a>s MUST support publishing the <a class="term-reference" href="#term:issuer">Issuer</a>'s Entity Configurations as specified in <a class="term-reference" href="#term:oidf-wallet-architectures">OIDF Wallet Architectures</a>.</strong></p>
+<p>(Simplifying explanation: sign the <a class="term-reference" href="#term:oid4vci">OID4VCI</a> issuer metadata as a JWT and publish it in the <code>.well-known</code> path.)</p>
+<p><strong>Requirement: DIIP-compliant <a class="term-reference" href="#term:verifier">Verifier</a> <a class="term-reference" href="#term:agent">Agent</a>s MUST support publishing the <a class="term-reference" href="#term:verifier">Verifier</a>'s Entity Configurations as specified in <a class="term-reference" href="#term:oidf-wallet-architectures">OIDF Wallet Architectures</a>.</strong></p>
+<p>(Simplifying explanation: sign the <a class="term-reference" href="#term:oid4vp">OID4VP</a> verifier metadata as a JWT and publish it in the <code>.well-known</code> path.)</p>
 <p><strong>Requirement: If a <a class="term-reference" href="#term:digital-credential">Digital Credential</a> contains a <a path-0="www.w3.org"path-1="TR"path-2="vc-data-model-2.0"path-3="#terms-of-use"href="https://www.w3.org/TR/vc-data-model-2.0/#terms-of-use" >termsOfUse</a> object with an attribute <code>federations</code>, a DIIP-compliant Wallet MUST warn the user before sharing <a class="term-reference" href="#term:digital-credential">Digital Credential</a>s or Verifiable Presentations with a <a class="term-reference" href="#term:verifier">Verifier</a> for which a trust chain cannot be resolved using the Trust Anchor in the value of the <code>federations</code> attribute.</strong></p>
 <div style="border: 4px solid red;">
 To be discussed:
 <ul>
 <li>Should DIIP require even this basic support for OpenID Federation? <strong>Pros:</strong> Any credential ecosystem needs some way to etablish trust between the verifier and the issuer. Often also between the verifier and the holder. Making a choice and sticking to one way to do that creates a simpler profile. <strong>Cons:</strong> Sometimes static trust lists are just a simpler option. There already exists some documentation on how to use the eIDAS lists of trusted lists. (?)</li>
-<li>Should we have a note saying that a future version may refer to the ToIP [Trust Registry Query Protocol](https://trustoverip.github.io/tswg-trust-registry-protocol/) or [TRAIN](https://gitlab.cc-asp.fraunhofer.de/train)? (Both attempt to create an overlay on top of multiple trust frameworks.)</li>
+<li>Should we have a note saying that a future version may refer to the ToIP <a href="https://trustoverip.github.io/tswg-trust-registry-protocol/">Trust Registry Query Protocol</a> or <a href="https://gitlab.cc-asp.fraunhofer.de/train">TRAIN</a>? (Both attempt to create an overlay on top of multiple trust frameworks.)</li>
 </ul>
 </div>
 <h3 id="digital-credentials-api"><a class="toc-anchor" href="#digital-credentials-api" >§</a> Digital Credentials API</h3>
