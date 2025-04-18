@@ -4,5 +4,6 @@
 # they will be requested for review when someone opens a
 # pull request.
 *       @nklomp
+*       @samuelmr
 
 # See CODEOWNERS syntax here: https://help.github.com/articles/about-codeowners/#codeowners-syntax
