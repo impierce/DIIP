@@ -343,9 +343,6 @@ This section consolidates in one place common terms used across open standards t
 
 ### Normative References
 
-[[def: DC API]]
-~ [Digital Credentials](https://wicg.github.io/digital-credentials/). Status: Draft Community Group Report.
-
 [[def: did:web]]
 ~ [did:web Method Specification](https://w3c-ccg.github.io/did-method-web/). Status: Unofficial working group draft.
 
@@ -394,6 +391,9 @@ To be discussed:
 
 [[def: Bitstring Status List]]
 ~ [Bitstring Status List v1.0](https://www.w3.org/TR/vc-bitstring-status-list/). Status: W3C Proposed Recommendation.
+
+[[def: DC API]]
+~ [Digital Credentials](https://wicg.github.io/digital-credentials/). Status: Draft Community Group Report.
 
 [[def: DID Core]]
 ~ [Decentralized Identifiers (DIDs) v1.0](https://www.w3.org/TR/did-1.0/). Status: W3C Recommendation.
