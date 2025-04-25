@@ -123,6 +123,8 @@ To keep things as simple as possible, DIIP requires implementations to use `SD-J
 
 **Requirement: DIIP-compliant implementations MUST support [Securing JSON-LD Verifiable Credentials with SD-JWT](https://www.w3.org/TR/vc-jose-cose/#secure-with-sd-jwt) as specified in ([[ref: VC-JOSE-COSE]]).**
 
+A future version of DIIP may require support for [SD-JWT VCLD](https://openid.net/specs/openid-4-verifiable-presentations-1_0.html#name-sd-jwt-vcld) defined in the draft 27 of [[ref: OID4VP]].
+
 ### Signature Algorithm
 
 There are many key types and signature methods used with JWTs. The table below lists some of the most common ones that implementations may want to support.
@@ -158,7 +160,7 @@ One way to use [[ref: OpenID Federation]] is described here as a guidance for im
 
 - [[ref: Verifier]] [[ref: Agent]]s publishi the [[ref: Verifier]]'s Entity Configurations as specified in [[ref: OIDF Wallet Architectures]]. (Simplified explanation: sign the [[ref: OID4VP]] verifier metadata as a JWT and publish it in the `.well-known` path.)
 
-**Requirement: If a [[ref: Digital Credential]] contains a [termsOfUse](https://www.w3.org/TR/vc-data-model-2.0/#terms-of-use) object with an attribute `federations`, a DIIP-compliant Wallet MUST warn the user before sharing [[ref: Digital Credential]]s or Verifiable Presentations with a [[ref: Verifier]] for which a trust chain cannot be resolved using the Trust Anchor in the value of the `federations` attribute.**
+- If a [[ref: Digital Credential]] contains a [termsOfUse](https://www.w3.org/TR/vc-data-model-2.0/#terms-of-use) object with an attribute `federations`, a DIIP-compliant Wallet MUST warn the user before sharing [[ref: Digital Credential]]s or Verifiable Presentations with a [[ref: Verifier]] for which a trust chain cannot be resolved using the Trust Anchor in the value of the `federations` attribute.
 
 ### Issuance
 The issuance of [[ref: Digital Credential]]s from the [[ref: Issuer]] to the [[ref: Holder]]'s [[ref: Wallet]] is done along the [[ref: OID4VCI]] specification. Other protocols exist, but [[ref: OID4VCI]] is very broadly supported and also required by [[ref: HAIP]].
