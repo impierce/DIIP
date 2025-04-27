@@ -20,15 +20,6 @@ Contributors and previous editors:
 ~ [Maaike van Leuken](https://www.linkedin.com/in/maaike-van-leuken-0b1b7011a/) (TNO)
 ~ [Thierry Thevenet](https://www.linkedin.com/in/thierrythevenet/) (Talao)
 
-**Special Thanks:**
-
-This profile is based on a lot of work done by the Decentralized Identity community. Given that this profile is largely based on and uses sections of the [DIF JWT VC Presentation Profile](https://identity.foundation/jwt-vc-presentation-profile/), we would like to give special thanks to the editors and contributors of that profile.
-
-Participate:
-~ [GitHub repo](https://github.com/FIDEScommunity/DIIP.git)
-~ [File a bug](https://github.com/FIDEScommunity/DIIP.git/issues)
-~ [Commit history](https://github.com/FIDEScommunity/DIIP.git/commits/main)
-
 ------------------------------------
 
 ## Abstract
@@ -59,11 +50,27 @@ The main objective of this profile is to allow for easy adoption and use the min
 
 The Decentralized Identity Interop Profile v4 is a DRAFT specification under development.
 
-The latest published DIIP profile can be found at [https://FIDEScommunity.github.io/DIIP/latest](https://FIDEScommunity.github.io/DIIP/latest)
+The latest published DIIP profile can be found at [https://FIDEScommunity.github.io/DIIP/latest.html](https://FIDEScommunity.github.io/DIIP/latest.html)
 
 ### Audience
 
 The audience of this document includes organisations aiming to issue or verify [[ref: Digital Credential]]s, as well as the implementers of [[ref: Digital Credential]] solutions ([[ref: Wallet]]s and [[ref: Agent]]s). 
+
+### Development of the DIIP profile
+Participate:
+~ [GitHub repo](https://github.com/FIDEScommunity/DIIP.git)
+~ [File a bug](https://github.com/FIDEScommunity/DIIP.git/issues)
+~ [Commit history](https://github.com/FIDEScommunity/DIIP.git/commits/main)
+
+The development of this interoperability profile is a collaborative process. Anyone can suggest new specifications and restrictions. The suggestions are reviewed by the community, and decisions are made through discussions.
+
+Feel free to join the [FIDES Community Discord](https://discord.gg/dSNbNadE6W) to participate in the discussions.
+
+There are also monthly DIIP meetings. Contact <a href="mailto:harmen@fides.community">Harmen van der Kooij</a> if you want to be invited to the meetings.
+
+The authors inted to release new versions of the DIIP profile twice a year.
+
+Some plans and ideas for the next version are documented in the [Appendix A: Future Directions](#appendix-a-future-directions).
 
 ## Structure of this Document
 
@@ -101,11 +108,6 @@ The standards used in the DIIP profile are the same ones that the [[ref: ARF]] u
 
 While DIIP is a standalone profile and enables interoperability on it's own, it is designed to build upon and integrate with the EUDI wallet. Therefore, DIIP implementers who want to integrate with the EUDI Wallet should support [[ref: HAIP]] and the implementation regulations issued by the European Commission.
 
-### Future Work
-DIIP describes technologies that are relatively easy to implement. DIIP makes choices within those standards, attempting to set the minimum functionality required for interoperability in the use cases in DIIP's scope.
-
-When standards mature and more and more solutions have full support for all the optional functionality in the standards, there may no longer be a need for DIIP. The authors believe that this development will take years and that there is a need for DIIP now.
-
 ## Profile
 In this section, we describe the interoperability profile.
 
@@ -122,8 +124,6 @@ To keep things as simple as possible, DIIP requires implementations to use `SD-J
 **Requirement: DIIP-compliant implementations MUST support both [[ref: W3C VCDM]] and [[ref: SD-JWT VC]] as a credential format.**
 
 **Requirement: DIIP-compliant implementations MUST support [Securing JSON-LD Verifiable Credentials with SD-JWT](https://www.w3.org/TR/vc-jose-cose/#secure-with-sd-jwt) as specified in ([[ref: VC-JOSE-COSE]]).**
-
-A future version of DIIP may require support for [SD-JWT VCLD](https://openid.net/specs/openid-4-verifiable-presentations-1_0.html#name-sd-jwt-vcld) defined in the draft 27 of [[ref: OID4VP]].
 
 ### Signature Algorithm
 
@@ -144,23 +144,12 @@ However, the DIIP profile does not force everyone to support everything, but cho
 ### Identifiers
 DIIP prefers decentralized identifiers ([[ref: DID]]s) as identifiers. An entity identified by a [[ref: DID]] publishes a [DID Document](https://www.w3.org/TR/did-1.0/#dfn-did-documents), which can contain useful metadata about the entity, e.g., various endpoints. There are many DID Methods defined. The DIIP profile requires support for two of them: [[ref: did:jwk]] and [[ref: did:web]]. In many use cases, organizations are identified by [[ref: did:web]], and the natural persons are identified by [[ref: did:jwk]].
 
-**Requirement: DIIP-compliant implementations MUST support [[ref: did:jwk]] and [[ref: did:web]] as the identifiers of the [[ref: Issuer]]s, [[ref: Holder]]s, and [[ref: Verifier]]s**
-
-**Note: A near-future version of DIIP will probably require support for [[ref: did:webvh]] instead of [[ref: did:web]].**
+**Requirement: DIIP-compliant implementations MUST support [[ref: did:jwk]] and [[ref: did:web]] as the identifiers of the [[ref: Issuer]]s, [[ref: Holder]]s, and [[ref: Verifier]]s.**
 
 ### Trust Establishment
 Signatures in [[ref: Digital Credential]]s can be used to verify that the content of a credential has not been tampered with. But anyone can sign a credential and put anything in the issuer field. [[ref: Digital Credential]] ecosystems require that there is a way for a [[ref: Verifier]] to check who the [[ref: Issuer]] or a [[ref: Digital Credential]] is. Equally, a user might want to be informed about the trustworthiness of a [[ref: Verifier]] before choosing to release credentials.
 
-The DIIP v4 profile doesn't require compliant implementations to support any trust establishment mechanism. However, a future version of the profile will likely refer to [[ref: OpenID Federation]].
-In [[ref: OpenID Federation]], [[ref: Issuer]]s and [[ref: Verifier]]s publish their own Entity Configurations, which include pointers to Trust Anchors. These Trust Anchors are trusted third parties that publish Entity Statements that allow for verification of the identity and the roles of the organizations. The [[ref: OIDF Wallet Architectures]] specification specifies how to use [[ref: OpenID Federation]] with Wallets.
-
-One way to use [[ref: OpenID Federation]] is described here as a guidance for implementers.
-
-- [[ref: Issuer]] [[ref: Agent]]s publish the [[ref: Issuer]]'s Entity Configurations as specified in [[ref: OIDF Wallet Architectures]]. (Simplified explanation: sign the [[ref: OID4VCI]] issuer metadata as a JWT and publish it in the `.well-known` path.)
-
-- [[ref: Verifier]] [[ref: Agent]]s publishi the [[ref: Verifier]]'s Entity Configurations as specified in [[ref: OIDF Wallet Architectures]]. (Simplified explanation: sign the [[ref: OID4VP]] verifier metadata as a JWT and publish it in the `.well-known` path.)
-
-- If a [[ref: Digital Credential]] contains a [termsOfUse](https://www.w3.org/TR/vc-data-model-2.0/#terms-of-use) object with an attribute `federations`, a DIIP-compliant Wallet MUST warn the user before sharing [[ref: Digital Credential]]s or Verifiable Presentations with a [[ref: Verifier]] for which a trust chain cannot be resolved using the Trust Anchor in the value of the `federations` attribute.
+The DIIP v4 profile doesn't require compliant implementations to support any trust establishment mechanism.
 
 ### Issuance
 The issuance of [[ref: Digital Credential]]s from the [[ref: Issuer]] to the [[ref: Holder]]'s [[ref: Wallet]] is done along the [[ref: OID4VCI]] specification. Other protocols exist, but [[ref: OID4VCI]] is very broadly supported and also required by [[ref: HAIP]].
@@ -205,19 +194,14 @@ There are two query languages defined in [[ref: OID4VP]]: *Presentation Exchange
 
 **Requirement: DIIP-compliant implementations MUST support the `dcql_query` in the [Authorization Request](https://openid.net/specs/openid-4-verifiable-presentations-1_0-ID3.html#name-new-parameters).**
 
-[[ref: OID4VP]] defines many [Client Identifier Schemes](https://openid.net/specs/openid-4-verifiable-presentations-1_0-ID3.html#name-defined-client-identifier-s). One way to identify [[ref: Verifier]]s is through [[ref: OpenID Federation]]. Since DIIP uses [[ref: OpenID Federation]] as the trust infrastructure, it is natural to identify parties using the same protocol.
+[[ref: OID4VP]] defines many [Client Identifier Schemes](https://openid.net/specs/openid-4-verifiable-presentations-1_0-ID3.html#name-defined-client-identifier-s). One way to identify [[ref: Verifier]]s is through [[ref: OpenID Federation]]. Since DIIP uses [[ref: DID]]s, it is natural to require support for the corresponding Client Identifier Scheme.
 
-**Requirement: DIIP-compliant implementations MUST support the `https` *Client Identifier Scheme*.**
-
-***Note: The next [[ref: OID4VP]] draft versions may require that the `https` *Client Identifier Scheme* be prefixed in some way in the *presentation request*. See https://github.com/openid/OpenID4VP/pull/401.***
+**Requirement: DIIP-compliant implementations MUST support the `did` *Client Identifier Scheme*.**
 
 <!--
 '#### SIOP
 Using [[ref: SIOPv2 D13]], [[ref: Holder]]s can authenticate themselves with self-issued ID tokens and present self-attested claims directly to [[ref: Verifier]]s (Relying Parties). The OpenID provider (OP) as specified in [[ref: OpenID Connect Core]] are under the subject's local control.
 -->
-
-### Digital Credentials API
-[[ref: DC API]] is a new W3C specification. The next versions of the DIIP protocol will most likely require compliant solutions to support [[ref: DC API]]. If DIIP v4 compliant implementations support [[ref: DC API]], they should try to use that for credential issuance and verification and fall back to custom URI schemes if required.
 
 ### Validity and Revocation Algorithm
 Expiration algorithms using [validFrom](https://www.w3.org/TR/vc-data-model-2.0/#defn-validFrom) and [validUntil](https://www.w3.org/TR/vc-data-model-2.0/#defn-validUntil) are a powerful mechanism to establish the validity of credentials. Evaluating the expiration of a credential is much more efficient than using revocation mechanisms. While the absence of `validFrom` and `validUntil` would suggest a credential is considered valid indefinitely, it is recommended that all implementations set validity expiration whenever possible to allow for clear communication to [[ref: Holder]]s and [[ref: Verifier]]s.
@@ -288,12 +272,6 @@ This section consolidates in one place common terms used across open standards t
 [[def: OID4VP]]
 ~ [OpenID for Verifiable Presentations - draft 23](https://openid.net/specs/openid-4-verifiable-presentations-1_0-ID3.html). Status: Third Implementer's Draft.
 
-[[def: OIDF Wallet Architectures]]
-~ [OpenID Federation Wallet Architectures 1.0 - draft 03](https://openid.net/specs/openid-federation-wallet-1_0-03.html). Status: Draft.
-
-[[def: OpenID Federation]]
-~ [OpenID Federation 1.0 - draft 42](https://openid.net/specs/openid-federation-1_0-42.html). Status: draft.
-
 [[def: SD-JWT VC]]
 ~ [SD-JWT-based Verifiable Credentials (SD-JWT VC) - draft 08](https://datatracker.ietf.org/doc/draft-ietf-oauth-sd-jwt-vc/08/). Status: WG Document.
 
@@ -315,14 +293,8 @@ This section consolidates in one place common terms used across open standards t
 [[def: Bitstring Status List]]
 ~ [Bitstring Status List v1.0](https://www.w3.org/TR/vc-bitstring-status-list/). Status: W3C Proposed Recommendation.
 
-[[def: DC API]]
-~ [Digital Credentials](https://wicg.github.io/digital-credentials/). Status: Draft Community Group Report.
-
 [[def: DID Core]]
 ~ [Decentralized Identifiers (DIDs) v1.0](https://www.w3.org/TR/did-1.0/). Status: W3C Recommendation.
-
-[[def: did:webvh]]
-~ [The did:webvh DID Method v0.5](https://identity.foundation/didwebvh/). Status: CURRENT STABLE.
 
 [[def: eIDAS]]
 ~ [Regulation (EU) No 910/2014 of the European Parliament and of the Council of 23 July 2014 on electronic identification and trust services for electronic transactions in the internal market and repealing Directive 1999/93/EC](https://eur-lex.europa.eu/eli/reg/2014/910). Status: In force.
