@@ -12,22 +12,13 @@ Editors:
 ~ [Niels Klomp](https://www.linkedin.com/in/niels-klomp/) (Sphereon)
 ~ [Niels van Dijk](https://www.linkedin.com/in/creativethings/) (SURF)
 ~ [Samuel Rinnetmäki](https://www.linkedin.com/in/samuel/) (Findynet)
+~ [Timo Glastra](https://www.linkedin.com/in/timoglastra/) (Animo Solutions)
 
 Contributors and previous editors:
 ~ [Adam Eunson](https://www.linkedin.com/in/adameunson/) (Auvo)
 ~ [Jelle Millenaar](https://www.linkedin.com/in/jellefm/) (Impierce Technonologies)
 ~ [Maaike van Leuken](https://www.linkedin.com/in/maaike-van-leuken-0b1b7011a/) (TNO)
-~ [Timo Glastra](https://www.linkedin.com/in/timoglastra/) (Animo Solutions)
 ~ [Thierry Thevenet](https://www.linkedin.com/in/thierrythevenet/) (Talao)
-
-**Special Thanks:**
-
-This profile is based on a lot of work done by the Decentralized Identity community. Given that this profile is largely based on and uses sections of the [DIF JWT VC Presentation Profile](https://identity.foundation/jwt-vc-presentation-profile/), we would like to give special thanks to the editors and contributors of that profile.
-
-Participate:
-~ [GitHub repo](https://github.com/FIDEScommunity/DIIP.git)
-~ [File a bug](https://github.com/FIDEScommunity/DIIP.git/issues)
-~ [Commit history](https://github.com/FIDEScommunity/DIIP.git/commits/main)
 
 ------------------------------------
 
@@ -40,21 +31,15 @@ The Decentralized Identity Interop Profile, or DIIP for short, defines requireme
 | Credential format                                                        | W3C Verifiable Credentials Data Model ([[ref: W3C VCDM]])     |
 | Signature scheme                                                         | SD-JWT as specified in [[ref: VC-JOSE-COSE]]                  |
 | Signature algorithm                                                      | [[ref: ES256]]                                                |
-| Identifying [[ref: Issuer]]s, [[ref: Holder]]s, and [[ref: Verifier]]s** | `JWK`                                                         |
-| Identifying [[ref: Issuer]]s and [[ref: Verifier]]s**                    | [[ref: did:web]]                                              |
+| Identifying [[ref: Issuer]]s, [[ref: Holder]]s, and [[ref: Verifier]]s   | [[ref: did:jwk]] and [[ref: did:web]]                         |
 | Issuance protocol                                                        | OpenID for Verifiable Credentials Issuance ([[ref: OID4VCI]]) |
 | Presentation protocol                                                    | OpenID for Verifiable Presentations ([[ref: OID4VP]])         |
 | Revocation mechanism                                                     | [[ref: IETF Token Status List]]                               |
 | Trust establishment                                                      | [[ref: OpenID Federation]]                                    |
 
-The [Normative References](#normative-references) section links to the versions of specifications that DIIP-compliant implementations must support.
+<!-- - [[ref: SIOPv2]] -->
 
-<div style="border: 4px solid red;">
-To be discussed:
-<ul>
-<li>Do we want to show standard/draft versions more prominently here? <strong>Pros:</strong> One can immediately see which versions are supported. <strong>Cons:</strong> Versions are specified in multiple places in the spec, and they need to be synced whenever a new version is drafted or published. The version information is already visible in tooltips. The table here doesn't contain all the DIIP requirements. One should read the <a href="#profile">Profile</a> and <a href="#normative-references">Normative References</a> sections to understand what's required.</li>
-</ul>
-</div>
+The [Normative References](#normative-references) section links to the versions of specifications that DIIP-compliant implementations must support.
 
 This document is not a specification but a **profile**. It outlines existing specifications required for implementations to interoperate with each other. 
 It also clarifies mandatory features for the options mentioned in the referenced specifications.
@@ -65,11 +50,27 @@ The main objective of this profile is to allow for easy adoption and use the min
 
 The Decentralized Identity Interop Profile v4 is a DRAFT specification under development.
 
-The latest published DIIP profile can be found at [https://FIDEScommunity.github.io/DIIP/latest](https://FIDEScommunity.github.io/DIIP/latest)
+The latest published DIIP profile can be found at [https://FIDEScommunity.github.io/DIIP/latest.html](https://FIDEScommunity.github.io/DIIP/latest.html)
 
 ### Audience
 
 The audience of this document includes organisations aiming to issue or verify [[ref: Digital Credential]]s, as well as the implementers of [[ref: Digital Credential]] solutions ([[ref: Wallet]]s and [[ref: Agent]]s). 
+
+### Development of the DIIP profile
+Participate:
+~ [GitHub repo](https://github.com/FIDEScommunity/DIIP.git)
+~ [File a bug](https://github.com/FIDEScommunity/DIIP.git/issues)
+~ [Commit history](https://github.com/FIDEScommunity/DIIP.git/commits/main)
+
+The development of this interoperability profile is a collaborative process. Anyone can suggest new specifications and restrictions. The suggestions are reviewed by the community, and decisions are made through discussions.
+
+Feel free to join the [FIDES Community Discord](https://discord.gg/dSNbNadE6W) to participate in the discussions.
+
+There are also monthly DIIP meetings. Contact <a href="mailto:harmen@fides.community">Harmen van der Kooij</a> if you want to be invited to the meetings.
+
+The authors inted to release new versions of the DIIP profile twice a year.
+
+Some plans and ideas for the next version are documented in the [Appendix A: Future Directions](#appendix-a-future-directions).
 
 ## Structure of this Document
 
@@ -88,13 +89,10 @@ The [[ref: W3C VCDM]] specification defines a data model for [[ref: Digital Cred
 The ([[ref: OID4VCI]]) and ([[ref: OID4VP]]) protocols define the interaction between [[ref: Wallet]]s and [[ref: Agent]]s but don't specify a data model or a credential format.
 
 This interoperability profile makes selections by combining a set of specifications. It chooses standards for credential format, signature algorithm, identifying actors, and issuance and presentation protocols. Instead of saying, *"We use [[ref: W3C VCDM]] credentials signed with [[ref: VC-JOSE-COSE]] using [[ref: ES256]] as the signature algorithm, [[ref: OID4VCI]] as the issuance protocol, and [[ref: OID4VP]] as the presentation protocol, and [[ref: OpenID Federation]] for trust establishment,"* you can just say, *"We use DIIP."*
-<!-- - [[ref: SIOPv2]] -->
-<!-- - [[ref: Status List 2021 (First public draft)]] -->
-<!-- - [[ref: did-web]] and [[ref: did-jwk]] -->
 
 In addition, the DIIP profile makes selections *within* the specifications. When a standard allows multiple ways of implementing something, DIIP makes one of those ways mandatory. As an implementer, you don't need to fully support all specifications to be DIIP-compliant. DIIP makes these choices to accelerate adoption and interoperability – defining the minimum required functionality.
 
-DIIP does not exclude anything. For example, when DIIP says that compliant implementations MUST support `JWK` as an identifier of the [[ref: Issuer]]s, [[ref: Holder]]s, and [[ref: Verifier]]s, it doesn't say that other identifiers cannot be used. The [[ref: Wallet]]s and [[ref: Agent]]s can support other identifiers as well and still be DIIP-compliant.
+DIIP does not exclude anything. For example, when DIIP says that compliant implementations MUST support [ref: did:jwk] as an identifier of the [[ref: Issuer]]s, [[ref: Holder]]s, and [[ref: Verifier]]s, it doesn't say that other identifiers cannot be used. The [[ref: Wallet]]s and [[ref: Agent]]s can support other identifiers as well and still be DIIP-compliant.
 
 Trust ecosystems can also easily extend DIIP by saying, "We use the DIIP profile *and allow `mDocs` as an additional credential format.*" They can also switch requirements by saying, "We use the DIIP profile *but use [[ref: VC-DATA-INTEGRITY]] as an embedded proof mechanism*."
 
@@ -102,21 +100,13 @@ The design goal for DIIP is to ensure interoperability between [[ref: Agent]]s a
 
 ### Relationship to eIDAS regulation and HAIP profile
 
-In the context of the European eIDAS regulation ([[ref: eIDAS]]) and its Architecture and Reference Framework ([[ref: ARF]]), the DIIP profile is a profile for "regular" digital credentials, "non-qualified electronic attestations of attributes". The OpenID4VC High Assurance Interoperability Profile ([[ref: HAIP]]) is targeted for high-assurance use cases where it is important to bind the credentials to the [[ref: Holder]]'s private key (device binding). DIIP is the profile for other use cases.
+In the context of the European eIDAS regulation ([[ref: eIDAS]]) and its Architecture and Reference Framework ([[ref: ARF]]), the DIIP profile is a profile for "regular" digital credentials, "non-qualified electronic attestations of attributes".
 
-The standards used in the DIIP profile are the same ones that the [[ref: ARF]] uses, but the DIIP profile makes different choices to [[ref: HAIP]] in many areas where [[ref: OID4VCI]] and [[ref: OID4VP]] provide optionality. DIIP aims to keep the selected OpenID4VCI and OpenID4VP Draft versions in sync with HAIP to lower implementation overhead.
+Digital [[ref: Agent]]s and [[ref: Wallet]]s may support both DIIP and the OpenID4VC High Assurance Interoperability Profile ([[ref: HAIP]]). [[ref: HAIP]] is targeted for high-assurance use cases where it is important to bind the credentials to the [[ref: Holder]]'s private key (device binding). DIIP is the profile for other use cases.
 
-<div style="border: 4px solid red;">
-To be discussed:
-<ul>
-<li>Should we explicitly state that DIIP does not focus on proximity use cases?</li>
-</ul>
-</div>
+The standards used in the DIIP profile are the same ones that the [[ref: ARF]] uses, but DIIP makes different choices to [[ref: HAIP]] in some areas where [[ref: OID4VCI]] and [[ref: OID4VP]] provide optionality. 
 
-### Future Work
-DIIP describes technologies that are relatively easy to implement. DIIP makes choices within those standards, attempting to set the minimum functionality required for interoperability in the use cases in DIIP's scope.
-
-When standards mature and more and more solutions have full support for all the optional functionality in the standards, there may no longer be a need for DIIP. The authors believe that this development will take years and that there is a need for DIIP now.
+While DIIP is a standalone profile and enables interoperability on it's own, it is designed to build upon and integrate with the EUDI wallet. Therefore, DIIP implementers who want to integrate with the EUDI Wallet should support [[ref: HAIP]] and the implementation regulations issued by the European Commission.
 
 ## Profile
 In this section, we describe the interoperability profile.
@@ -124,21 +114,20 @@ In this section, we describe the interoperability profile.
 ### Credential Format
 The W3C Verifiable Credential Data Model ([[ref: W3C VCDM]]) defines structure and vocabulary well suited for [[ref: Digital Credential]]s in DIIP's scope. For example, the [[ref: Open Badges 3]] credentials use [[ref: W3C VCDM]] as the data format.
 
+The SD-JWT-based Verifiable Credentials specification ([[ref: SD-JWT VC]]) defines a credential format that are serialized in JSON Web Tokens ([[ref: JWT]]s) and enable selective disclosure. [[ref: SD-JWT VC]] is used as a credential format for person identification data (PID) in [[ref: HAIP]] and [[ref: ARF]] (in addition to `mDocs`).
+
 [[ref: W3C VCDM]] recommends using Securing Verifiable Credentials using JOSE and COSE ([[ref: VC-JOSE-COSE]]) as an *enveloping proof* mechanism and 
-Verifiable Credential Data Integrity 1.0 ([[ref: VC-DATA-INTEGRITY]]) as an *embedded proof* mechanism. Many [[ref: Agent]]s and [[ref: Wallet]]s already support `SD-JWT` as a way to encode [[ref: Digital Credential]]s. Using `SD-JWT` to secure [[ref: W3C VCDM]] [[ref: Digital Credential]]s should be relatively easy to implement, even though there are differences with the `SD-JWT-VC` mechanism required by [[ref: HAIP]].
+Verifiable Credential Data Integrity 1.0 ([[ref: VC-DATA-INTEGRITY]]) as an *embedded proof* mechanism.
+
+To keep things as simple as possible, DIIP requires implementations to use `SD-JWT` as the mechanism to secure also [[ref: W3C VCDM]]-based credentials.
+
+**Requirement: DIIP-compliant implementations MUST support both [[ref: W3C VCDM]] and [[ref: SD-JWT VC]] as a credential format.**
 
 **Requirement: DIIP-compliant implementations MUST support [Securing JSON-LD Verifiable Credentials with SD-JWT](https://www.w3.org/TR/vc-jose-cose/#secure-with-sd-jwt) as specified in ([[ref: VC-JOSE-COSE]]).**
 
-<div style="border: 4px solid red;">
-To be discussed:
-<ul>
-<li>Do we want to mandate support for <code>SD-JWT-VC 0.8</code> and <code>mDocs</code> credential formats? <strong>Pros:</strong> You can use DIIP for authentication use cases. <strong>Cons:</strong> You should use HAIP for those use cases. There is nothing that prevents a wallet or an agent from supporting both HAIP and DIIP if the use case requires both. If DIIP requires support for 3 credential formats, every ecosystem owner must make their own choice of the format.</li>
-<li>Should DIIP focus on open and freely available standards instead of those behind paywalls and restricted participation?</li>
-</ul>
-</div>
-
 ### Signature Algorithm
-When working with JWTs, it is recommended to support multiple encryption keys, supporting several signature algorithms. The table below shows the mandatory keys and signature algorithms that DIIP-compliant parties must implement:
+
+There are many key types and signature methods used with JWTs. The table below lists some of the most common ones that implementations may want to support.
 
 |Key types | Signature Method|
 |----------|-----------------|		
@@ -148,68 +137,19 @@ When working with JWTs, it is recommended to support multiple encryption keys, s
 |Secp256k1 | ES256K          |	
 |RSA       | RSA256          |
 
-**Requirement: DIIP-compliant implementations MUST support the key types and signature methods in the table above.**
+However, the DIIP profile does not force everyone to support everything, but chooses one key type [[ref: Secp256r1]] and one signature method [[ref: ES256]] that all implementations must support.
 
-<div style="border: 4px solid red;">
-To be discussed:
-<ul>
-<li>Can we link to specifications?</li>
-<li>Could we stick to one or at most two key types and signature methods?</li>
-</ul>
-</div>
+**Requirement: DIIP-compliant implementations MUST support [[ref: ES256]] (`ECDSA` using [[ref: Secp256r1]] curve and `SHA-256` message digest algorithm).**
 
 ### Identifiers
-In its previous versions, DIIP used [[ref: DID]]s for all identifiers. An entity identified by a [[ref: DID]] publishes a [DID Document](https://www.w3.org/TR/did-1.0/#dfn-did-documents), which can contain useful metadata about the entity, e.g., various endpoints. Following the rationale of keeping things as simple as possible, this version of DIIP only requires compliant implementations to support one [[ref: DID]] method, [[ref: did:web]]. [[ref: Issuer]]s and [[ref: Verifier]]s can choose to use plain `JWK`s as their identifiers. They are not mandated to use [[ref: did:web]] even if the compliant solutions are required to support it.
+DIIP prefers decentralized identifiers ([[ref: DID]]s) as identifiers. An entity identified by a [[ref: DID]] publishes a [DID Document](https://www.w3.org/TR/did-1.0/#dfn-did-documents), which can contain useful metadata about the entity, e.g., various endpoints. There are many DID Methods defined. The DIIP profile requires support for two of them: [[ref: did:jwk]] and [[ref: did:web]]. In many use cases, organizations are identified by [[ref: did:web]], and the natural persons are identified by [[ref: did:jwk]].
 
-**Requirement: DIIP-compliant implementations MUST support `JWK` as an identifier of the [[ref: Issuer]]s, [[ref: Holder]]s, and [[ref: Verifier]]s**
-
-**Requirement: DIIP-compliant implementations MUST support [[ref: did:web]] as an identifier of the [[ref: Issuer]]s and [[ref: Verifier]]s**
-
-**Note: A near-future version of DIIP will probably require support for [[ref: did:webvh]] instead of [[ref: did:web]].**
-
-***Note: We should make sure that it's OK to identify Issuers and Verifiers with only `JWK` while using OpenID Federation!***
-
-<div style="border: 4px solid red;">
-To be discussed:
-<ul>
-<li>Should DIIP say that <em>organizations</em> are identified by different means than <em>natural persons</em>? <strong>Pros:</strong> Legal requirements (GDPR) are different. In some cases, organizational wallets need to be continuously online and reachable. <strong>Cons:</strong> It's more complex. Digital credential ecosystems function with 3 basic roles: <em>issuer</em>, <em>holder</em>, and <em>verifier</em>. When you bring in the distinction between natural and legal persons, you end up with 6 roles (natural person issuer, legal person issuer, natural person holder, legal person holder, natural person verifier, legal person verifier). It is possible to state that DIIP doesn't need to support natural person issuers and verifiers, but all this is just extra noise.</li>
-<li>Should DIIP require <code>did:jwk</code> instead of just <code>JWK</code>? <strong>Pros:</strong> Strong focus on DIDs. DID documents have beneficial traits like the capability to publish the DID holder's endpoints. <strong>Cons:</strong> More work, little added value. DID document functionality is not heavily used anywhere.</li>
-<li>Should it be forbidden that organizations use <code>JWK</code> or <code>did:jwk</code>?</li>
-</ul>
-</div>
+**Requirement: DIIP-compliant implementations MUST support [[ref: did:jwk]] and [[ref: did:web]] as the identifiers of the [[ref: Issuer]]s, [[ref: Holder]]s, and [[ref: Verifier]]s.**
 
 ### Trust Establishment
 Signatures in [[ref: Digital Credential]]s can be used to verify that the content of a credential has not been tampered with. But anyone can sign a credential and put anything in the issuer field. [[ref: Digital Credential]] ecosystems require that there is a way for a [[ref: Verifier]] to check who the [[ref: Issuer]] or a [[ref: Digital Credential]] is. Equally, a user might want to be informed about the trustworthiness of a [[ref: Verifier]] before choosing to release credentials.
 
-DIIP uses [[ref: OpenID Federation]] as the trust infrastructure protocol. [[ref: Issuer]]s and [[ref: Verifier]]s publish their own Entity Configurations, which include pointers to Trust Anchors. These Trust Anchors are trusted third parties that publish Entity Statements that allow for verification of the identity and the roles of the organizations. The [[ref: OIDF Wallet Architectures]] specification specifies how to use [[ref: OpenID Federation]] with Wallets.
-
-**Requirement: DIIP-compliant [[ref: Issuer]] [[ref: Agent]]s MUST support publishing the [[ref: Issuer]]'s Entity Configurations as specified in [[ref: OIDF Wallet Architectures]].**
-
-(Simplifying explanation: sign the [[ref: OID4VCI]] issuer metadata as a JWT and publish it in the `.well-known` path.)
-
-**Requirement: DIIP-compliant [[ref: Verifier]] [[ref: Agent]]s MUST support publishing the [[ref: Verifier]]'s Entity Configurations as specified in [[ref: OIDF Wallet Architectures]].**
-
- (Simplifying explanation: sign the [[ref: OID4VP]] verifier metadata as a JWT and publish it in the `.well-known` path.)
-
-**Requirement: If a [[ref: Digital Credential]] contains a [termsOfUse](https://www.w3.org/TR/vc-data-model-2.0/#terms-of-use) object with an attribute `federations`, a DIIP-compliant Wallet MUST warn the user before sharing [[ref: Digital Credential]]s or Verifiable Presentations with a [[ref: Verifier]] for which a trust chain cannot be resolved using the Trust Anchor in the value of the `federations` attribute.**
-
-<div style="border: 4px solid red;">
-To be discussed:
-<ul>
-<li>Should DIIP require even this basic support for OpenID Federation? <strong>Pros:</strong> Any credential ecosystem needs some way to etablish trust between the verifier and the issuer. Often also between the verifier and the holder. Making a choice and sticking to one way to do that creates a simpler profile. <strong>Cons:</strong> Sometimes static trust lists are just a simpler option. There already exists some documentation on how to use the eIDAS lists of trusted lists. (?)</li>
-<li>Should we have a note saying that a future version may refer to the ToIP <a href="https://trustoverip.github.io/tswg-trust-registry-protocol/">Trust Registry Query Protocol</a> or <a href="https://gitlab.cc-asp.fraunhofer.de/train">TRAIN</a>? (Both attempt to create an overlay on top of multiple trust frameworks.)</li>
-</ul>
-</div>
-
-### Digital Credentials API
-[[ref: DC API]] is a new W3C specification. The next versions of the DIIP protocol will most likely require compliant solutions to support [[ref: DC API]]. If DIIP v4 compliant implementations support [[ref: DC API]], they should try to use that for credential issuance and verification and fall back to custom URI schemes if required.
-
-<div style="border: 4px solid red;">
-To be discussed:
-<ul>
-<li>Should these kinds of optional features and future-proofing be collected into a separate <em>Optional Features</em> section? <strong>Pros:</strong> Clear separation between optional and mandatory features. <strong>Cons:</strong> The document structure gets complex if you repeat the same subheadings (credential format, signature algorithm, identifiers, etc.) in the <em>Optional Features</em> section. It is harder to read and process if you don't have subheadings in the <em>Optional Features</em> section.</li>
-</ul>
-</div>
+The DIIP v4 profile doesn't require compliant implementations to support any trust establishment mechanism.
 
 ### Issuance
 The issuance of [[ref: Digital Credential]]s from the [[ref: Issuer]] to the [[ref: Holder]]'s [[ref: Wallet]] is done along the [[ref: OID4VCI]] specification. Other protocols exist, but [[ref: OID4VCI]] is very broadly supported and also required by [[ref: HAIP]].
@@ -218,38 +158,19 @@ The issuance of [[ref: Digital Credential]]s from the [[ref: Issuer]] to the [[r
 OpenID for Verifiable Credential Issuance ([[ref: OID4VCI]]) defines an API for the issuance of [[ref: Digital Credential]]s.
 OID4VCI [issuance flow variations](https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0-ID2.html#name-issuance-flow-variations) leave room for optionality.
 
-In many situations, [[ref: Digital Credential]]s are issued on the [[ref: Issuer]]'s online service (website). This online service may have already authenticated and authorized the user before displaying the credential offer. Another authentication or authorization is not needed in those situations. To keep things as simple as possible, DIIP uses *Pre-Authorized Code Flow*.
+In many situations, [[ref: Digital Credential]]s are issued on the [[ref: Issuer]]'s online service (website). This online service may have already authenticated and authorized the user before displaying the credential offer. Another authentication or authorization is not needed in those situations.
+
+Authorization Code Flow provides a more advanced way of implementing credential issuance. 
+
+**Requirement: DIIP-compliant implementations MUST support both *Pre-Authorized Code Flow* and *Authorization Code Flow*.**
+
+**Requirement: DIIP-compliant implementations MUST support the Transaction Code when using *Pre-Authorized Code Flow*.**
+
+**Requirement: DIIP-compliant implementations MUST support the `trust_chain` claim when using *Pre-Authorized Code Flow*.**
+
+**Requirement: DIIP-compliant implementations MUST NOT assume the Authorization Server is on the same domain as the [[ref: Issuer]].**
 
 It should be noted that various [Security Considerations](https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0.html#name-pre-authorized-code-flow-2) have been described in the [[ref: OID4VCI]] specification with respect to implementing *Pre-Authorized Code Flow*. Parties implementing DIIP are strongly suggested to implement mitigating measures, like the use of a Transaction Code.
-
-**Requirement: DIIP-compliant implementations MUST support the *Pre-Authorized Code Flow*.**
-
-**Requirement: DIIP-compliant implementations SHOULD support the Transaction Code when using *Pre-Authorized Code Flow*.**
-
-**Requirement: DIIP-compliant implementations supporting a Transaction Code MUST support a string of length between 4 to 6 text characters (any characters).**
-
-**Requirement: DIIP-compliant implementations MUST support the trust_chain claim when using *Pre-Authorized Code Flow*.**
-
-<div style="border: 4px solid red;">
-To be discussed:
-<ul>
-<li>Why not just make the Transaction Code a MUST feature?</li>
-<li>Is this more guidance to the ecosystems than requirement for wallets and agents?</li>
-</ul>
-</div>
-
-Authorization Code Flow provides a more advanced way of implementing credential issuance. DIIP-compliant implementations MUST implement Authorization Code Flow. Depending on the setup, the authorization server (AS) may be different from the [[ref: Issuer]]. 
-
-**Requirement: DIIP-compliant implementations MUST support the *Authorization Code Flow*.**
-
-**Requirement: DIIP-compliant implementations SHOULD NOT assume the Authorization Server is on the same FQDN as the [[ref: Issuer]] when supporting the *Authorization Code Flow*.**
-
-<div style="border: 4px solid red;">
-To be discussed:
-<ul>
-<li>MUST NOT assume instead of SHOULD NOT assume?</li>
-</ul>
-</div>
 
 [[ref: OID4VCI]] defines *Wallet-initiated* and *Issuer-initiated* flows. *Wallet-initiated* means that the [[ref: Wallet]] can start the flow without any activity from the [[ref: Issuer]]. The *Issuer-initiated* flow seems to be more common in many use cases and seems to be supported more widely. It also aligns better with the use cases where the [[ref: Holder]] is authenticated and authorized in an online service before the credential offer is created and shown.
 
@@ -273,11 +194,9 @@ There are two query languages defined in [[ref: OID4VP]]: *Presentation Exchange
 
 **Requirement: DIIP-compliant implementations MUST support the `dcql_query` in the [Authorization Request](https://openid.net/specs/openid-4-verifiable-presentations-1_0-ID3.html#name-new-parameters).**
 
-[[ref: OID4VP]] defines many [Client Identifier Schemes](https://openid.net/specs/openid-4-verifiable-presentations-1_0-ID3.html#name-defined-client-identifier-s). One way to identify [[ref: Verifier]]s is through [[ref: OpenID Federation]]. Since DIIP uses [[ref: OpenID Federation]] as the trust infrastructure, it is natural to identify parties using the same protocol.
+[[ref: OID4VP]] defines many [Client Identifier Schemes](https://openid.net/specs/openid-4-verifiable-presentations-1_0-ID3.html#name-defined-client-identifier-s). One way to identify [[ref: Verifier]]s is through [[ref: OpenID Federation]]. Since DIIP uses [[ref: DID]]s, it is natural to require support for the corresponding Client Identifier Scheme.
 
-**Requirement: DIIP-compliant implementations MUST support the `https` *Client Identifier Scheme*.**
-
-***Note: The next [[ref: OID4VP]] draft versions may require that the `https` *Client Identifier Scheme* be prefixed in some way in the *presentation request*. See https://github.com/openid/OpenID4VP/pull/401.***
+**Requirement: DIIP-compliant implementations MUST support the `did` *Client Identifier Scheme*.**
 
 <!--
 '#### SIOP
@@ -287,21 +206,13 @@ Using [[ref: SIOPv2 D13]], [[ref: Holder]]s can authenticate themselves with sel
 ### Validity and Revocation Algorithm
 Expiration algorithms using [validFrom](https://www.w3.org/TR/vc-data-model-2.0/#defn-validFrom) and [validUntil](https://www.w3.org/TR/vc-data-model-2.0/#defn-validUntil) are a powerful mechanism to establish the validity of credentials. Evaluating the expiration of a credential is much more efficient than using revocation mechanisms. While the absence of `validFrom` and `validUntil` would suggest a credential is considered valid indefinitely, it is recommended that all implementations set validity expiration whenever possible to allow for clear communication to [[ref: Holder]]s and [[ref: Verifier]]s.
 
-**Requirement: DIIP-compliant implementations SHOULD implement exiration using validFrom and validUntil whenever possible.**
-
-<div style="border: 4px solid red;">
-To be discussed:
-<ul>
-<li>Is this more guidance to the ecosystems than requirement for wallets and agents?</li>
-</ul>
-</div>
-
+**Requirement: DIIP-compliant implementations MUST support checking the validity status of a [[ref: Digital Credential]] using `validFrom` and `validUntil` when they are specified.**
 
 The [[ref: IETF Token Status List]] defines a mechanism, data structures, and processing rules for representing the status of [[ref: Digital Credential]]s (and other "Tokens"). The statuses of Tokens are conveyed via a bit array in the Status List. The Status List is embedded in a Status List Token.
 
 The [[ref: Bitstring Status List]] is based on the same idea as the [[ref: IETF Token Status List]] and is simpler to implement since it doesn't require signing of the status list. The [[ref: IETF Token Status List]] may gain more support since it is recommended by [[ref: HAIP]].
 
-**Requirement: DIIP-compliant implementations MUST support IETF Token Status Lists embedded in JWT tokens.**
+**Requirement: DIIP-compliant implementations MUST support [[ref: IETF Token Status List]] as a status list mechanism.**
 
 ## Terminology
 
@@ -343,14 +254,14 @@ This section consolidates in one place common terms used across open standards t
 
 ### Normative References
 
-[[def: DC API]]
-~ [Digital Credentials](https://wicg.github.io/digital-credentials/). Status: Draft Community Group Report.
+[[def: did:jwk]]
+~ [did:jwk Method Specification](https://github.com/quartzjer/did-jwk/blob/main/spec.md). Status: Draft.
 
 [[def: did:web]]
 ~ [did:web Method Specification](https://w3c-ccg.github.io/did-method-web/). Status: Unofficial working group draft.
 
 [[def: ES256]]
-~ ECDSA using P-256 and SHA-256 as specified in [RFC 7518 JSON Web Algorithms (JWA)](https://datatracker.ietf.org/doc/html/rfc7518). Status: RFC - Proposed Standard.
+~ `ECDSA` using `P-256` ([[ref: Secp256r1]]) and `SHA-256` as specified in [RFC 7518 JSON Web Algorithms (JWA)](https://datatracker.ietf.org/doc/html/rfc7518). Status: RFC - Proposed Standard.
 
 [[def: IETF Token Status List]]
 ~ [Token Status List - draft 10](https://datatracker.ietf.org/doc/draft-ietf-oauth-status-list/10/). Status: Internet-Draft.
@@ -361,31 +272,18 @@ This section consolidates in one place common terms used across open standards t
 [[def: OID4VP]]
 ~ [OpenID for Verifiable Presentations - draft 23](https://openid.net/specs/openid-4-verifiable-presentations-1_0-ID3.html). Status: Third Implementer's Draft.
 
-[[def: OIDF Wallet Architectures]]
-~ [OpenID Federation Wallet Architectures 1.0 - draft 03](https://openid.net/specs/openid-federation-wallet-1_0-03.html). Status: Draft.
+[[def: SD-JWT VC]]
+~ [SD-JWT-based Verifiable Credentials (SD-JWT VC) - draft 08](https://datatracker.ietf.org/doc/draft-ietf-oauth-sd-jwt-vc/08/). Status: WG Document.
 
-[[def: OpenID Federation]]
-~ [OpenID Federation 1.0 - draft 42](https://openid.net/specs/openid-federation-1_0-42.html). Status: draft.
-
-<div style="border: 4px solid red;">
-To be discussed:
-<ul>
-<li>Link to the latest Implementer's Draft instead (ID4, draft 36)? </li>
-</ul>
-</div>
+[[def: Secp256r1]]
+~ `Secp256r1` curve in [RFC 5480 ECC SubjectPublicKeyInfo Format](https://datatracker.ietf.org/doc/html/rfc5480). Status: RFC - Proposed Standard.
+~ This curve is called `P-256` in [RFC 7518 JSON Web Algorithms (JWA)](https://datatracker.ietf.org/doc/html/rfc7518). Status: RFC - Proposed Standard.
 
 [[def: W3C VCDM]]
 ~ [Verifiable Credentials Data Model v2.0](https://www.w3.org/TR/vc-data-model-2.0/). Status: W3C Proposed Recommendation.
 
 [[def: VC-JOSE-COSE]]
 ~ [Securing Verifiable Credentials using JOSE and COSE](https://www.w3.org/TR/vc-jose-cose/). Status: W3C Proposed Recommendation.
-
-<div style="border: 4px solid red;">
-To be discussed:
-<ul>
-<li>Should the specs be grouped by the SDOs? <strong>Pros:</strong> More emphasis on the standard development organizations. More structure. <strong>Cons:</strong> Assumes that the reader knows under which heading to look for a reference. It's a short list and the benefits of grouping would be limited.</li>
-</ul>
-</div>
 
 ### Non-Normative References
 
@@ -398,14 +296,14 @@ To be discussed:
 [[def: DID Core]]
 ~ [Decentralized Identifiers (DIDs) v1.0](https://www.w3.org/TR/did-1.0/). Status: W3C Recommendation.
 
-[[def: did:webvh]]
-~ [The did:webvh DID Method v0.5](https://identity.foundation/didwebvh/). Status: CURRENT STABLE.
-
 [[def: eIDAS]]
 ~ [Regulation (EU) No 910/2014 of the European Parliament and of the Council of 23 July 2014 on electronic identification and trust services for electronic transactions in the internal market and repealing Directive 1999/93/EC](https://eur-lex.europa.eu/eli/reg/2014/910). Status: In force.
 
 [[def: HAIP]]
 ~ [OpenID4VC High Assurance Interoperability Profile](https://openid.net/specs/openid4vc-high-assurance-interoperability-profile-1_0.html). Status: Draft.
+
+[[def: JWT]]
+~ [RFC 7519 JSON Web Token (JWT)](https://datatracker.ietf.org/doc/html/rfc7519). Status: RFC - Proposed Standard.
 
 [[def: Open Badges 3]]
 ~ [Open Badges Specification, Spec Version 3.0, Document Version 1.2](https://www.imsglobal.org/spec/ob/v3p0). Status: This document is made available for adoption by the public community at large.

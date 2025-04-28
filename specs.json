@@ -4,6 +4,10 @@
     {
       "title": "Decentralized Identity Interop Profile",
       "spec_directory": "./spec",
+      "markdown_paths": [
+        "spec.md",
+        "future.md"
+      ],
       "output_path": "./",
       "logo": "logo.png",
       "logo_link": "https://github.com/FIDEScommunity/DIIP",
