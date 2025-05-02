@@ -159,7 +159,7 @@ OID4VCI [issuance flow variations](https://openid.net/specs/openid-4-verifiable-
 
 In many situations, [[ref: Digital Credential]]s are issued on the [[ref: Issuer]]'s online service (website). This online service may have already authenticated and authorized the user before displaying the credential offer. Another authentication or authorization is not needed in those situations.
 
-Authorization Code Flow provides a more advanced way of implementing credential issuance. 
+Authorization Code Flow provides a more advanced way of implementing credential issuance. Proof Key for Code Exchange ([[ref: PKCE]]) defines a way to mitigate against authorization code interception attack. Pushed authorization request ([[ref: PAR]]) allows clients to push the payload of an authorization request directly to the authorization server. These features may be needed in higher assurance use cases or for protecting privacy.
 
 **Requirement: DIIP-compliant implementations MUST support both *Pre-Authorized Code Flow* and *Authorization Code Flow*.**
 
@@ -168,6 +168,8 @@ Authorization Code Flow provides a more advanced way of implementing credential 
 **Requirement: DIIP-compliant implementations MUST support the `trust_chain` claim when using *Pre-Authorized Code Flow*.**
 
 **Requirement: DIIP-compliant implementations MUST NOT assume the Authorization Server is on the same domain as the [[ref: Issuer]].**
+
+**Requirement: DIIP-compliant implementations MUST support [[ref: PKCE]] and [[ref: PAR]].**
 
 It should be noted that various [Security Considerations](https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0.html#name-pre-authorized-code-flow-2) have been described in the [[ref: OID4VCI]] specification with respect to implementing *Pre-Authorized Code Flow*. Parties implementing DIIP are strongly suggested to implement mitigating measures, like the use of a Transaction Code.
 
@@ -182,6 +184,10 @@ It should be noted that various [Security Considerations](https://openid.net/spe
 [[ref: OID4VCI]] defines *Immediate* and *Deferred* flows. *Deferred* is more complex to implement and not required in most use cases.
 
 **Requirement: DIIP-compliant implementations MUST support the *Immediate* flow.**
+
+[[ref: OID4VCI]] defines proof types `jwt`, `ldp_vp`, and `attestation` for binding the issued credential to the identifier of the end-user possessing that credential. DIIP requires compliant implementations to support `did:jwt` as an identifier. Thus, in cases where cryptographic holder-binding is needed, implementations should be able to bind a credential to the holder's `did:jwt`.
+
+**Requirement: DIIP-compliant implementations MUST support The `jwt` proof type with a `did:jwt` or `did:web` as the value of the `kid` element.**
 
 ### Presentation
 The presentation of claims from the [[ref: Holder]]'s [[ref: Wallet]] to the [[ref: Verifier]] is done along the [[ref: OID4VP]]. Other protocols exist, but [[ref: OID4VP]] is very broadly supported and also required by [[ref: HAIP]].
@@ -270,6 +276,12 @@ This section consolidates in one place common terms used across open standards t
 
 [[def: OID4VP]]
 ~ [OpenID for Verifiable Presentations - draft 23](https://openid.net/specs/openid-4-verifiable-presentations-1_0-ID3.html). Status: Third Implementer's Draft.
+
+[[def: PAR]]
+~ [RFC 9126 Pushed Authorization Requests](https://datatracker.ietf.org/doc/html/rfc9126). Status: RFC - Proposed Standard.
+
+[[def: PKCE]]
+~ [RFC 7636 Proof Key for Code Exchange by OAuth Public Clients](https://datatracker.ietf.org/doc/html/rfc7636). Status: RFC - Proposed Standard.
 
 [[def: SD-JWT VC]]
 ~ [SD-JWT-based Verifiable Credentials (SD-JWT VC) - draft 08](https://datatracker.ietf.org/doc/draft-ietf-oauth-sd-jwt-vc/08/). Status: WG Document.
