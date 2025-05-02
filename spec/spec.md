@@ -26,16 +26,15 @@ Contributors and previous editors:
 
 The Decentralized Identity Interop Profile, or DIIP for short, defines requirements against existing specifications to enable the interoperable issuance and presentation of [[ref: Digital Credential]]s between [[ref: Issuer]]s, [[ref: Wallet]]s, and [[ref: Verifier]]s.
 
-| Purpose                                                                  | Specification                                                 |
-| ------------------------------------------------------------------------ | ------------------------------------------------------------- |
-| Credential format                                                        | W3C Verifiable Credentials Data Model ([[ref: W3C VCDM]])     |
-| Signature scheme                                                         | SD-JWT as specified in [[ref: VC-JOSE-COSE]]                  |
-| Signature algorithm                                                      | [[ref: ES256]]                                                |
-| Identifying [[ref: Issuer]]s, [[ref: Holder]]s, and [[ref: Verifier]]s   | [[ref: did:jwk]] and [[ref: did:web]]                         |
-| Issuance protocol                                                        | OpenID for Verifiable Credentials Issuance ([[ref: OID4VCI]]) |
-| Presentation protocol                                                    | OpenID for Verifiable Presentations ([[ref: OID4VP]])         |
-| Revocation mechanism                                                     | [[ref: IETF Token Status List]]                               |
-| Trust establishment                                                      | [[ref: OpenID Federation]]                                    |
+| Purpose                                                                  | Specification                                                       |
+| ------------------------------------------------------------------------ | ------------------------------------------------------------------- |
+| Credential format                                                        | [[ref: W3C VCDM]] and [[ref: SD-JWT VC]]                            |
+| Signature scheme                                                         | SD-JWT as specified in [[ref: VC-JOSE-COSE]] and [[ref: SD-JWT VC]] |
+| Signature algorithm                                                      | [[ref: ES256]]                                                      |
+| Identifying [[ref: Issuer]]s, [[ref: Holder]]s, and [[ref: Verifier]]s   | [[ref: did:jwk]] and [[ref: did:web]]                               |
+| Issuance protocol                                                        | OpenID for Verifiable Credentials Issuance ([[ref: OID4VCI]])       |
+| Presentation protocol                                                    | OpenID for Verifiable Presentations ([[ref: OID4VP]])               |
+| Revocation mechanism                                                     | [[ref: IETF Token Status List]]                                     |
 
 <!-- - [[ref: SIOPv2]] -->
 
@@ -160,7 +159,7 @@ OID4VCI [issuance flow variations](https://openid.net/specs/openid-4-verifiable-
 
 In many situations, [[ref: Digital Credential]]s are issued on the [[ref: Issuer]]'s online service (website). This online service may have already authenticated and authorized the user before displaying the credential offer. Another authentication or authorization is not needed in those situations.
 
-Authorization Code Flow provides a more advanced way of implementing credential issuance. 
+Authorization Code Flow provides a more advanced way of implementing credential issuance. Proof Key for Code Exchange ([[ref: PKCE]]) defines a way to mitigate against authorization code interception attack. Pushed authorization request ([[ref: PAR]]) allows clients to push the payload of an authorization request directly to the authorization server. These features may be needed in higher assurance use cases or for protecting privacy.
 
 **Requirement: DIIP-compliant implementations MUST support both *Pre-Authorized Code Flow* and *Authorization Code Flow*.**
 
@@ -169,6 +168,8 @@ Authorization Code Flow provides a more advanced way of implementing credential 
 **Requirement: DIIP-compliant implementations MUST support the `trust_chain` claim when using *Pre-Authorized Code Flow*.**
 
 **Requirement: DIIP-compliant implementations MUST NOT assume the Authorization Server is on the same domain as the [[ref: Issuer]].**
+
+**Requirement: DIIP-compliant implementations MUST support [[ref: PKCE]] and [[ref: PAR]].**
 
 It should be noted that various [Security Considerations](https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0.html#name-pre-authorized-code-flow-2) have been described in the [[ref: OID4VCI]] specification with respect to implementing *Pre-Authorized Code Flow*. Parties implementing DIIP are strongly suggested to implement mitigating measures, like the use of a Transaction Code.
 
@@ -184,24 +185,43 @@ It should be noted that various [Security Considerations](https://openid.net/spe
 
 **Requirement: DIIP-compliant implementations MUST support the *Immediate* flow.**
 
+[[ref: OID4VCI]] defines proof types `jwt`, `ldp_vp`, and `attestation` for binding the issued credential to the identifier of the end-user possessing that credential. DIIP requires compliant implementations to support `did:jwt` as an identifier. Thus, in cases where cryptographic holder-binding is needed, implementations should be able to bind a credential to the holder's `did:jwt`.
+
+**Requirement: DIIP-compliant implementations MUST support The `jwt` proof type with a `did:jwt` or `did:web` as the value of the `kid` element.**
+
 ### Presentation
 The presentation of claims from the [[ref: Holder]]'s [[ref: Wallet]] to the [[ref: Verifier]] is done along the [[ref: OID4VP]]. Other protocols exist, but [[ref: OID4VP]] is very broadly supported and also required by [[ref: HAIP]].
 
 #### OID4VP
 Using [[ref: OID4VP]], the [[ref: Holder]]s can also present cryptographically verifiable claims issued by third-party [[ref: Issuer]]s, such that the [[ref: Verifier]] can place trust in those [[ref: Issuer]]s instead of the subject ([[ref: Holder]]).
 
-There are two query languages defined in [[ref: OID4VP]]: *Presentation Exchange* (`PE`) and *Digital Credentials Query Language* (`dcql`). The support for `PE` has already been dropped from the next [[ref: OID4VP]] draft version and can be considered deprecated.
+[[ref: OID4VP]] supports scenarios where the *Authorization Request* is sent both when the [[ref: Verifier]] is interacting with the [[ref: Holder]] using the device that is the same or different from the device on which requested [[ref: Digital Credential]]s are stored.
 
-**Requirement: DIIP-compliant implementations MUST support the `dcql_query` in the [Authorization Request](https://openid.net/specs/openid-4-verifiable-presentations-1_0-ID3.html#name-new-parameters).**
+**Requirement: DIIP-compliant implementations MUST support both *Same-device Flow* and *Cross-device Flow*.**
+
+According to [[ref: OID4VP]], rhe [[ref: Verifier]] may send an *Authorization Request* using either of these 3 options:
+- Passing as URL with encoded parameters
+- Passing a request object as value
+- Passing a request object by reference
+
+DIIP only requires support for the last option.
+**Requirement: DIIP-compliant implementations MUST support passing the *Authorization Request* object by reference.**
+
+[[ref: OID4VP]] defines two values for the `request_uri_method` in the *Authorization Request*: `get` and `post`. DIIP requires support for only the `get` method.
+
+**Requirement: DIIP-compliant implementations MUST support the `get` value for the `request_uri_method` in the *Authorization Request*.**
 
 [[ref: OID4VP]] defines many [Client Identifier Schemes](https://openid.net/specs/openid-4-verifiable-presentations-1_0-ID3.html#name-defined-client-identifier-s). One way to identify [[ref: Verifier]]s is through [[ref: OpenID Federation]]. Since DIIP uses [[ref: DID]]s, it is natural to require support for the corresponding Client Identifier Scheme.
 
 **Requirement: DIIP-compliant implementations MUST support the `did` *Client Identifier Scheme*.**
 
-<!--
-'#### SIOP
-Using [[ref: SIOPv2 D13]], [[ref: Holder]]s can authenticate themselves with self-issued ID tokens and present self-attested claims directly to [[ref: Verifier]]s (Relying Parties). The OpenID provider (OP) as specified in [[ref: OpenID Connect Core]] are under the subject's local control.
--->
+The following features of [[ref: OID4VP]] are **not** required by this version of the DIIP profile:
+- Presentations Without Holder Binding Proofs (section 5.3, requirements for the `state` parameter)
+- Verifier Attestations (section 5.11)
+- SIOPv2 (section 8, *Response Type* value `vp_token id_token` and `scope` containing `openid`)
+- Encrypted Responses (section 8.3)
+- Transaction Data (section 8.4)
+- Digital Credentials API (Appendix A)
 
 ### Validity and Revocation Algorithm
 Expiration algorithms using [validFrom](https://www.w3.org/TR/vc-data-model-2.0/#defn-validFrom) and [validUntil](https://www.w3.org/TR/vc-data-model-2.0/#defn-validUntil) are a powerful mechanism to establish the validity of credentials. Evaluating the expiration of a credential is much more efficient than using revocation mechanisms. While the absence of `validFrom` and `validUntil` would suggest a credential is considered valid indefinitely, it is recommended that all implementations set validity expiration whenever possible to allow for clear communication to [[ref: Holder]]s and [[ref: Verifier]]s.
@@ -270,7 +290,13 @@ This section consolidates in one place common terms used across open standards t
 ~ [OpenID for Verifiable Credential Issuance - draft 15](https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0-ID2.html). Status: Second Implementer's Draft.
 
 [[def: OID4VP]]
-~ [OpenID for Verifiable Presentations - draft 23](https://openid.net/specs/openid-4-verifiable-presentations-1_0-ID3.html). Status: Third Implementer's Draft.
+~ [OpenID for Verifiable Presentations - draft 28](https://openid.net/specs/openid-4-verifiable-presentations-1_0-28.html). Status: Third Implementer's Draft.
+
+[[def: PAR]]
+~ [RFC 9126 Pushed Authorization Requests](https://datatracker.ietf.org/doc/html/rfc9126). Status: RFC - Proposed Standard.
+
+[[def: PKCE]]
+~ [RFC 7636 Proof Key for Code Exchange by OAuth Public Clients](https://datatracker.ietf.org/doc/html/rfc7636). Status: RFC - Proposed Standard.
 
 [[def: SD-JWT VC]]
 ~ [SD-JWT-based Verifiable Credentials (SD-JWT VC) - draft 08](https://datatracker.ietf.org/doc/draft-ietf-oauth-sd-jwt-vc/08/). Status: WG Document.

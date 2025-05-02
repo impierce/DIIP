@@ -78,11 +78,11 @@ customElements.define("slide-panels",class extends HTMLElement{static get observ
 <tbody>
 <tr>
 <td>Credential format</td>
-<td>W3C Verifiable Credentials Data Model (<a class="term-reference" href="#term:w3c-vcdm">W3C VCDM</a>)</td>
+<td><a class="term-reference" href="#term:w3c-vcdm">W3C VCDM</a> and <a class="term-reference" href="#term:sd-jwt-vc">SD-JWT VC</a></td>
 </tr>
 <tr>
 <td>Signature scheme</td>
-<td>SD-JWT as specified in <a class="term-reference" href="#term:vc-jose-cose">VC-JOSE-COSE</a></td>
+<td>SD-JWT as specified in <a class="term-reference" href="#term:vc-jose-cose">VC-JOSE-COSE</a> and <a class="term-reference" href="#term:sd-jwt-vc">SD-JWT VC</a></td>
 </tr>
 <tr>
 <td>Signature algorithm</td>
@@ -103,10 +103,6 @@ customElements.define("slide-panels",class extends HTMLElement{static get observ
 <tr>
 <td>Revocation mechanism</td>
 <td><a class="term-reference" href="#term:ietf-token-status-list">IETF Token Status List</a></td>
-</tr>
-<tr>
-<td>Trust establishment</td>
-<td><a class="term-reference" href="#term:openid-federation">OpenID Federation</a></td>
 </tr>
 </tbody>
 </table>
@@ -206,11 +202,12 @@ Verifiable Credential Data Integrity 1.0 (<a class="term-reference" href="#term:
 <p>OpenID for Verifiable Credential Issuance (<a class="term-reference" href="#term:oid4vci">OID4VCI</a>) defines an API for the issuance of <a class="term-reference" href="#term:digital-credential">Digital Credential</a>s.
 OID4VCI <a path-0="openid.net"path-1="specs"path-2="openid-4-verifiable-credential-issuance-1_0-ID2.html#name-issuance-flow-variations"href="https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0-ID2.html#name-issuance-flow-variations" >issuance flow variations</a> leave room for optionality.</p>
 <p>In many situations, <a class="term-reference" href="#term:digital-credential">Digital Credential</a>s are issued on the <a class="term-reference" href="#term:issuer">Issuer</a>'s online service (website). This online service may have already authenticated and authorized the user before displaying the credential offer. Another authentication or authorization is not needed in those situations.</p>
-<p>Authorization Code Flow provides a more advanced way of implementing credential issuance.</p>
+<p>Authorization Code Flow provides a more advanced way of implementing credential issuance. Proof Key for Code Exchange (<a class="term-reference" href="#term:pkce">PKCE</a>) defines a way to mitigate against authorization code interception attack. Pushed authorization request (<a class="term-reference" href="#term:par">PAR</a>) allows clients to push the payload of an authorization request directly to the authorization server. These features may be needed in higher assurance use cases or for protecting privacy.</p>
 <p><strong>Requirement: DIIP-compliant implementations MUST support both <em>Pre-Authorized Code Flow</em> and <em>Authorization Code Flow</em>.</strong></p>
 <p><strong>Requirement: DIIP-compliant implementations MUST support the Transaction Code when using <em>Pre-Authorized Code Flow</em>.</strong></p>
 <p><strong>Requirement: DIIP-compliant implementations MUST support the <code>trust_chain</code> claim when using <em>Pre-Authorized Code Flow</em>.</strong></p>
 <p><strong>Requirement: DIIP-compliant implementations MUST NOT assume the Authorization Server is on the same domain as the <a class="term-reference" href="#term:issuer">Issuer</a>.</strong></p>
+<p><strong>Requirement: DIIP-compliant implementations MUST support <a class="term-reference" href="#term:pkce">PKCE</a> and <a class="term-reference" href="#term:par">PAR</a>.</strong></p>
 <p>It should be noted that various <a path-0="openid.net"path-1="specs"path-2="openid-4-verifiable-credential-issuance-1_0.html#name-pre-authorized-code-flow-2"href="https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0.html#name-pre-authorized-code-flow-2" >Security Considerations</a> have been described in the <a class="term-reference" href="#term:oid4vci">OID4VCI</a> specification with respect to implementing <em>Pre-Authorized Code Flow</em>. Parties implementing DIIP are strongly suggested to implement mitigating measures, like the use of a Transaction Code.</p>
 <p><a class="term-reference" href="#term:oid4vci">OID4VCI</a> defines <em>Wallet-initiated</em> and <em>Issuer-initiated</em> flows. <em>Wallet-initiated</em> means that the <a class="term-reference" href="#term:wallet">Wallet</a> can start the flow without any activity from the <a class="term-reference" href="#term:issuer">Issuer</a>. The <em>Issuer-initiated</em> flow seems to be more common in many use cases and seems to be supported more widely. It also aligns better with the use cases where the <a class="term-reference" href="#term:holder">Holder</a> is authenticated and authorized in an online service before the credential offer is created and shown.</p>
 <p><strong>Requirement: DIIP-compliant implementations MUST support the <em>Issuer-initiated</em> flow.</strong></p>
@@ -218,18 +215,35 @@ OID4VCI <a path-0="openid.net"path-1="specs"path-2="openid-4-verifiable-credenti
 <p><strong>Requirement: DIIP-compliant implementations MUST support both <em>Same-device</em> and <em>Cross-device</em> Credential Offer.</strong></p>
 <p><a class="term-reference" href="#term:oid4vci">OID4VCI</a> defines <em>Immediate</em> and <em>Deferred</em> flows. <em>Deferred</em> is more complex to implement and not required in most use cases.</p>
 <p><strong>Requirement: DIIP-compliant implementations MUST support the <em>Immediate</em> flow.</strong></p>
+<p><a class="term-reference" href="#term:oid4vci">OID4VCI</a> defines proof types <code>jwt</code>, <code>ldp_vp</code>, and <code>attestation</code> for binding the issued credential to the identifier of the end-user possessing that credential. DIIP requires compliant implementations to support <code>did:jwt</code> as an identifier. Thus, in cases where cryptographic holder-binding is needed, implementations should be able to bind a credential to the holder’s <code>did:jwt</code>.</p>
+<p><strong>Requirement: DIIP-compliant implementations MUST support The <code>jwt</code> proof type with a <code>did:jwt</code> or <code>did:web</code> as the value of the <code>kid</code> element.</strong></p>
 <h3 id="presentation"><a class="toc-anchor" href="#presentation" >§</a> Presentation</h3>
 <p>The presentation of claims from the <a class="term-reference" href="#term:holder">Holder</a>'s <a class="term-reference" href="#term:wallet">Wallet</a> to the <a class="term-reference" href="#term:verifier">Verifier</a> is done along the <a class="term-reference" href="#term:oid4vp">OID4VP</a>. Other protocols exist, but <a class="term-reference" href="#term:oid4vp">OID4VP</a> is very broadly supported and also required by <a class="term-reference" href="#term:haip">HAIP</a>.</p>
 <h4 id="oid4vp"><a class="toc-anchor" href="#oid4vp" >§</a> OID4VP</h4>
 <p>Using <a class="term-reference" href="#term:oid4vp">OID4VP</a>, the <a class="term-reference" href="#term:holder">Holder</a>s can also present cryptographically verifiable claims issued by third-party <a class="term-reference" href="#term:issuer">Issuer</a>s, such that the <a class="term-reference" href="#term:verifier">Verifier</a> can place trust in those <a class="term-reference" href="#term:issuer">Issuer</a>s instead of the subject (<a class="term-reference" href="#term:holder">Holder</a>).</p>
-<p>There are two query languages defined in <a class="term-reference" href="#term:oid4vp">OID4VP</a>: <em>Presentation Exchange</em> (<code>PE</code>) and <em>Digital Credentials Query Language</em> (<code>dcql</code>). The support for <code>PE</code> has already been dropped from the next <a class="term-reference" href="#term:oid4vp">OID4VP</a> draft version and can be considered deprecated.</p>
-<p><strong>Requirement: DIIP-compliant implementations MUST support the <code>dcql_query</code> in the <a path-0="openid.net"path-1="specs"path-2="openid-4-verifiable-presentations-1_0-ID3.html#name-new-parameters"href="https://openid.net/specs/openid-4-verifiable-presentations-1_0-ID3.html#name-new-parameters" >Authorization Request</a>.</strong></p>
+<p><a class="term-reference" href="#term:oid4vp">OID4VP</a> supports scenarios where the <em>Authorization Request</em> is sent both when the <a class="term-reference" href="#term:verifier">Verifier</a> is interacting with the <a class="term-reference" href="#term:holder">Holder</a> using the device that is the same or different from the device on which requested <a class="term-reference" href="#term:digital-credential">Digital Credential</a>s are stored.</p>
+<p><strong>Requirement: DIIP-compliant implementations MUST support both <em>Same-device Flow</em> and <em>Cross-device Flow</em>.</strong></p>
+<p>According to <a class="term-reference" href="#term:oid4vp">OID4VP</a>, rhe <a class="term-reference" href="#term:verifier">Verifier</a> may send an <em>Authorization Request</em> using either of these 3 options:</p>
+<ul>
+<li>Passing as URL with encoded parameters</li>
+<li>Passing a request object as value</li>
+<li>Passing a request object by reference</li>
+</ul>
+<p>DIIP only requires support for the last option.
+<strong>Requirement: DIIP-compliant implementations MUST support passing the <em>Authorization Request</em> object by reference.</strong></p>
+<p><a class="term-reference" href="#term:oid4vp">OID4VP</a> defines two values for the <code>request_uri_method</code> in the <em>Authorization Request</em>: <code>get</code> and <code>post</code>. DIIP requires support for only the <code>get</code> method.</p>
+<p><strong>Requirement: DIIP-compliant implementations MUST support the <code>get</code> value for the <code>request_uri_method</code> in the <em>Authorization Request</em>.</strong></p>
 <p><a class="term-reference" href="#term:oid4vp">OID4VP</a> defines many <a path-0="openid.net"path-1="specs"path-2="openid-4-verifiable-presentations-1_0-ID3.html#name-defined-client-identifier-s"href="https://openid.net/specs/openid-4-verifiable-presentations-1_0-ID3.html#name-defined-client-identifier-s" >Client Identifier Schemes</a>. One way to identify <a class="term-reference" href="#term:verifier">Verifier</a>s is through <a class="term-reference" href="#term:openid-federation">OpenID Federation</a>. Since DIIP uses <a class="term-reference" href="#term:did">DID</a>s, it is natural to require support for the corresponding Client Identifier Scheme.</p>
 <p><strong>Requirement: DIIP-compliant implementations MUST support the <code>did</code> <em>Client Identifier Scheme</em>.</strong></p>
-<!--
-'#### SIOP
-Using [[ref: SIOPv2 D13]], [[ref: Holder]]s can authenticate themselves with self-issued ID tokens and present self-attested claims directly to [[ref: Verifier]]s (Relying Parties). The OpenID provider (OP) as specified in [[ref: OpenID Connect Core]] are under the subject's local control.
--->
+<p>The following features of <a class="term-reference" href="#term:oid4vp">OID4VP</a> are <strong>not</strong> required by this version of the DIIP profile:</p>
+<ul>
+<li>Presentations Without Holder Binding Proofs (section 5.3, requirements for the <code>state</code> parameter)</li>
+<li>Verifier Attestations (section 5.11)</li>
+<li>SIOPv2 (section 8, <em>Response Type</em> value <code>vp_token id_token</code> and <code>scope</code> containing <code>openid</code>)</li>
+<li>Encrypted Responses (section 8.3)</li>
+<li>Transaction Data (section 8.4)</li>
+<li>Digital Credentials API (Appendix A)</li>
+</ul>
 <h3 id="validity-and-revocation-algorithm"><a class="toc-anchor" href="#validity-and-revocation-algorithm" >§</a> Validity and Revocation Algorithm</h3>
 <p>Expiration algorithms using <a path-0="www.w3.org"path-1="TR"path-2="vc-data-model-2.0"path-3="#defn-validFrom"href="https://www.w3.org/TR/vc-data-model-2.0/#defn-validFrom" >validFrom</a> and <a path-0="www.w3.org"path-1="TR"path-2="vc-data-model-2.0"path-3="#defn-validUntil"href="https://www.w3.org/TR/vc-data-model-2.0/#defn-validUntil" >validUntil</a> are a powerful mechanism to establish the validity of credentials. Evaluating the expiration of a credential is much more efficient than using revocation mechanisms. While the absence of <code>validFrom</code> and <code>validUntil</code> would suggest a credential is considered valid indefinitely, it is recommended that all implementations set validity expiration whenever possible to allow for clear communication to <a class="term-reference" href="#term:holder">Holder</a>s and <a class="term-reference" href="#term:verifier">Verifier</a>s.</p>
 <p><strong>Requirement: DIIP-compliant implementations MUST support checking the validity status of a <a class="term-reference" href="#term:digital-credential">Digital Credential</a> using <code>validFrom</code> and <code>validUntil</code> when they are specified.</strong></p>
@@ -278,7 +292,11 @@ Using [[ref: SIOPv2 D13]], [[ref: Holder]]s can authenticate themselves with sel
 <dt><span id="term:oid4vci">OID4VCI</span></dt>
 <dd><a path-0="openid.net"path-1="specs"path-2="openid-4-verifiable-credential-issuance-1_0-ID2.html"href="https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0-ID2.html" >OpenID for Verifiable Credential Issuance - draft 15</a>. Status: Second Implementer’s Draft.</dd>
 <dt><span id="term:oid4vp">OID4VP</span></dt>
-<dd><a path-0="openid.net"path-1="specs"path-2="openid-4-verifiable-presentations-1_0-ID3.html"href="https://openid.net/specs/openid-4-verifiable-presentations-1_0-ID3.html" >OpenID for Verifiable Presentations - draft 23</a>. Status: Third Implementer’s Draft.</dd>
+<dd><a path-0="openid.net"path-1="specs"path-2="openid-4-verifiable-presentations-1_0-28.html"href="https://openid.net/specs/openid-4-verifiable-presentations-1_0-28.html" >OpenID for Verifiable Presentations - draft 28</a>. Status: Third Implementer’s Draft.</dd>
+<dt><span id="term:par">PAR</span></dt>
+<dd><a path-0="datatracker.ietf.org"path-1="doc"path-2="html"path-3="rfc9126"href="https://datatracker.ietf.org/doc/html/rfc9126" >RFC 9126 Pushed Authorization Requests</a>. Status: RFC - Proposed Standard.</dd>
+<dt><span id="term:pkce">PKCE</span></dt>
+<dd><a path-0="datatracker.ietf.org"path-1="doc"path-2="html"path-3="rfc7636"href="https://datatracker.ietf.org/doc/html/rfc7636" >RFC 7636 Proof Key for Code Exchange by OAuth Public Clients</a>. Status: RFC - Proposed Standard.</dd>
 <dt><span id="term:sd-jwt-vc">SD-JWT VC</span></dt>
 <dd><a path-0="datatracker.ietf.org"path-1="doc"path-2="draft-ietf-oauth-sd-jwt-vc"path-3="08"path-4=""href="https://datatracker.ietf.org/doc/draft-ietf-oauth-sd-jwt-vc/08/" >SD-JWT-based Verifiable Credentials (SD-JWT VC) - draft 08</a>. Status: WG Document.</dd>
 <dt><span id="term:secp256r1">Secp256r1</span></dt>
