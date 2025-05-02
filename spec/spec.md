@@ -26,16 +26,15 @@ Contributors and previous editors:
 
 The Decentralized Identity Interop Profile, or DIIP for short, defines requirements against existing specifications to enable the interoperable issuance and presentation of [[ref: Digital Credential]]s between [[ref: Issuer]]s, [[ref: Wallet]]s, and [[ref: Verifier]]s.
 
-| Purpose                                                                  | Specification                                                 |
-| ------------------------------------------------------------------------ | ------------------------------------------------------------- |
-| Credential format                                                        | W3C Verifiable Credentials Data Model ([[ref: W3C VCDM]])     |
-| Signature scheme                                                         | SD-JWT as specified in [[ref: VC-JOSE-COSE]]                  |
-| Signature algorithm                                                      | [[ref: ES256]]                                                |
-| Identifying [[ref: Issuer]]s, [[ref: Holder]]s, and [[ref: Verifier]]s   | [[ref: did:jwk]] and [[ref: did:web]]                         |
-| Issuance protocol                                                        | OpenID for Verifiable Credentials Issuance ([[ref: OID4VCI]]) |
-| Presentation protocol                                                    | OpenID for Verifiable Presentations ([[ref: OID4VP]])         |
-| Revocation mechanism                                                     | [[ref: IETF Token Status List]]                               |
-| Trust establishment                                                      | [[ref: OpenID Federation]]                                    |
+| Purpose                                                                  | Specification                                                       |
+| ------------------------------------------------------------------------ | ------------------------------------------------------------------- |
+| Credential format                                                        | [[ref: W3C VCDM]] and [[ref: SD-JWT VC]]                            |
+| Signature scheme                                                         | SD-JWT as specified in [[ref: VC-JOSE-COSE]] and [[ref: SD-JWT VC]] |
+| Signature algorithm                                                      | [[ref: ES256]]                                                      |
+| Identifying [[ref: Issuer]]s, [[ref: Holder]]s, and [[ref: Verifier]]s   | [[ref: did:jwk]] and [[ref: did:web]]                               |
+| Issuance protocol                                                        | OpenID for Verifiable Credentials Issuance ([[ref: OID4VCI]])       |
+| Presentation protocol                                                    | OpenID for Verifiable Presentations ([[ref: OID4VP]])               |
+| Revocation mechanism                                                     | [[ref: IETF Token Status List]]                                     |
 
 <!-- - [[ref: SIOPv2]] -->
 
