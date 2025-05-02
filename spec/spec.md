@@ -195,18 +195,33 @@ The presentation of claims from the [[ref: Holder]]'s [[ref: Wallet]] to the [[r
 #### OID4VP
 Using [[ref: OID4VP]], the [[ref: Holder]]s can also present cryptographically verifiable claims issued by third-party [[ref: Issuer]]s, such that the [[ref: Verifier]] can place trust in those [[ref: Issuer]]s instead of the subject ([[ref: Holder]]).
 
-There are two query languages defined in [[ref: OID4VP]]: *Presentation Exchange* (`PE`) and *Digital Credentials Query Language* (`dcql`). The support for `PE` has already been dropped from the next [[ref: OID4VP]] draft version and can be considered deprecated.
+[[ref: OID4VP]] supports scenarios where the *Authorization Request* is sent both when the [[ref: Verifier]] is interacting with the [[ref: Holder]] using the device that is the same or different from the device on which requested [[ref: Digital Credential]]s are stored.
 
-**Requirement: DIIP-compliant implementations MUST support the `dcql_query` in the [Authorization Request](https://openid.net/specs/openid-4-verifiable-presentations-1_0-ID3.html#name-new-parameters).**
+**Requirement: DIIP-compliant implementations MUST support both *Same-device Flow* and *Cross-device Flow*.**
+
+According to [[ref: OID4VP]], rhe [[ref: Verifier]] may send an *Authorization Request* using either of these 3 options:
+- Passing as URL with encoded parameters
+- Passing a request object as value
+- Passing a request object by reference
+
+DIIP only requires support for the last option.
+**Requirement: DIIP-compliant implementations MUST support passing the *Authorization Request* object by reference.**
+
+[[ref: OID4VP]] defines two values for the `request_uri_method` in the *Authorization Request*: `get` and `post`. DIIP requires support for only the `get` method.
+
+**Requirement: DIIP-compliant implementations MUST support the `get` value for the `request_uri_method` in the *Authorization Request*.**
 
 [[ref: OID4VP]] defines many [Client Identifier Schemes](https://openid.net/specs/openid-4-verifiable-presentations-1_0-ID3.html#name-defined-client-identifier-s). One way to identify [[ref: Verifier]]s is through [[ref: OpenID Federation]]. Since DIIP uses [[ref: DID]]s, it is natural to require support for the corresponding Client Identifier Scheme.
 
 **Requirement: DIIP-compliant implementations MUST support the `did` *Client Identifier Scheme*.**
 
-<!--
-'#### SIOP
-Using [[ref: SIOPv2 D13]], [[ref: Holder]]s can authenticate themselves with self-issued ID tokens and present self-attested claims directly to [[ref: Verifier]]s (Relying Parties). The OpenID provider (OP) as specified in [[ref: OpenID Connect Core]] are under the subject's local control.
--->
+The following features of [[ref: OID4VP]] are **not** required by this version of the DIIP profile:
+- Presentations Without Holder Binding Proofs (section 5.3, requirements for the `state` parameter)
+- Verifier Attestations (section 5.11)
+- SIOPv2 (section 8, *Response Type* value `vp_token id_token` and `scope` containing `openid`)
+- Encrypted Responses (section 8.3)
+- Transaction Data (section 8.4)
+- Digital Credentials API (Appendix A)
 
 ### Validity and Revocation Algorithm
 Expiration algorithms using [validFrom](https://www.w3.org/TR/vc-data-model-2.0/#defn-validFrom) and [validUntil](https://www.w3.org/TR/vc-data-model-2.0/#defn-validUntil) are a powerful mechanism to establish the validity of credentials. Evaluating the expiration of a credential is much more efficient than using revocation mechanisms. While the absence of `validFrom` and `validUntil` would suggest a credential is considered valid indefinitely, it is recommended that all implementations set validity expiration whenever possible to allow for clear communication to [[ref: Holder]]s and [[ref: Verifier]]s.
@@ -275,7 +290,7 @@ This section consolidates in one place common terms used across open standards t
 ~ [OpenID for Verifiable Credential Issuance - draft 15](https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0-ID2.html). Status: Second Implementer's Draft.
 
 [[def: OID4VP]]
-~ [OpenID for Verifiable Presentations - draft 23](https://openid.net/specs/openid-4-verifiable-presentations-1_0-ID3.html). Status: Third Implementer's Draft.
+~ [OpenID for Verifiable Presentations - draft 28](https://openid.net/specs/openid-4-verifiable-presentations-1_0-28.html). Status: Third Implementer's Draft.
 
 [[def: PAR]]
 ~ [RFC 9126 Pushed Authorization Requests](https://datatracker.ietf.org/doc/html/rfc9126). Status: RFC - Proposed Standard.
