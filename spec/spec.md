@@ -124,17 +124,7 @@ To keep things as simple as possible, DIIP requires implementations to use `SD-J
 
 ### Signature Algorithm
 
-There are many key types and signature methods used with JWTs. The table below lists some of the most common ones that implementations may want to support.
-
-|Key types | Signature Method|
-|----------|-----------------|		
-|Ed25519   | ECDSA     		 |	
-|(x25519)  |                 | 
-|Secp256r1 | ES256           |			
-|Secp256k1 | ES256K          |	
-|RSA       | RSA256          |
-
-However, the DIIP profile does not force everyone to support everything, but chooses one key type [[ref: Secp256r1]] and one signature method [[ref: ES256]] that all implementations must support.
+The DIIP profile chooses one key type [[ref: Secp256r1]] and one signature method [[ref: ES256]] that all implementations must support.
 
 **Requirement: DIIP-compliant implementations MUST support [[ref: ES256]] (`ECDSA` using [[ref: Secp256r1]] curve and `SHA-256` message digest algorithm).**
 
