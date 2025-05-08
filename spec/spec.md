@@ -187,7 +187,9 @@ It should be noted that various [Security Considerations](https://openid.net/spe
 
 [[ref: OID4VCI]] defines proof types `jwt`, `ldp_vp`, and `attestation` for binding the issued credential to the identifier of the end-user possessing that credential. DIIP requires compliant implementations to support `did:jwt` as an identifier. Thus, in cases where cryptographic holder-binding is needed, implementations should be able to bind a credential to the holder's `did:jwt`.
 
-**Requirement: DIIP-compliant implementations MUST support The `jwt` proof type with a `did:jwt` or `did:web` as the value of the `kid` element.**
+**Requirement: DIIP-compliant implementations MUST support the `jwt` proof type with a `did:jwt` or `did:web` as the `iss` value and use a `kid` from the `assertionMethod` Verification Method relationship of the respective [[ref: Issuer]]'s [[ref: DID]] document.**
+
+**Requirement: DIIP-compliant implementations MUST support a `cnf` holder binding claim in the [[ref: Issuer]]'s `jwt` and it MUST include a `kid` value from the `authentication` Verification Method relationship of the respective [[ref: Holder]]'s [[ref: DID]] document.**
 
 ### Presentation
 The presentation of claims from the [[ref: Holder]]'s [[ref: Wallet]] to the [[ref: Verifier]] is done along the [[ref: OID4VP]]. Other protocols exist, but [[ref: OID4VP]] is very broadly supported and also required by [[ref: HAIP]].
