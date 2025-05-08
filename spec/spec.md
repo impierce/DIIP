@@ -9,7 +9,7 @@ Decentralized Identity Interop Profile v4
 Editors:
 ~ [Eelco Klaver](https://www.linkedin.com/in/eklaver/) (Credenco)
 ~ [Harmen van der Kooij](https://www.linkedin.com/in/harmenvanderkooij/) (FIDES Labs)
-~ [Niels Klomp](https://www.linkedin.com/in/niels-klomp/) (Sphereon)
+~ [Niels Klomp](https://www.linkedin.com/in/niels-klomp/) (4Sure Technology Solutions)
 ~ [Niels van Dijk](https://www.linkedin.com/in/creativethings/) (SURF)
 ~ [Samuel Rinnetmäki](https://www.linkedin.com/in/samuel/) (Findynet)
 ~ [Timo Glastra](https://www.linkedin.com/in/timoglastra/) (Animo Solutions)
@@ -120,9 +120,9 @@ Verifiable Credential Data Integrity 1.0 ([[ref: VC-DATA-INTEGRITY]]) as an *emb
 
 To keep things as simple as possible, DIIP requires implementations to use `SD-JWT` as the mechanism to secure also [[ref: W3C VCDM]]-based credentials.
 
-**Requirement: DIIP-compliant implementations MUST support both [[ref: W3C VCDM]] and [[ref: SD-JWT VC]] as a credential format.**
+**Requirement: DIIP-compliant implementations MUST support [[ref: SD-JWT VC]] as a credential format.**
 
-**Requirement: DIIP-compliant implementations MUST support [Securing JSON-LD Verifiable Credentials with SD-JWT](https://www.w3.org/TR/vc-jose-cose/#secure-with-sd-jwt) as specified in ([[ref: VC-JOSE-COSE]]).**
+**Requirement: DIIP-compliant implementations MUST support [[ref: W3C VCDM]] and more specifically [Securing JSON-LD Verifiable Credentials with SD-JWT](https://www.w3.org/TR/vc-jose-cose/#secure-with-sd-jwt) as specified in ([[ref: VC-JOSE-COSE]]).**
 
 ### Signature Algorithm
 
