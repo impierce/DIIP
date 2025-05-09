@@ -24,17 +24,17 @@ Contributors and previous editors:
 
 ## Abstract
 
-The Decentralized Identity Interop Profile, or DIIP for short, defines requirements against existing specifications to enable the interoperable issuance and presentation of [[ref: Digital Credential]]s between [[ref: Issuer]]s, [[ref: Holder]]s, and [[ref: Verifier]]s.
+The Decentralized Identity Interop Profile, or DIIP for short, defines requirements against existing specifications to enable the interoperable issuance and presentation of [[ref: Digital Credential]]s between [[ref: Issuer]]s, [[ref: Wallet]]s, and [[ref: Verifier]]s.
 
-| Purpose                                                                  | Specification                                                                              |
-| ------------------------------------------------------------------------ |--------------------------------------------------------------------------------------------|
-| Credential format                                                        | [[ref: W3C VCDM]] (20 March 2025) and [[ref: SD-JWT VC]] (draft 08)                        |
+| Purpose                                                                  | Specification                                                                                  |
+| ------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------- |
+| Credential format                                                        | [[ref: W3C VCDM]] (20 March 2025) and [[ref: SD-JWT VC]] (draft 08)                            |
 | Signature scheme                                                         | SD-JWT as specified in [[ref: VC-JOSE-COSE]] (20 March 2025) and [[ref: SD-JWT VC]] (draft 08) |
-| Signature algorithm                                                      | [[ref: ES256]] (RFC 7518 May 2015)                                                         |
-| Identifying [[ref: Issuer]]s, [[ref: Holder]]s, and [[ref: Verifier]]s   | [[ref: did:jwk]] (Commit 8137ac4, Apr 14 2022) and [[ref: did:web]] (31 July 2024)         |
-| Issuance protocol                                                        | OpenID for Verifiable Credentials Issuance ([[ref: OID4VCI]]) (Draft 15)                   |
-| Presentation protocol                                                    | OpenID for Verifiable Presentations ([[ref: OID4VP]]) (Draft 28)                           |
-| Revocation mechanism                                                     | [[ref: IETF Token Status List]] (Draft 10, 2025-04-16)                                     |
+| Signature algorithm                                                      | [[ref: ES256]] (RFC 7518 May 2015)                                                             |
+| Identifying [[ref: Issuer]]s, [[ref: Holder]]s, and [[ref: Verifier]]s   | [[ref: did:jwk]] (Commit 8137ac4, Apr 14 2022) and [[ref: did:web]] (31 July 2024)             |
+| Issuance protocol                                                        | OpenID for Verifiable Credentials Issuance ([[ref: OID4VCI]]) (Draft 15)                       |
+| Presentation protocol                                                    | OpenID for Verifiable Presentations ([[ref: OID4VP]]) (Draft 28)                               |
+| Revocation mechanism                                                     | [[ref: IETF Token Status List]] (Draft 10, 2025-04-16)                                         |
 
 The [Normative References](#normative-references) section links to the versions of specifications that DIIP-compliant implementations must support.
 
