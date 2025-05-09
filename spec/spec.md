@@ -28,7 +28,7 @@ The Decentralized Identity Interop Profile, or DIIP for short, defines requireme
 
 | Purpose                                                                  | Specification                                                                                  |
 | ------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------- |
-| Credential format                                                        | [[ref: W3C VCDM]] (20 March 2025) and [[ref: SD-JWT VC]] (draft 08)                            |
+| Credential format                                                        | [[ref: W3C VCDM]] 2.0 (20 March 2025) and [[ref: SD-JWT VC]] (draft 08)                            |
 | Signature scheme                                                         | SD-JWT as specified in [[ref: VC-JOSE-COSE]] (20 March 2025) and [[ref: SD-JWT VC]] (draft 08) |
 | Signature algorithm                                                      | [[ref: ES256]] (RFC 7518 May 2015)                                                             |
 | Identifying [[ref: Issuer]]s, [[ref: Holder]]s, and [[ref: Verifier]]s   | [[ref: did:jwk]] (Commit 8137ac4, Apr 14 2022) and [[ref: did:web]] (31 July 2024)             |
@@ -153,9 +153,7 @@ Authorization Code Flow provides a more advanced way of implementing credential 
 
 **Requirement: DIIP-compliant implementations MUST support the `tx_code` when using *Pre-Authorized Code Flow*.**
 
-**Requirement: DIIP-compliant implementations MUST support the `trust_chain` claim when using *Pre-Authorized Code Flow*.**
-
-**Requirement: DIIP-compliant implementations MUST NOT assume the Authorization Server is on the same domain as the [[ref: Issuer]].**
+**Requirement: DIIP-compliant [[ref: Wallet]]s MUST NOT assume the Authorization Server is on the same domain as the [[ref: Issuer]].**
 
 **Requirement: DIIP-compliant implementations MUST support [[ref: PKCE]] with Code Challenge Method Parameter `S256` to prevent authorization code interception attacks.**
 
@@ -175,7 +173,17 @@ It should be noted that various [Security Considerations](https://openid.net/spe
 
 **Requirement: DIIP-compliant implementations MUST support the *Immediate* flow.**
 
-[[ref: OID4VCI]] defines proof types `jwt`, `ldp_vp`, and `attestation` for binding the issued credential to the identifier of the end-user possessing that credential. DIIP requires compliant implementations to support [[ref: did:jwk]] as an identifier. Thus, in cases where cryptographic holder-binding is needed, implementations should be able to bind a credential to the holder's [[ref: did:jwk]].
+[[ref: OID4VCI]] states that there are two possible methods for requesting the issuance of a specific credential type in an *Authorization Request*: either by utilizing the `authorization_details` parameter or by utilizing the `scope` parameter.
+
+The `scope` parameter is a light-weight way of using an external authorization server. The `authorization_details` makes the flow much more configurable and structured. If an issuer agent does not support an external authorization server, the scope parameter is not needed.
+
+**Requirement: DIIP-compliant [[ref: Wallet]]s MUST support the `authorization_details` parameter using the `credential_configuration_id` parameter in the Authorization Request.**
+
+**Requirement: DIIP-compliant [[ref: Wallet]]s MUST support the `scope` parameter in the Authorization Request.**
+
+**Requirement: DIIP-compliant [[ref: Issuer]] [[ref: Agent]]s MUST support the `authorization_details` parameter in the Authorization Request.**
+
+[[ref: OID4VCI]] defines proof types `jwt`, `ldp_vp`, and `attestation` for binding the issued credential to the identifier of the end-user possessing that credential. DIIP requires compliant implementations to support [[ref: did:jwk]] as an identifier. Thus, in cases where cryptographic holder-binding is needed, implementations should be able to bind a credential to the [[ref: Holder]]'s [[ref: did:jwk]].
 
 **Requirement: DIIP-compliant implementations MUST support the `jwt` proof type with a [[ref: did:jwk]] or [[ref: did:web]] as the `iss` value and use a `kid` from the `assertionMethod` Verification Method relationship of the respective [[ref: Issuer]]'s [[ref: DID]] document.**
 
