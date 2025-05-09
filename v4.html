@@ -61,7 +61,7 @@ customElements.define("slide-panels",class extends HTMLElement{static get observ
 <dd><a path-0="www.linkedin.com"path-1="in"path-2="timoglastra"path-3=""href="https://www.linkedin.com/in/timoglastra/" >Timo Glastra</a> (Animo Solutions)</dd>
 <dt>Contributors and previous editors:</dt>
 <dd><a path-0="www.linkedin.com"path-1="in"path-2="adameunson"path-3=""href="https://www.linkedin.com/in/adameunson/" >Adam Eunson</a> (Auvo)</dd>
-<dd><a path-0="www.linkedin.com"path-1="in"path-2="jellefm"path-3=""href="https://www.linkedin.com/in/jellefm/" >Jelle Millenaar</a> (Impierce Technonologies)</dd>
+<dd><a path-0="www.linkedin.com"path-1="in"path-2="jellefm"path-3=""href="https://www.linkedin.com/in/jellefm/" >Jelle Millenaar</a> (Impierce Technologies)</dd>
 <dd><a path-0="www.linkedin.com"path-1="in"path-2="maaike-van-leuken-0b1b7011a"path-3=""href="https://www.linkedin.com/in/maaike-van-leuken-0b1b7011a/" >Maaike van Leuken</a> (TNO)</dd>
 <dd><a path-0="www.linkedin.com"path-1="in"path-2="thierrythevenet"path-3=""href="https://www.linkedin.com/in/thierrythevenet/" >Thierry Thevenet</a> (Talao)</dd>
 </dl>
@@ -78,35 +78,34 @@ customElements.define("slide-panels",class extends HTMLElement{static get observ
 <tbody>
 <tr>
 <td>Credential format</td>
-<td><a class="term-reference" href="#term:w3c-vcdm">W3C VCDM</a> and <a class="term-reference" href="#term:sd-jwt-vc">SD-JWT VC</a></td>
+<td><a class="term-reference" href="#term:w3c-vcdm">W3C VCDM</a> (20 March 2025) and <a class="term-reference" href="#term:sd-jwt-vc">SD-JWT VC</a> (draft 08)</td>
 </tr>
 <tr>
 <td>Signature scheme</td>
-<td>SD-JWT as specified in <a class="term-reference" href="#term:vc-jose-cose">VC-JOSE-COSE</a> and <a class="term-reference" href="#term:sd-jwt-vc">SD-JWT VC</a></td>
+<td>SD-JWT as specified in <a class="term-reference" href="#term:vc-jose-cose">VC-JOSE-COSE</a> (20 March 2025) and <a class="term-reference" href="#term:sd-jwt-vc">SD-JWT VC</a> (draft 08)</td>
 </tr>
 <tr>
 <td>Signature algorithm</td>
-<td><a class="term-reference" href="#term:es256">ES256</a></td>
+<td><a class="term-reference" href="#term:es256">ES256</a> (RFC 7518 May 2015)</td>
 </tr>
 <tr>
 <td>Identifying <a class="term-reference" href="#term:issuer">Issuer</a>s, <a class="term-reference" href="#term:holder">Holder</a>s, and <a class="term-reference" href="#term:verifier">Verifier</a>s</td>
-<td><a class="term-reference" href="#term:did:jwk">did:jwk</a> and <a class="term-reference" href="#term:did:web">did:web</a></td>
+<td><a class="term-reference" href="#term:did:jwk">did:jwk</a> (Commit 8137ac4, Apr 14 2022) and <a class="term-reference" href="#term:did:web">did:web</a> (31 July 2024)</td>
 </tr>
 <tr>
 <td>Issuance protocol</td>
-<td>OpenID for Verifiable Credentials Issuance (<a class="term-reference" href="#term:oid4vci">OID4VCI</a>)</td>
+<td>OpenID for Verifiable Credentials Issuance (<a class="term-reference" href="#term:oid4vci">OID4VCI</a>) (Draft 15)</td>
 </tr>
 <tr>
 <td>Presentation protocol</td>
-<td>OpenID for Verifiable Presentations (<a class="term-reference" href="#term:oid4vp">OID4VP</a>)</td>
+<td>OpenID for Verifiable Presentations (<a class="term-reference" href="#term:oid4vp">OID4VP</a>) (Draft 28)</td>
 </tr>
 <tr>
 <td>Revocation mechanism</td>
-<td><a class="term-reference" href="#term:ietf-token-status-list">IETF Token Status List</a></td>
+<td><a class="term-reference" href="#term:ietf-token-status-list">IETF Token Status List</a> (Draft 10, 2025-04-16)</td>
 </tr>
 </tbody>
 </table>
-<!-- - [[ref: SIOPv2]] -->
 <p>The <a href="#normative-references" >Normative References</a> section links to the versions of specifications that DIIP-compliant implementations must support.</p>
 <p>This document is not a specification but a <strong>profile</strong>. It outlines existing specifications required for implementations to interoperate with each other.
 It also clarifies mandatory features for the options mentioned in the referenced specifications.</p>
@@ -138,7 +137,7 @@ It also clarifies mandatory features for the options mentioned in the referenced
 <p>The (<a class="term-reference" href="#term:oid4vci">OID4VCI</a>) and (<a class="term-reference" href="#term:oid4vp">OID4VP</a>) protocols define the interaction between <a class="term-reference" href="#term:wallet">Wallet</a>s and <a class="term-reference" href="#term:agent">Agent</a>s but don’t specify a data model or a credential format.</p>
 <p>This interoperability profile makes selections by combining a set of specifications. It chooses standards for credential format, signature algorithm, identifying actors, and issuance and presentation protocols. Instead of saying, <em>“We use <a class="term-reference" href="#term:w3c-vcdm">W3C VCDM</a> credentials signed with <a class="term-reference" href="#term:vc-jose-cose">VC-JOSE-COSE</a> using <a class="term-reference" href="#term:es256">ES256</a> as the signature algorithm, <a class="term-reference" href="#term:oid4vci">OID4VCI</a> as the issuance protocol, and <a class="term-reference" href="#term:oid4vp">OID4VP</a> as the presentation protocol, and <a class="term-reference" href="#term:openid-federation">OpenID Federation</a> for trust establishment,”</em> you can just say, <em>“We use DIIP.”</em></p>
 <p>In addition, the DIIP profile makes selections <em>within</em> the specifications. When a standard allows multiple ways of implementing something, DIIP makes one of those ways mandatory. As an implementer, you don’t need to fully support all specifications to be DIIP-compliant. DIIP makes these choices to accelerate adoption and interoperability – defining the minimum required functionality.</p>
-<p>DIIP does not exclude anything. For example, when DIIP says that compliant implementations MUST support [ref: did:jwk] as an identifier of the <a class="term-reference" href="#term:issuer">Issuer</a>s, <a class="term-reference" href="#term:holder">Holder</a>s, and <a class="term-reference" href="#term:verifier">Verifier</a>s, it doesn’t say that other identifiers cannot be used. The <a class="term-reference" href="#term:wallet">Wallet</a>s and <a class="term-reference" href="#term:agent">Agent</a>s can support other identifiers as well and still be DIIP-compliant.</p>
+<p>DIIP does not exclude anything. For example, when DIIP says that compliant implementations MUST support <a class="term-reference" href="#term:did:jwk">did:jwk</a> as an identifier of the <a class="term-reference" href="#term:issuer">Issuer</a>s, <a class="term-reference" href="#term:holder">Holder</a>s, and <a class="term-reference" href="#term:verifier">Verifier</a>s, it doesn’t say that other identifiers cannot be used. The <a class="term-reference" href="#term:wallet">Wallet</a>s and <a class="term-reference" href="#term:agent">Agent</a>s can support other identifiers as well and still be DIIP-compliant.</p>
 <p>Trust ecosystems can also easily extend DIIP by saying, “We use the DIIP profile <em>and allow <code>mDocs</code> as an additional credential format.</em>” They can also switch requirements by saying, “We use the DIIP profile <em>but use <a class="term-reference" href="#term:vc-data-integrity">VC-DATA-INTEGRITY</a> as an embedded proof mechanism</em>.”</p>
 <p>The design goal for DIIP is to ensure interoperability between <a class="term-reference" href="#term:agent">Agent</a>s and <a class="term-reference" href="#term:wallet">Wallet</a>s in cases where device binding of <a class="term-reference" href="#term:digital-credential">Digital Credential</a>s is not required and the <a class="term-reference" href="#term:wallet">Wallet</a> doesn’t need to be trusted. Issuing, holding, and presenting certifications, diplomas, licenses, permits, etc., fit into the scope of DIIP. Using a <a class="term-reference" href="#term:wallet">Wallet</a> for strong customer authentication or for sharing Person Identification Data (PID) is out of DIIP’s scope, and you should look into <a class="term-reference" href="#term:haip">HAIP</a> instead.</p>
 <h3 id="relationship-to-eidas-regulation-and-haip-profile"><a class="toc-anchor" href="#relationship-to-eidas-regulation-and-haip-profile" >§</a> Relationship to eIDAS regulation and HAIP profile</h3>
@@ -157,38 +156,7 @@ Verifiable Credential Data Integrity 1.0 (<a class="term-reference" href="#term:
 <p><strong>Requirement: DIIP-compliant implementations MUST support both <a class="term-reference" href="#term:w3c-vcdm">W3C VCDM</a> and <a class="term-reference" href="#term:sd-jwt-vc">SD-JWT VC</a> as a credential format.</strong></p>
 <p><strong>Requirement: DIIP-compliant implementations MUST support <a path-0="www.w3.org"path-1="TR"path-2="vc-jose-cose"path-3="#secure-with-sd-jwt"href="https://www.w3.org/TR/vc-jose-cose/#secure-with-sd-jwt" >Securing JSON-LD Verifiable Credentials with SD-JWT</a> as specified in (<a class="term-reference" href="#term:vc-jose-cose">VC-JOSE-COSE</a>).</strong></p>
 <h3 id="signature-algorithm"><a class="toc-anchor" href="#signature-algorithm" >§</a> Signature Algorithm</h3>
-<p>There are many key types and signature methods used with JWTs. The table below lists some of the most common ones that implementations may want to support.</p>
-<table>
-<thead>
-<tr>
-<th>Key types</th>
-<th>Signature Method</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Ed25519</td>
-<td>ECDSA</td>
-</tr>
-<tr>
-<td>(x25519)</td>
-<td></td>
-</tr>
-<tr>
-<td>Secp256r1</td>
-<td>ES256</td>
-</tr>
-<tr>
-<td>Secp256k1</td>
-<td>ES256K</td>
-</tr>
-<tr>
-<td>RSA</td>
-<td>RSA256</td>
-</tr>
-</tbody>
-</table>
-<p>However, the DIIP profile does not force everyone to support everything, but chooses one key type <a class="term-reference" href="#term:secp256r1">Secp256r1</a> and one signature method <a class="term-reference" href="#term:es256">ES256</a> that all implementations must support.</p>
+<p>The DIIP profile chooses one key type <a class="term-reference" href="#term:secp256r1">Secp256r1</a> and one signature method <a class="term-reference" href="#term:es256">ES256</a> that all implementations must support.</p>
 <p><strong>Requirement: DIIP-compliant implementations MUST support <a class="term-reference" href="#term:es256">ES256</a> (<code>ECDSA</code> using <a class="term-reference" href="#term:secp256r1">Secp256r1</a> curve and <code>SHA-256</code> message digest algorithm).</strong></p>
 <h3 id="identifiers"><a class="toc-anchor" href="#identifiers" >§</a> Identifiers</h3>
 <p>DIIP prefers decentralized identifiers (<a class="term-reference" href="#term:did">DID</a>s) as identifiers. An entity identified by a <a class="term-reference" href="#term:did">DID</a> publishes a <a path-0="www.w3.org"path-1="TR"path-2="did-1.0"path-3="#dfn-did-documents"href="https://www.w3.org/TR/did-1.0/#dfn-did-documents" >DID Document</a>, which can contain useful metadata about the entity, e.g., various endpoints. There are many DID Methods defined. The DIIP profile requires support for two of them: <a class="term-reference" href="#term:did:jwk">did:jwk</a> and <a class="term-reference" href="#term:did:web">did:web</a>. In many use cases, organizations are identified by <a class="term-reference" href="#term:did:web">did:web</a>, and the natural persons are identified by <a class="term-reference" href="#term:did:jwk">did:jwk</a>.</p>
@@ -215,8 +183,8 @@ OID4VCI <a path-0="openid.net"path-1="specs"path-2="openid-4-verifiable-credenti
 <p><strong>Requirement: DIIP-compliant implementations MUST support both <em>Same-device</em> and <em>Cross-device</em> Credential Offer.</strong></p>
 <p><a class="term-reference" href="#term:oid4vci">OID4VCI</a> defines <em>Immediate</em> and <em>Deferred</em> flows. <em>Deferred</em> is more complex to implement and not required in most use cases.</p>
 <p><strong>Requirement: DIIP-compliant implementations MUST support the <em>Immediate</em> flow.</strong></p>
-<p><a class="term-reference" href="#term:oid4vci">OID4VCI</a> defines proof types <code>jwt</code>, <code>ldp_vp</code>, and <code>attestation</code> for binding the issued credential to the identifier of the end-user possessing that credential. DIIP requires compliant implementations to support <code>did:jwt</code> as an identifier. Thus, in cases where cryptographic holder-binding is needed, implementations should be able to bind a credential to the holder’s <code>did:jwt</code>.</p>
-<p><strong>Requirement: DIIP-compliant implementations MUST support The <code>jwt</code> proof type with a <code>did:jwt</code> or <code>did:web</code> as the value of the <code>kid</code> element.</strong></p>
+<p><a class="term-reference" href="#term:oid4vci">OID4VCI</a> defines proof types <code>jwt</code>, <code>ldp_vp</code>, and <code>attestation</code> for binding the issued credential to the identifier of the end-user possessing that credential. DIIP requires compliant implementations to support <a class="term-reference" href="#term:did:jwk">did:jwk</a> as an identifier. Thus, in cases where cryptographic holder-binding is needed, implementations should be able to bind a credential to the holder’s <a class="term-reference" href="#term:did:jwk">did:jwk</a>.</p>
+<p><strong>Requirement: DIIP-compliant implementations MUST support The <code>jwt</code> proof type with a <a class="term-reference" href="#term:did:jwk">did:jwk</a> or <a class="term-reference" href="#term:did:web">did:web</a> as the value of the <code>kid</code> element.</strong></p>
 <h3 id="presentation"><a class="toc-anchor" href="#presentation" >§</a> Presentation</h3>
 <p>The presentation of claims from the <a class="term-reference" href="#term:holder">Holder</a>'s <a class="term-reference" href="#term:wallet">Wallet</a> to the <a class="term-reference" href="#term:verifier">Verifier</a> is done along the <a class="term-reference" href="#term:oid4vp">OID4VP</a>. Other protocols exist, but <a class="term-reference" href="#term:oid4vp">OID4VP</a> is very broadly supported and also required by <a class="term-reference" href="#term:haip">HAIP</a>.</p>
 <h4 id="oid4vp"><a class="toc-anchor" href="#oid4vp" >§</a> OID4VP</h4>

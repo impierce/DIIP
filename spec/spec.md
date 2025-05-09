@@ -16,7 +16,7 @@ Editors:
 
 Contributors and previous editors:
 ~ [Adam Eunson](https://www.linkedin.com/in/adameunson/) (Auvo)
-~ [Jelle Millenaar](https://www.linkedin.com/in/jellefm/) (Impierce Technonologies)
+~ [Jelle Millenaar](https://www.linkedin.com/in/jellefm/) (Impierce Technologies)
 ~ [Maaike van Leuken](https://www.linkedin.com/in/maaike-van-leuken-0b1b7011a/) (TNO)
 ~ [Thierry Thevenet](https://www.linkedin.com/in/thierrythevenet/) (Talao)
 
@@ -26,17 +26,15 @@ Contributors and previous editors:
 
 The Decentralized Identity Interop Profile, or DIIP for short, defines requirements against existing specifications to enable the interoperable issuance and presentation of [[ref: Digital Credential]]s between [[ref: Issuer]]s, [[ref: Wallet]]s, and [[ref: Verifier]]s.
 
-| Purpose                                                                  | Specification                                                       |
-| ------------------------------------------------------------------------ | ------------------------------------------------------------------- |
-| Credential format                                                        | [[ref: W3C VCDM]] and [[ref: SD-JWT VC]]                            |
-| Signature scheme                                                         | SD-JWT as specified in [[ref: VC-JOSE-COSE]] and [[ref: SD-JWT VC]] |
-| Signature algorithm                                                      | [[ref: ES256]]                                                      |
-| Identifying [[ref: Issuer]]s, [[ref: Holder]]s, and [[ref: Verifier]]s   | [[ref: did:jwk]] and [[ref: did:web]]                               |
-| Issuance protocol                                                        | OpenID for Verifiable Credentials Issuance ([[ref: OID4VCI]])       |
-| Presentation protocol                                                    | OpenID for Verifiable Presentations ([[ref: OID4VP]])               |
-| Revocation mechanism                                                     | [[ref: IETF Token Status List]]                                     |
-
-<!-- - [[ref: SIOPv2]] -->
+| Purpose                                                                  | Specification                                                                                  |
+| ------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------- |
+| Credential format                                                        | [[ref: W3C VCDM]] (20 March 2025) and [[ref: SD-JWT VC]] (draft 08)                            |
+| Signature scheme                                                         | SD-JWT as specified in [[ref: VC-JOSE-COSE]] (20 March 2025) and [[ref: SD-JWT VC]] (draft 08) |
+| Signature algorithm                                                      | [[ref: ES256]] (RFC 7518 May 2015)                                                             |
+| Identifying [[ref: Issuer]]s, [[ref: Holder]]s, and [[ref: Verifier]]s   | [[ref: did:jwk]] (Commit 8137ac4, Apr 14 2022) and [[ref: did:web]] (31 July 2024)             |
+| Issuance protocol                                                        | OpenID for Verifiable Credentials Issuance ([[ref: OID4VCI]]) (Draft 15)                       |
+| Presentation protocol                                                    | OpenID for Verifiable Presentations ([[ref: OID4VP]]) (Draft 28)                               |
+| Revocation mechanism                                                     | [[ref: IETF Token Status List]] (Draft 10, 2025-04-16)                                         |
 
 The [Normative References](#normative-references) section links to the versions of specifications that DIIP-compliant implementations must support.
 
@@ -91,7 +89,7 @@ This interoperability profile makes selections by combining a set of specificati
 
 In addition, the DIIP profile makes selections *within* the specifications. When a standard allows multiple ways of implementing something, DIIP makes one of those ways mandatory. As an implementer, you don't need to fully support all specifications to be DIIP-compliant. DIIP makes these choices to accelerate adoption and interoperability – defining the minimum required functionality.
 
-DIIP does not exclude anything. For example, when DIIP says that compliant implementations MUST support [ref: did:jwk] as an identifier of the [[ref: Issuer]]s, [[ref: Holder]]s, and [[ref: Verifier]]s, it doesn't say that other identifiers cannot be used. The [[ref: Wallet]]s and [[ref: Agent]]s can support other identifiers as well and still be DIIP-compliant.
+DIIP does not exclude anything. For example, when DIIP says that compliant implementations MUST support [[ref: did:jwk]] as an identifier of the [[ref: Issuer]]s, [[ref: Holder]]s, and [[ref: Verifier]]s, it doesn't say that other identifiers cannot be used. The [[ref: Wallet]]s and [[ref: Agent]]s can support other identifiers as well and still be DIIP-compliant.
 
 Trust ecosystems can also easily extend DIIP by saying, "We use the DIIP profile *and allow `mDocs` as an additional credential format.*" They can also switch requirements by saying, "We use the DIIP profile *but use [[ref: VC-DATA-INTEGRITY]] as an embedded proof mechanism*."
 
@@ -126,17 +124,7 @@ To keep things as simple as possible, DIIP requires implementations to use `SD-J
 
 ### Signature Algorithm
 
-There are many key types and signature methods used with JWTs. The table below lists some of the most common ones that implementations may want to support.
-
-|Key types | Signature Method|
-|----------|-----------------|		
-|Ed25519   | ECDSA     		 |	
-|(x25519)  |                 | 
-|Secp256r1 | ES256           |			
-|Secp256k1 | ES256K          |	
-|RSA       | RSA256          |
-
-However, the DIIP profile does not force everyone to support everything, but chooses one key type [[ref: Secp256r1]] and one signature method [[ref: ES256]] that all implementations must support.
+The DIIP profile chooses one key type [[ref: Secp256r1]] and one signature method [[ref: ES256]] that all implementations must support.
 
 **Requirement: DIIP-compliant implementations MUST support [[ref: ES256]] (`ECDSA` using [[ref: Secp256r1]] curve and `SHA-256` message digest algorithm).**
 
@@ -185,9 +173,9 @@ It should be noted that various [Security Considerations](https://openid.net/spe
 
 **Requirement: DIIP-compliant implementations MUST support the *Immediate* flow.**
 
-[[ref: OID4VCI]] defines proof types `jwt`, `ldp_vp`, and `attestation` for binding the issued credential to the identifier of the end-user possessing that credential. DIIP requires compliant implementations to support `did:jwt` as an identifier. Thus, in cases where cryptographic holder-binding is needed, implementations should be able to bind a credential to the holder's `did:jwt`.
+[[ref: OID4VCI]] defines proof types `jwt`, `ldp_vp`, and `attestation` for binding the issued credential to the identifier of the end-user possessing that credential. DIIP requires compliant implementations to support [[ref: did:jwk]] as an identifier. Thus, in cases where cryptographic holder-binding is needed, implementations should be able to bind a credential to the holder's [[ref: did:jwk]].
 
-**Requirement: DIIP-compliant implementations MUST support The `jwt` proof type with a `did:jwt` or `did:web` as the value of the `kid` element.**
+**Requirement: DIIP-compliant implementations MUST support The `jwt` proof type with a [[ref: did:jwk]] or [[ref: did:web]] as the value of the `kid` element.**
 
 ### Presentation
 The presentation of claims from the [[ref: Holder]]'s [[ref: Wallet]] to the [[ref: Verifier]] is done along the [[ref: OID4VP]]. Other protocols exist, but [[ref: OID4VP]] is very broadly supported and also required by [[ref: HAIP]].
