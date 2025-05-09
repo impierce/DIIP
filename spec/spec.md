@@ -157,7 +157,9 @@ Authorization Code Flow provides a more advanced way of implementing credential 
 
 **Requirement: DIIP-compliant implementations MUST NOT assume the Authorization Server is on the same domain as the [[ref: Issuer]].**
 
-**Requirement: DIIP-compliant implementations MUST support [[ref: PKCE]] and [[ref: PAR]].**
+**Requirement: DIIP-compliant implementations MUST support [[ref: PKCE]] with Code Challenge Method Parameter `S256` to prevent authorization code interception attacks.**
+
+**Requirement: DIIP-compliant implementations MUST support [[ref: PAR]] with the [[ref: Issuer]]'s Authorization Server using `require_pushed_authorization_requests` set to `true` ensuring integrity and authenticity of the authorization request.**
 
 It should be noted that various [Security Considerations](https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0.html#name-pre-authorized-code-flow-2) have been described in the [[ref: OID4VCI]] specification with respect to implementing *Pre-Authorized Code Flow*. Parties implementing DIIP are strongly suggested to implement mitigating measures, like the use of a Transaction Code.
 
