@@ -24,7 +24,7 @@ Contributors and previous editors:
 
 ## Abstract
 
-The Decentralized Identity Interop Profile, or DIIP for short, defines requirements against existing specifications to enable the interoperable issuance and presentation of [[ref: Digital Credential]]s between [[ref: Issuer]]s, [[ref: Wallet]]s, and [[ref: Verifier]]s.
+The Decentralized Identity Interop Profile, or DIIP for short, defines requirements against existing specifications to enable the interoperable issuance and presentation of [[ref: Digital Credential]]s between [[ref: Issuer]]s, [[ref: Holder]]s, and [[ref: Verifier]]s.
 
 | Purpose                                                                  | Specification                                                                                  |
 | ------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------- |
@@ -43,7 +43,7 @@ It also clarifies mandatory features for the options mentioned in the referenced
 
 The main objective of this profile is to allow for easy adoption and use the minimum amount of functionality for a working [[ref: Digital Credential]] ecosystem.
 
-### Status of This Document
+### Status of this Document
 
 The Decentralized Identity Interop Profile v4 is a DRAFT specification under development.
 
@@ -53,11 +53,11 @@ The latest published DIIP profile can be found at [https://FIDEScommunity.github
 
 The audience of this document includes organisations aiming to issue or verify [[ref: Digital Credential]]s, as well as the implementers of [[ref: Digital Credential]] solutions ([[ref: Wallet]]s and [[ref: Agent]]s). 
 
-### Development of the DIIP profile
+### Development of the DIIP Profile
 Participate:
 ~ [GitHub repo](https://github.com/FIDEScommunity/DIIP.git)
-~ [File a bug](https://github.com/FIDEScommunity/DIIP.git/issues)
-~ [Commit history](https://github.com/FIDEScommunity/DIIP.git/commits/main)
+~ [File a bug](https://github.com/FIDEScommunity/DIIP/issues)
+~ [Commit history](https://github.com/FIDEScommunity/DIIP/commits/main)
 
 The development of this interoperability profile is a collaborative process. Anyone can suggest new specifications and restrictions. The suggestions are reviewed by the community, and decisions are made through discussions.
 
@@ -65,7 +65,7 @@ Feel free to join the [FIDES Community Discord](https://discord.gg/dSNbNadE6W) t
 
 There are also monthly DIIP meetings. Contact <a href="mailto:harmen@fides.community">Harmen van der Kooij</a> if you want to be invited to the meetings.
 
-The authors inted to release new versions of the DIIP profile twice a year.
+The authors intend to release new versions of the DIIP profile twice a year.
 
 Some plans and ideas for the next version are documented in the [Appendix A: Future Directions](#appendix-a-future-directions).
 
@@ -85,21 +85,21 @@ The [[ref: W3C VCDM]] specification defines a data model for [[ref: Digital Cred
 
 The ([[ref: OID4VCI]]) and ([[ref: OID4VP]]) protocols define the interaction between [[ref: Wallet]]s and [[ref: Agent]]s but don't specify a data model or a credential format.
 
-This interoperability profile makes selections by combining a set of specifications. It chooses standards for credential format, signature algorithm, identifying actors, and issuance and presentation protocols. Instead of saying, *"We use [[ref: W3C VCDM]] credentials signed with [[ref: VC-JOSE-COSE]] using [[ref: ES256]] as the signature algorithm, [[ref: OID4VCI]] as the issuance protocol, and [[ref: OID4VP]] as the presentation protocol, and [[ref: OpenID Federation]] for trust establishment,"* you can just say, *"We use DIIP."*
+This interoperability profile makes selections by combining a set of specifications. It chooses standards for credential format, signature algorithm, identifying actors, and issuance and presentation protocols. Instead of saying, "*We use [[ref: W3C VCDM]] credentials signed with [[ref: VC-JOSE-COSE]] using [[ref: ES256]] as the signature algorithm, [[ref: OID4VCI]] as the issuance protocol, and [[ref: OID4VP]] as the presentation protocol, and [[ref: OpenID Federation]] for trust establishment*", you can just say, "*We use DIIP v4*".
 
 In addition, the DIIP profile makes selections *within* the specifications. When a standard allows multiple ways of implementing something, DIIP makes one of those ways mandatory. As an implementer, you don't need to fully support all specifications to be DIIP-compliant. DIIP makes these choices to accelerate adoption and interoperability – defining the minimum required functionality.
 
 DIIP does not exclude anything. For example, when DIIP says that compliant implementations MUST support [[ref: did:jwk]] as an identifier of the [[ref: Issuer]]s, [[ref: Holder]]s, and [[ref: Verifier]]s, it doesn't say that other identifiers cannot be used. The [[ref: Wallet]]s and [[ref: Agent]]s can support other identifiers as well and still be DIIP-compliant.
 
-Trust ecosystems can also easily extend DIIP by saying, "We use the DIIP profile *and allow `mDocs` as an additional credential format.*" They can also switch requirements by saying, "We use the DIIP profile *but use [[ref: VC-DATA-INTEGRITY]] as an embedded proof mechanism*."
+Trust ecosystems can also easily extend DIIP by saying, "We use the DIIP v4 profile *and allow `mDocs` as an additional credential format*". They can also switch requirements by saying, "We use the DIIP v4 profile *but use [[ref: VC-DATA-INTEGRITY]] as an embedded proof mechanism*".
 
-The design goal for DIIP is to ensure interoperability between [[ref: Agent]]s and [[ref: Wallet]]s in cases where device binding of [[ref: Digital Credential]]s is not required and the [[ref: Wallet]] doesn't need to be trusted. Issuing, holding, and presenting certifications, diplomas, licenses, permits, etc., fit into the scope of DIIP. Using a [[ref: Wallet]] for strong customer authentication or for sharing Person Identification Data (PID) is out of DIIP's scope, and you should look into [[ref: HAIP]] instead.
+The design goal for DIIP is to ensure interoperability between [[ref: Wallet]]s and [[ref: Agent]]s in cases where device binding of [[ref: Digital Credential]]s is not required and the [[ref: Wallet]] doesn't need to be trusted. Issuing, holding, and presenting certifications, diplomas, licenses, permits, etc., fit into the scope of DIIP. Using a [[ref: Wallet]] for strong customer authentication or for sharing Person Identification Data (PID) is out of DIIP's scope, and you should look into [[ref: HAIP]] instead.
 
-### Relationship to eIDAS regulation and HAIP profile
+### Relationship to eIDAS Regulation and HAIP Profile
 
 In the context of the European eIDAS regulation ([[ref: eIDAS]]) and its Architecture and Reference Framework ([[ref: ARF]]), the DIIP profile is a profile for "regular" digital credentials, "non-qualified electronic attestations of attributes".
 
-Digital [[ref: Agent]]s and [[ref: Wallet]]s may support both DIIP and the OpenID4VC High Assurance Interoperability Profile ([[ref: HAIP]]). [[ref: HAIP]] is targeted for high-assurance use cases where it is important to bind the credentials to the [[ref: Holder]]'s private key (device binding). DIIP is the profile for other use cases.
+[[ref: Wallet]]s and [[ref: Agent]]s may support both DIIP and the OpenID4VC High Assurance Interoperability Profile ([[ref: HAIP]]). [[ref: HAIP]] is targeted for high-assurance use cases where it is important to bind the credentials to the [[ref: Holder]]'s private key (device binding). DIIP is the profile for other use cases.
 
 The standards used in the DIIP profile are the same ones that the [[ref: ARF]] uses, but DIIP makes different choices to [[ref: HAIP]] in some areas where [[ref: OID4VCI]] and [[ref: OID4VP]] provide optionality. 
 
@@ -113,7 +113,7 @@ The W3C Verifiable Credential Data Model ([[ref: W3C VCDM]]) defines structure a
 
 The SD-JWT-based Verifiable Credentials specification ([[ref: SD-JWT VC]]) defines a credential format that are serialized in JSON Web Tokens ([[ref: JWT]]s) and enable selective disclosure. [[ref: SD-JWT VC]] is used as a credential format for person identification data (PID) in [[ref: HAIP]] and [[ref: ARF]] (in addition to `mDocs`).
 
-[[ref: W3C VCDM]] recommends using Securing Verifiable Credentials using JOSE and COSE ([[ref: VC-JOSE-COSE]]) as an *enveloping proof* mechanism and 
+[[ref: W3C VCDM]] recommends securing Verifiable Credentials using JOSE and COSE ([[ref: VC-JOSE-COSE]]) as an *enveloping proof* mechanism and 
 Verifiable Credential Data Integrity 1.0 ([[ref: VC-DATA-INTEGRITY]]) as an *embedded proof* mechanism.
 
 To keep things as simple as possible, DIIP requires implementations to use `SD-JWT` as the mechanism to secure also [[ref: W3C VCDM]]-based credentials.
@@ -129,12 +129,12 @@ The DIIP profile chooses one key type [[ref: Secp256r1]] and one signature metho
 **Requirement: DIIP-compliant implementations MUST support [[ref: ES256]] (`ECDSA` using [[ref: Secp256r1]] curve and `SHA-256` message digest algorithm).**
 
 ### Identifiers
-DIIP prefers decentralized identifiers ([[ref: DID]]s) as identifiers. An entity identified by a [[ref: DID]] publishes a [DID Document](https://www.w3.org/TR/did-1.0/#dfn-did-documents), which can contain useful metadata about the entity, e.g., various endpoints. There are many DID Methods defined. The DIIP profile requires support for two of them: [[ref: did:jwk]] and [[ref: did:web]]. In many use cases, organizations are identified by [[ref: did:web]], and the natural persons are identified by [[ref: did:jwk]].
+DIIP prefers decentralized identifiers ([[ref: DID]]s) as identifiers. An entity identified by a [[ref: DID]] publishes a [DID Document](https://www.w3.org/TR/did-1.0/#dfn-did-documents), which can contain useful metadata about the entity, e.g., various endpoints. There are many DID methods defined. The DIIP profile requires support for two of them: [[ref: did:jwk]] and [[ref: did:web]]. In many use cases, organizations are identified by [[ref: did:web]], and the natural persons are identified by [[ref: did:jwk]].
 
 **Requirement: DIIP-compliant implementations MUST support [[ref: did:jwk]] and [[ref: did:web]] as the identifiers of the [[ref: Issuer]]s, [[ref: Holder]]s, and [[ref: Verifier]]s.**
 
 ### Trust Establishment
-Signatures in [[ref: Digital Credential]]s can be used to verify that the content of a credential has not been tampered with. But anyone can sign a credential and put anything in the issuer field. [[ref: Digital Credential]] ecosystems require that there is a way for a [[ref: Verifier]] to check who the [[ref: Issuer]] or a [[ref: Digital Credential]] is. Equally, a user might want to be informed about the trustworthiness of a [[ref: Verifier]] before choosing to release credentials.
+Signatures in [[ref: Digital Credential]]s can be used to verify that the content of a credential has not been tampered with. But anyone can sign a credential and put anything in the issuer field. [[ref: Digital Credential]] ecosystems require that there is a way for a [[ref: Verifier]] to check who is the [[ref: Issuer]] of a [[ref: Digital Credential]]. Equally, a user might want to be informed about the trustworthiness of a [[ref: Verifier]] before choosing to share credentials.
 
 The DIIP v4 profile doesn't require compliant implementations to support any trust establishment mechanism.
 
@@ -151,7 +151,7 @@ Authorization Code Flow provides a more advanced way of implementing credential 
 
 **Requirement: DIIP-compliant implementations MUST support both *Pre-Authorized Code Flow* and *Authorization Code Flow*.**
 
-**Requirement: DIIP-compliant implementations MUST support the Transaction Code when using *Pre-Authorized Code Flow*.**
+**Requirement: DIIP-compliant implementations MUST support the `tx_code` when using *Pre-Authorized Code Flow*.**
 
 **Requirement: DIIP-compliant implementations MUST support the `trust_chain` claim when using *Pre-Authorized Code Flow*.**
 
@@ -191,7 +191,7 @@ Using [[ref: OID4VP]], the [[ref: Holder]]s can also present cryptographically v
 
 **Requirement: DIIP-compliant implementations MUST support both *Same-device Flow* and *Cross-device Flow*.**
 
-According to [[ref: OID4VP]], rhe [[ref: Verifier]] may send an *Authorization Request* using either of these 3 options:
+According to [[ref: OID4VP]], the [[ref: Verifier]] may send an *Authorization Request* using either of these 3 options:
 - Passing as URL with encoded parameters
 - Passing a request object as value
 - Passing a request object by reference
