@@ -9,7 +9,7 @@ Decentralized Identity Interop Profile v4
 Editors:
 ~ [Eelco Klaver](https://www.linkedin.com/in/eklaver/) (Credenco)
 ~ [Harmen van der Kooij](https://www.linkedin.com/in/harmenvanderkooij/) (FIDES Labs)
-~ [Niels Klomp](https://www.linkedin.com/in/niels-klomp/) (Sphereon)
+~ [Niels Klomp](https://www.linkedin.com/in/niels-klomp/) (4Sure Technology Solutions)
 ~ [Niels van Dijk](https://www.linkedin.com/in/creativethings/) (SURF)
 ~ [Samuel Rinnetmäki](https://www.linkedin.com/in/samuel/) (Findynet)
 ~ [Timo Glastra](https://www.linkedin.com/in/timoglastra/) (Animo Solutions)
@@ -118,23 +118,13 @@ Verifiable Credential Data Integrity 1.0 ([[ref: VC-DATA-INTEGRITY]]) as an *emb
 
 To keep things as simple as possible, DIIP requires implementations to use `SD-JWT` as the mechanism to secure also [[ref: W3C VCDM]]-based credentials.
 
-**Requirement: DIIP-compliant implementations MUST support both [[ref: W3C VCDM]] and [[ref: SD-JWT VC]] as a credential format.**
+**Requirement: DIIP-compliant implementations MUST support [[ref: SD-JWT VC]] as a credential format.**
 
-**Requirement: DIIP-compliant implementations MUST support [Securing JSON-LD Verifiable Credentials with SD-JWT](https://www.w3.org/TR/vc-jose-cose/#secure-with-sd-jwt) as specified in ([[ref: VC-JOSE-COSE]]).**
+**Requirement: DIIP-compliant implementations MUST support [[ref: W3C VCDM]] and more specifically [Securing JSON-LD Verifiable Credentials with SD-JWT](https://www.w3.org/TR/vc-jose-cose/#secure-with-sd-jwt) as specified in ([[ref: VC-JOSE-COSE]]).**
 
 ### Signature Algorithm
 
-There are many key types and signature methods used with JWTs. The table below lists some of the most common ones that implementations may want to support.
-
-|Key types | Signature Method|
-|----------|-----------------|		
-|Ed25519   | ECDSA     		 |	
-|(x25519)  |                 | 
-|Secp256r1 | ES256           |			
-|Secp256k1 | ES256K          |	
-|RSA       | RSA256          |
-
-However, the DIIP profile does not force everyone to support everything, but chooses one key type [[ref: Secp256r1]] and one signature method [[ref: ES256]] that all implementations must support.
+The DIIP profile chooses one key type [[ref: Secp256r1]] and one signature method [[ref: ES256]] that all implementations must support.
 
 **Requirement: DIIP-compliant implementations MUST support [[ref: ES256]] (`ECDSA` using [[ref: Secp256r1]] curve and `SHA-256` message digest algorithm).**
 
@@ -167,7 +157,9 @@ Authorization Code Flow provides a more advanced way of implementing credential 
 
 **Requirement: DIIP-compliant implementations MUST NOT assume the Authorization Server is on the same domain as the [[ref: Issuer]].**
 
-**Requirement: DIIP-compliant implementations MUST support [[ref: PKCE]] and [[ref: PAR]].**
+**Requirement: DIIP-compliant implementations MUST support [[ref: PKCE]] with Code Challenge Method Parameter `S256` to prevent authorization code interception attacks.**
+
+**Requirement: DIIP-compliant implementations MUST support [[ref: PAR]] with the [[ref: Issuer]]'s Authorization Server using `require_pushed_authorization_requests` set to `true` ensuring integrity and authenticity of the authorization request.**
 
 It should be noted that various [Security Considerations](https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0.html#name-pre-authorized-code-flow-2) have been described in the [[ref: OID4VCI]] specification with respect to implementing *Pre-Authorized Code Flow*. Parties implementing DIIP are strongly suggested to implement mitigating measures, like the use of a Transaction Code.
 
@@ -185,7 +177,9 @@ It should be noted that various [Security Considerations](https://openid.net/spe
 
 [[ref: OID4VCI]] defines proof types `jwt`, `ldp_vp`, and `attestation` for binding the issued credential to the identifier of the end-user possessing that credential. DIIP requires compliant implementations to support [[ref: did:jwk]] as an identifier. Thus, in cases where cryptographic holder-binding is needed, implementations should be able to bind a credential to the holder's [[ref: did:jwk]].
 
-**Requirement: DIIP-compliant implementations MUST support The `jwt` proof type with a [[ref: did:jwk]] or [[ref: did:web]] as the value of the `kid` element.**
+**Requirement: DIIP-compliant implementations MUST support the `jwt` proof type with a [[ref: did:jwk]] or [[ref: did:web]] as the `iss` value and use a `kid` from the `assertionMethod` Verification Method relationship of the respective [[ref: Issuer]]'s [[ref: DID]] document.**
+
+**Requirement: DIIP-compliant implementations MUST support a `cnf` holder binding claim in the [[ref: Issuer]]'s `jwt` and it MUST include a `kid` value from the `authentication` Verification Method relationship of the respective [[ref: Holder]]'s [[ref: DID]] document.**
 
 ### Presentation
 The presentation of claims from the [[ref: Holder]]'s [[ref: Wallet]] to the [[ref: Verifier]] is done along the [[ref: OID4VP]]. Other protocols exist, but [[ref: OID4VP]] is very broadly supported and also required by [[ref: HAIP]].

@@ -156,38 +156,7 @@ Verifiable Credential Data Integrity 1.0 (<a class="term-reference" href="#term:
 <p><strong>Requirement: DIIP-compliant implementations MUST support both <a class="term-reference" href="#term:w3c-vcdm">W3C VCDM</a> and <a class="term-reference" href="#term:sd-jwt-vc">SD-JWT VC</a> as a credential format.</strong></p>
 <p><strong>Requirement: DIIP-compliant implementations MUST support <a path-0="www.w3.org"path-1="TR"path-2="vc-jose-cose"path-3="#secure-with-sd-jwt"href="https://www.w3.org/TR/vc-jose-cose/#secure-with-sd-jwt" >Securing JSON-LD Verifiable Credentials with SD-JWT</a> as specified in (<a class="term-reference" href="#term:vc-jose-cose">VC-JOSE-COSE</a>).</strong></p>
 <h3 id="signature-algorithm"><a class="toc-anchor" href="#signature-algorithm" >§</a> Signature Algorithm</h3>
-<p>There are many key types and signature methods used with JWTs. The table below lists some of the most common ones that implementations may want to support.</p>
-<table>
-<thead>
-<tr>
-<th>Key types</th>
-<th>Signature Method</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Ed25519</td>
-<td>ECDSA</td>
-</tr>
-<tr>
-<td>(x25519)</td>
-<td></td>
-</tr>
-<tr>
-<td>Secp256r1</td>
-<td>ES256</td>
-</tr>
-<tr>
-<td>Secp256k1</td>
-<td>ES256K</td>
-</tr>
-<tr>
-<td>RSA</td>
-<td>RSA256</td>
-</tr>
-</tbody>
-</table>
-<p>However, the DIIP profile does not force everyone to support everything, but chooses one key type <a class="term-reference" href="#term:secp256r1">Secp256r1</a> and one signature method <a class="term-reference" href="#term:es256">ES256</a> that all implementations must support.</p>
+<p>The DIIP profile chooses one key type <a class="term-reference" href="#term:secp256r1">Secp256r1</a> and one signature method <a class="term-reference" href="#term:es256">ES256</a> that all implementations must support.</p>
 <p><strong>Requirement: DIIP-compliant implementations MUST support <a class="term-reference" href="#term:es256">ES256</a> (<code>ECDSA</code> using <a class="term-reference" href="#term:secp256r1">Secp256r1</a> curve and <code>SHA-256</code> message digest algorithm).</strong></p>
 <h3 id="identifiers"><a class="toc-anchor" href="#identifiers" >§</a> Identifiers</h3>
 <p>DIIP prefers decentralized identifiers (<a class="term-reference" href="#term:did">DID</a>s) as identifiers. An entity identified by a <a class="term-reference" href="#term:did">DID</a> publishes a <a path-0="www.w3.org"path-1="TR"path-2="did-1.0"path-3="#dfn-did-documents"href="https://www.w3.org/TR/did-1.0/#dfn-did-documents" >DID Document</a>, which can contain useful metadata about the entity, e.g., various endpoints. There are many DID Methods defined. The DIIP profile requires support for two of them: <a class="term-reference" href="#term:did:jwk">did:jwk</a> and <a class="term-reference" href="#term:did:web">did:web</a>. In many use cases, organizations are identified by <a class="term-reference" href="#term:did:web">did:web</a>, and the natural persons are identified by <a class="term-reference" href="#term:did:jwk">did:jwk</a>.</p>
