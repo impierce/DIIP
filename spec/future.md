@@ -15,7 +15,7 @@ One way to use [[ref: OpenID Federation]] is described here as a guidance for im
 
 - [[ref: Issuer]] [[ref: Agent]]s publish the [[ref: Issuer]]'s Entity Configurations as specified in [[ref: OIDF Wallet Architectures]]. (Simplified explanation: sign the [[ref: OID4VCI]] issuer metadata as a JWT and publish it in the `.well-known` path.)
 
-- [[ref: Verifier]] [[ref: Agent]]s publishi the [[ref: Verifier]]'s Entity Configurations as specified in [[ref: OIDF Wallet Architectures]]. (Simplified explanation: sign the [[ref: OID4VP]] verifier metadata as a JWT and publish it in the `.well-known` path.)
+- [[ref: Verifier]] [[ref: Agent]]s publish the [[ref: Verifier]]'s Entity Configurations as specified in [[ref: OIDF Wallet Architectures]]. (Simplified explanation: sign the [[ref: OID4VP]] verifier metadata as a JWT and publish it in the `.well-known` path.)
 
 - If a [[ref: Digital Credential]] contains a [termsOfUse](https://www.w3.org/TR/vc-data-model-2.0/#terms-of-use) object with an attribute `federations`, a DIIP-compliant Wallet MUST warn the user before sharing [[ref: Digital Credential]]s or Verifiable Presentations with a [[ref: Verifier]] for which a trust chain cannot be resolved using the Trust Anchor in the value of the `federations` attribute.
 
