@@ -9,6 +9,7 @@ Decentralized Identity Interop Profile v4
 Editors:
 ~ [Eelco Klaver](https://www.linkedin.com/in/eklaver/) (Credenco)
 ~ [Harmen van der Kooij](https://www.linkedin.com/in/harmenvanderkooij/) (FIDES Labs)
+~ [Nander Stabel](https://www.linkedin.com/in/nanderstabel/) (Impierce Technologies)
 ~ [Niels Klomp](https://www.linkedin.com/in/niels-klomp/) (4Sure Technology Solutions)
 ~ [Niels van Dijk](https://www.linkedin.com/in/creativethings/) (SURF)
 ~ [Samuel Rinnetmäki](https://www.linkedin.com/in/samuel/) (Findynet)
@@ -147,17 +148,25 @@ OID4VCI [issuance flow variations](https://openid.net/specs/openid-4-verifiable-
 
 In many situations, [[ref: Digital Credential]]s are issued on the [[ref: Issuer]]'s online service (website). This online service may have already authenticated and authorized the user before displaying the credential offer. Another authentication or authorization is not needed in those situations.
 
-Authorization Code Flow provides a more advanced way of implementing credential issuance. Proof Key for Code Exchange ([[ref: PKCE]]) defines a way to mitigate against authorization code interception attack. Pushed authorization request ([[ref: PAR]]) allows clients to push the payload of an authorization request directly to the authorization server. These features may be needed in higher assurance use cases or for protecting privacy.
+Authorization Code Flow provides a more advanced way of implementing credential issuance. Proof Key for Code Exchange ([[ref: PKCE]]) defines a way to mitigate against authorization code interception attack. Pushed authorization request ([[ref: PAR]]) allows clients to push the payload of an authorization request directly to the [[ref: Authorization Server]]. These features may be needed in higher assurance use cases or for protecting privacy.
 
 **Requirement: DIIP-compliant implementations MUST support both *Pre-Authorized Code Flow* and *Authorization Code Flow*.**
 
 **Requirement: DIIP-compliant implementations MUST support the `tx_code` when using *Pre-Authorized Code Flow*.**
 
-**Requirement: DIIP-compliant [[ref: Wallet]]s MUST NOT assume the Authorization Server is on the same domain as the [[ref: Issuer]].**
+When the [[ref: Issuer]] and the [[ref: Authorization Server]] are separate entities, the [[ref: OID4VCI]] specification lacks a standard mechanism for the [[ref: Issuer]] to link a credential request back to its originating offer. To bridge this interoperability gap, DIIP mandates a specific flow using the `issuer_state` parameter and JWT-based Access Tokens.
+
+**Requirement: DIIP-compliant [[ref: Wallet]]s MUST NOT assume the [[ref: Authorization Server]] is on the same domain as the [[ref: Issuer]].**
+
+**Requirement: If the [[ref: Authorization Server]] is a separate entity, then DIIP-compliant [[ref: Issuer]]s MUST include the `issuer_state` parameter in the Credential Offer during the *Authorization Code Flow*.**
+
+**Requirement: If the [[ref: Authorization Server]] is a separate entity, then DIIP-compliant [[ref: Authorization Server]]s MUST issue Access Tokens as JWTs, compliant with the [[ref: JSON Web Token (JWT) Profile for OAuth 2.0 Access Tokens]]. The `issuer_state` value that it received via the Authorization Request from the [[ref: Wallet]] MUST be included as a claim in the Access Token JWT.**
+
+**Requirement: If the [[ref: Authorization Server]] is a separate entity, then DIIP-compliant [[ref: Issuer]]s MUST issue the `pre-authorized_code` as a JWT when using the *Pre-Authorized Code Flow*. This JWT MUST be signed by the [[ref: Issuer]] and MUST contain the `issuer_state` as a claim. The [[ref: Authorization Server]] MUST validate this JWT and then include the extracted `issuer_state` into the Access Token JWT it issues to the [[ref: Wallet]].**
 
 **Requirement: DIIP-compliant implementations MUST support [[ref: PKCE]] with Code Challenge Method Parameter `S256` to prevent authorization code interception attacks.**
 
-**Requirement: DIIP-compliant implementations MUST support [[ref: PAR]] with the [[ref: Issuer]]'s Authorization Server using `require_pushed_authorization_requests` set to `true` ensuring integrity and authenticity of the authorization request.**
+**Requirement: DIIP-compliant implementations MUST support [[ref: PAR]] with the [[ref: Issuer]]'s [[ref: Authorization Server]] using `require_pushed_authorization_requests` set to `true` ensuring integrity and authenticity of the authorization request.**
 
 It should be noted that various [Security Considerations](https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0.html#name-pre-authorized-code-flow-2) have been described in the [[ref: OID4VCI]] specification with respect to implementing *Pre-Authorized Code Flow*. Parties implementing DIIP are strongly suggested to implement mitigating measures, like the use of a Transaction Code.
 
@@ -175,7 +184,7 @@ It should be noted that various [Security Considerations](https://openid.net/spe
 
 [[ref: OID4VCI]] states that there are two possible methods for requesting the issuance of a specific credential type in an *Authorization Request*: either by utilizing the `authorization_details` parameter or by utilizing the `scope` parameter.
 
-The `scope` parameter is a light-weight way of using an external authorization server. The `authorization_details` makes the flow much more configurable and structured. If an issuer agent does not support an external authorization server, the scope parameter is not needed.
+The `scope` parameter is a light-weight way of using an external [[ref: Authorization Server]]. The `authorization_details` makes the flow much more configurable and structured. If an issuer agent does not support an external [[ref: Authorization Server]], the scope parameter is not needed.
 
 **Requirement: DIIP-compliant [[ref: Wallet]]s MUST support the `authorization_details` parameter using the `credential_configuration_id` parameter in the Authorization Request.**
 
@@ -242,6 +251,9 @@ This section consolidates in one place common terms used across open standards t
 [[def: Agent]]
 ~ A software application or component that an [[ref: Issuer]] uses to issue [[ref: Digital Credential]]s or that a [[ref: Verifier]] uses to request and verify them.
 
+[[def: Authorization Server]]
+~ A software application or component that an [[ref: Issuer]] uses to authorize the issuance of [[ref: Digital Credential]]s to a [[ref: Wallet]]. Authorization Servers in the context of [[ref OID4VCI]] can either be part of the [[ref: Issuer]]'s [[ref: Agent]] or a separate entity that authorizes on behalf of the [[ref Issuer]].
+
 [[def: Holder]]
 ~ An entity that possesses or holds [[ref: Digital Credential]]s and can present them to [[ref: Verifier]]s.
 
@@ -297,6 +309,9 @@ This section consolidates in one place common terms used across open standards t
 
 [[def: PKCE]]
 ~ [RFC 7636 Proof Key for Code Exchange by OAuth Public Clients](https://datatracker.ietf.org/doc/html/rfc7636). Status: RFC - Proposed Standard.
+
+[[def: JSON Web Token (JWT) Profile for OAuth 2.0 Access Tokens]]
+~ [RFC 9068 JSON Web Token (JWT) Profile for OAuth 2.0 Access Tokens](https://datatracker.ietf.org/doc/html/rfc9068). Status: RFC - Proposed Standard.
 
 [[def: SD-JWT VC]]
 ~ [SD-JWT-based Verifiable Credentials (SD-JWT VC) - draft 08](https://datatracker.ietf.org/doc/draft-ietf-oauth-sd-jwt-vc/08/). Status: WG Document.
