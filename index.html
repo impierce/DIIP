@@ -225,6 +225,26 @@ OID4VCI <a path-0="openid.net"path-1="specs"path-2="openid-4-verifiable-credenti
 
 <p><strong>Requirement: DIIP-compliant implementations MUST support <a class="term-reference" href="#term:ietf-token-status-list">IETF Token Status List</a> as a status list mechanism.</strong></p>
 
+<p>The <a class="term-reference" href="#term:ietf-token-status-list">IETF Token Status List</a> specification chapter 6 specifies a `status` claim containing the reference to the [[ref: IETF Token Status List]] implementation.</p>
+
+<p><strong>Requirement: DIIP-compliant implementations MUST support the [[ref: IETF Token Status List]] `status` claim at the root of JSON, JWT, SD-JWT, JOSE or COSE encoded credentials.</strong></p>
+
+<p>The [[ref: W3C VCDM]] specification defines a `credentialStatus` attribute to encode token status references. The `type` property MUST be set to "OAuthTokenStatusList". The `uri` and `idx` properties MUST be defined as prescribed in chapter 6 of <a class="term-reference" href="#term:ietf-token-status-list">IETF Token Status List</a>. For compatibility with <a href="https://www.imsglobal.org/spec/ob/v3p0">OpenBadges 3.0</a> and <a href="https://www.w3.org/TR/vc-data-model-1.1">VC Data Model 1.1</a>, the `id` property MUST be set to the same value as the `uri` property and the `credentialStatus` property MUST be a single object. 
+Following is an example of a `credentialStatus` as defined by the rules above:</p>
+
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
+    ...
+    <span class="token property">"credentialStatus"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"https://example.com/statuslists/1"</span><span class="token punctuation">,</span>
+        <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"OAuthTokenStatusList"</span><span class="token punctuation">,</span>
+        <span class="token property">"idx"</span><span class="token operator">:</span> <span class="token number">123</span><span class="token punctuation">,</span>
+        <span class="token property">"uri"</span><span class="token operator">:</span> <span class="token string">"https://example.com/statuslists/1"</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+
+<p><strong>Requirement: DIIP-compliant implementations MUST support the `credentialStatus` attribute of credentials according to the [[ref: W3C VCDM]] specification in combination with the [[ref: IETF Token Status List]].</strong></p>
+
 <h2 id="terminology"><a class="toc-anchor" href="#terminology" >§</a> Terminology</h2>
 <p>This section consolidates in one place common terms used across open standards that this profile consists of. For the details of these, as well as other useful terms, see the text within each of the specifications listed in <a href="#references" >References</a>.</p>
 <dl>
