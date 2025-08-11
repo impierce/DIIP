@@ -65,7 +65,7 @@ Feel free to join the [FIDES Community Discord](https://discord.gg/dSNbNadE6W) t
 
 There are also monthly DIIP meetings. Contact <a href="mailto:harmen@fides.community">Harmen van der Kooij</a> if you want to be invited to the meetings.
 
-The authors intend to release new versions of the DIIP profile twice a year.
+The authors intend to release a new version of the DIIP profile twice a year.
 
 Some plans and ideas for the next version are documented in the [Appendix A: Future Directions](#appendix-a-future-directions).
 
@@ -159,7 +159,7 @@ Authorization Code Flow provides a more advanced way of implementing credential 
 
 **Requirement: DIIP-compliant implementations MUST support [[ref: PAR]] with the [[ref: Issuer]]'s Authorization Server using `require_pushed_authorization_requests` set to `true` ensuring integrity and authenticity of the authorization request.**
 
-It should be noted that various [Security Considerations](https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0.html#name-pre-authorized-code-flow-2) have been described in the [[ref: OID4VCI]] specification with respect to implementing *Pre-Authorized Code Flow*. Parties implementing DIIP are strongly suggested to implement mitigating measures, like the use of a Transaction Code.
+It should be noted that various [Security Considerations](https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0.html#name-pre-authorized-code-flow-2) have been described in the [[ref: OID4VCI]] specification with respect to implementing *Pre-Authorized Code Flow*. Parties implementing DIIP are strongly suggested to implement mitigating measures.
 
 [[ref: OID4VCI]] defines *Wallet-initiated* and *Issuer-initiated* flows. *Wallet-initiated* means that the [[ref: Wallet]] can start the flow without any activity from the [[ref: Issuer]]. The *Issuer-initiated* flow seems to be more common in many use cases and seems to be supported more widely. It also aligns better with the use cases where the [[ref: Holder]] is authenticated and authorized in an online service before the credential offer is created and shown.
 
