@@ -11,6 +11,7 @@ Editors:
 ~ [Harmen van der Kooij](https://www.linkedin.com/in/harmenvanderkooij/) (FIDES Labs)
 ~ [Niels Klomp](https://www.linkedin.com/in/niels-klomp/) (4Sure Technology Solutions)
 ~ [Niels van Dijk](https://www.linkedin.com/in/creativethings/) (SURF)
+~ [Oran Dan](www.linkedin.com/in/oran-dan-74a843141) (Impierce Technologies)
 ~ [Samuel Rinnetmäki](https://www.linkedin.com/in/samuel/) (Findynet)
 ~ [Timo Glastra](https://www.linkedin.com/in/timoglastra/) (Animo Solutions)
 
@@ -230,9 +231,32 @@ Expiration algorithms using [validFrom](https://www.w3.org/TR/vc-data-model-2.0/
 
 The [[ref: IETF Token Status List]] defines a mechanism, data structures, and processing rules for representing the status of [[ref: Digital Credential]]s (and other "Tokens"). The statuses of Tokens are conveyed via a bit array in the Status List. The Status List is embedded in a Status List Token.
 
-The [[ref: Bitstring Status List]] is based on the same idea as the [[ref: IETF Token Status List]] and is simpler to implement since it doesn't require signing of the status list. The [[ref: IETF Token Status List]] may gain more support since it is recommended by [[ref: HAIP]].
-
 **Requirement: DIIP-compliant implementations MUST support [[ref: IETF Token Status List]] as a status list mechanism.**
+
+The [[ref: IETF Token Status List]] specification chapter 6 specifies a `status` claim containing the reference to the [[ref: IETF Token Status List]] implementation.
+
+**Requirement: DIIP-compliant implementations MUST support the [[ref: IETF Token Status List]] `status` claim at the root of JSON, JWT, SD-JWT, JOSE or COSE encoded credentials.**
+
+The [[ref: W3C VCDM]] specification defines a `credentialStatus` attribute to encode token status references. Implementators can choose to add this attribute entry to encode the [[ref: IETF Token Status List]] status list reference with the `type` property set to "OAuthTokenStatusList". The `uri` and `idx` properties MUST be defined as prescribed in chapter 6 of [[ref: IETF Token Status List]]. For compatibility with OpenBadges 3.0, the `id` property MUST be set to the same value as the `uri` property. 
+Following is an example of a `credentialStatus` as defined by the rules above:
+
+```json
+{
+    ...
+    "credentialStatus": [
+        ...,
+        {
+            "id": "https://example.com/statuslists/1",
+            "type": "OAuthTokenStatusList",
+            "idx": 123,
+            "uri": "https://example.com/statuslists/1"
+        }
+    ]
+}
+```
+
+**Requirement: DIIP-compliant implementations MUST support the `credentialStatus` attribute of credentials according to the [[ref: W3C VCDM]] specification in combination with the [[ref: IETF Token Status List]]**
+
 
 ## Terminology
 
